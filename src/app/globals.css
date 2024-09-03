@@ -1,33 +1,85 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+.main{
+  max-width: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.mainTitle{
+  font-size: 50px;
+  text-align: center;
+  text-shadow: 6px 3px #f8dcab;
+  margin-top: 180px;
+  margin-bottom: 100px;
+};
+
+.row-button{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+.L-button{
+  background-color: rgb(33, 113, 252);
+  font-size: 30px;
+  width: 200px;
+  height: 100px;
+  border-radius: 20px;
+  margin-right: 50px;
+ }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
+ .L-button:hover{
+  transform: scale(90%);
+  cursor: pointer;
+  background-color: #7191f9;
+ }
+
+ .R-button{
+  background-color: #06fc16;
+  font-size: 30px;
+  width: 200px;
+  height: 100px;
+  border-radius: 20px;
+  margin-left: 50px;
+ }
+
+ .R-button:hover{
+  transform: scale(90%);
+  cursor: pointer;
+  background-color:  rgb(159, 248, 158);
+ }
+
+ .link {
+  color:black;
+  text-decoration: none;
+ }
+
+ .linkTitle{
+  text-align: center;
+ }
+
+ .subTitle{
+  background-color: rgb(247, 247, 178);
+ }
+
+ .reservationTitle{
+  text-align: center;
+ }
+
+ .listTitle{
+  margin: auto;
+ }
+
+ .button{
+  background-color: rgb(249, 210, 138);
+  border-radius: 5px;
+ }
+
+ .button:hover{
+  background-color: rgb(250, 237, 213);
+  cursor: pointer;
+  transform: scale(90%);
+ }
+
+ 
