@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import "../globals.css";
-import { db } from "../firebase";
+import { db } from "../firebase.js";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 
@@ -10,9 +10,14 @@ export default function Page() {
   const [posts, setPosts] = useState([]);
 
   const postData = collection(db, "posts");
-  getDocs(postData).then((querySnapshot) => {
-    console.log(querySnapshot.docs.map((doc) => doc.data()));
-  });
+  getDocs(postData)
+    .then((querySnapshot) => {
+      console.log(querySnapshot.docs.map((doc) => doc.data()));
+    })
+
+    .catch((error) => {
+      console.error("Error getting documents: ", error);
+    });
 
   // useEffect(() => {
   //   const postData = getDocs(collection(db, "posts"));
@@ -20,6 +25,8 @@ export default function Page() {
   //     console.log(snapShot.docs.map((doc) => doc.data));
   //   });
   // }, []);
+
+  //
 
   return (
     <>
@@ -32,26 +39,28 @@ export default function Page() {
           <tr className="subTitle">
             <th>ID</th>
             <th>園児名</th>
-            <th>希望日時</th>
-            <th>希望日時</th>
-            <th>希望日時</th>
-            <th>希望日時</th>
-            <th>希望日時</th>
+            <th>希望日時1</th>
+            <th>希望日時2</th>
+            <th>希望日時3</th>
+            <th>希望日時4</th>
+            <th>希望日時5</th>
             <th>備考欄</th>
           </tr>
-          <tr>
-            <td>123456</td>
-            <td>いっせい</td>
-            <td>2024/9/2</td>
-            <td>2024/9/3</td>
-            <td>2024/9/4</td>
-            <td>2024/9/5</td>
-            <td>2024/9/6</td>
-            <td>16時から</td>
-            <td>
-              <button className="button">編集</button>
-            </td>
-          </tr>
+          {posts.map((post) => (
+            <tr key={post.id}>
+              <td>{post.id}</td>
+              <td>{post.name}</td>
+              <td>{post.date1}</td>
+              <td>{post.date2}</td>
+              <td>{post.date3}</td>
+              <td>{post.date4}</td>
+              <td>{post.date5}</td>
+              <td>{post.note}</td>
+              <td>
+                <button className="button">編集</button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </>
