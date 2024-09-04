@@ -19,8 +19,8 @@ export default function Home() {
       <h1 className="mainTitle">預かり保育予約管理システム</h1>
       <div>
         <div className="row-button">
-          {/* <List />
-          <Edit /> */}
+          {/* <List /> */}
+          {/* <Edit /> */}
           <button className="L-button" onClick={handleLeftClick}>
             <Link href="reservation/" className="link">
               予約一覧

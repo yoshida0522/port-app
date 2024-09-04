@@ -2,31 +2,34 @@
 
 import Link from "next/link";
 import "../globals.css";
-import { db } from "../firebase.js";
+import db from "../firebase.js";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 
 export default function Page() {
   const [posts, setPosts] = useState([]);
+  const [editing, setEditing] = useState(false);
 
-  const postData = collection(db, "posts");
-  getDocs(postData)
-    .then((querySnapshot) => {
-      console.log(querySnapshot.docs.map((doc) => doc.data()));
-    })
+  // const postData = collection(db, "posts");
+  // getDocs(postData).then((querySnapshot) => {
+  //   console.log(querySnapshot.docs.map((doc) => doc.data()));
+  // });
 
-    .catch((error) => {
-      console.error("Error getting documents: ", error);
+  // .catch((error) => {
+  //   console.error("Error getting documents: ", error);
+  // });
+
+  useEffect(() => {
+    const postData = collection(db, "posts");
+    getDocs(postData).then((querySnapshot) => {
+      // console.log(querySnapshot.docs.map((doc) => doc.data()));
+      setPosts(querySnapshot.docs.map((doc) => doc.data()));
     });
+  }, []);
 
-  // useEffect(() => {
-  //   const postData = getDocs(collection(db, "posts"));
-  //   postData.forEach((snapShot) => {
-  //     console.log(snapShot.docs.map((doc) => doc.data));
-  //   });
-  // }, []);
-
-  //
+  const handleEdit = async () => {
+    setEditing(true);
+  };
 
   return (
     <>
@@ -37,7 +40,7 @@ export default function Page() {
       <table border={1} className="listTitle">
         <tbody>
           <tr className="subTitle">
-            <th>ID</th>
+            {/* <th>ID</th> */}
             <th>園児名</th>
             <th>希望日時1</th>
             <th>希望日時2</th>
@@ -48,16 +51,18 @@ export default function Page() {
           </tr>
           {posts.map((post) => (
             <tr key={post.id}>
-              <td>{post.id}</td>
+              {/* <td>{post.id}</td> */}
               <td>{post.name}</td>
-              <td>{post.date1}</td>
-              <td>{post.date2}</td>
-              <td>{post.date3}</td>
-              <td>{post.date4}</td>
-              <td>{post.date5}</td>
-              <td>{post.note}</td>
+              <td>{post.day1}</td>
+              <td>{post.day2}</td>
+              <td>{post.day3}</td>
+              <td>{post.day4}</td>
+              <td>{post.day5}</td>
+              <td>{post.remark}</td>
               <td>
-                <button className="button">編集</button>
+                <button className="button" onClick={handleEdit}>
+                  編集
+                </button>
               </td>
             </tr>
           ))}
