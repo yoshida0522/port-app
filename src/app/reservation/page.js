@@ -10,19 +10,9 @@ export default function Page() {
   const [posts, setPosts] = useState([]);
   const [editing, setEditing] = useState(false);
 
-  // const postData = collection(db, "posts");
-  // getDocs(postData).then((querySnapshot) => {
-  //   console.log(querySnapshot.docs.map((doc) => doc.data()));
-  // });
-
-  // .catch((error) => {
-  //   console.error("Error getting documents: ", error);
-  // });
-
   useEffect(() => {
     const postData = collection(db, "posts");
     getDocs(postData).then((querySnapshot) => {
-      // console.log(querySnapshot.docs.map((doc) => doc.data()));
       setPosts(querySnapshot.docs.map((doc) => doc.data()));
     });
   }, []);
