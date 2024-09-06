@@ -19,19 +19,29 @@ export default function Page() {
 
       const postsArray = querySnapshot.docs.map((doc) => {
         const data = doc.data();
-        // console.log("取得したデータ:", data);
+        // console.log(data);
         return data;
       });
-
       setPosts(postsArray);
     };
-
     fetchData();
   }, []);
 
   const handleEdit = async () => {
     setEditing(true);
   };
+
+  const filteredPosts = posts
+    .map((post) => {
+      const filteredDays = post.days.filter((day) => day.date === search);
+
+      if (filteredDays.length > 0) {
+        return { ...post, days: filteredDays };
+      }
+
+      return null;
+    })
+    .filter((post) => post !== null);
 
   return (
     <>
@@ -54,7 +64,7 @@ export default function Page() {
             <th>退園時間</th>
             <th>備考欄</th>
           </tr>
-          {posts.map((post, index) => {
+          {filteredPosts.map((post, index) => {
             const days = post.days || [];
             return (
               <React.Fragment key={index}>

@@ -10,7 +10,7 @@ import { Start } from "@mui/icons-material";
 
 export default function Page() {
   const [childName, setChildName] = useState("");
-  const [remarkText, setRemarkText] = useState("");
+  // const [remarkText, setRemarkText] = useState("");
   const [monday, setMonday] = useState({
     date: "",
     startTime: "",
@@ -111,6 +111,7 @@ export default function Page() {
           <strong>登園時間</strong>
           <input
             type="time"
+            defaultValue={"11:00"}
             onChange={(e) =>
               setMonday({ ...monday, startTime: e.target.value })
             }
@@ -120,6 +121,7 @@ export default function Page() {
           <strong>退園時間</strong>
           <input
             type="time"
+            defaultValue={"14:00"}
             onChange={(e) => setMonday({ ...monday, endTime: e.target.value })}
           ></input>
         </p>
@@ -138,6 +140,7 @@ export default function Page() {
           <strong>登園時間</strong>
           <input
             type="time"
+            defaultValue={"11:00"}
             onChange={(e) =>
               setTuesday({ ...tuesday, startTime: e.target.value })
             }
@@ -147,6 +150,7 @@ export default function Page() {
           <strong>退園時間</strong>
           <input
             type="time"
+            defaultValue={"14:00"}
             onChange={(e) =>
               setTuesday({ ...tuesday, endTime: e.target.value })
             }
@@ -167,6 +171,7 @@ export default function Page() {
           <strong>登園時間</strong>
           <input
             type="time"
+            defaultValue={"11:00"}
             onChange={(e) =>
               setWednesday({ ...wednesday, startTime: e.target.value })
             }
@@ -176,6 +181,7 @@ export default function Page() {
           <strong>退園時間</strong>
           <input
             type="time"
+            defaultValue={"14:00"}
             onChange={(e) =>
               setWednesday({ ...wednesday, endTime: e.target.value })
             }
@@ -198,6 +204,7 @@ export default function Page() {
           <strong>登園時間</strong>
           <input
             type="time"
+            defaultValue={"11:00"}
             onChange={(e) =>
               setThursday({ ...thursday, startTime: e.target.value })
             }
@@ -207,6 +214,7 @@ export default function Page() {
           <strong>退園時間</strong>
           <input
             type="time"
+            defaultValue={"14:00"}
             onChange={(e) =>
               setThursday({ ...thursday, endTime: e.target.value })
             }
@@ -229,6 +237,7 @@ export default function Page() {
           <strong>登園時間</strong>
           <input
             type="time"
+            defaultValue={"11:00"}
             onChange={(e) =>
               setFriday({ ...friday, startTime: e.target.value })
             }
@@ -238,6 +247,7 @@ export default function Page() {
           <strong>退園時間</strong>
           <input
             type="time"
+            defaultValue={"14:00"}
             onChange={(e) => setFriday({ ...friday, endTime: e.target.value })}
           ></input>
         </p>
