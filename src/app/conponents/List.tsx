@@ -12,7 +12,7 @@ const List = () => {
 
   return (
     <form>
-      <div className="row-button">
+      <div className="reservationButton">
         <button className="L-button" onClick={handleLeftClick}>
           <Link href="reservation/" className="link">
             予約一覧

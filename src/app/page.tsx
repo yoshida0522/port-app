@@ -7,6 +7,7 @@ import "./globals.css";
 import Link from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase.js";
+import { Margin } from "@mui/icons-material";
 
 export default function Home() {
   const [user] = useAuthState(auth);
@@ -20,9 +21,11 @@ export default function Home() {
       <div>
         {user ? <List /> : <Signin />}
         {/* 予約申し込み画面 ※ボタンは後で削除する */}
-        <button>
-          <Link href="create/">予約申し込み</Link>
-        </button>
+        <div className="rogButton">
+          <button>
+            <Link href="create/">予約申し込み</Link>
+          </button>
+        </div>
         {/* <div className="row-button">
         <Edit />
         <button className="R-button" onClick={handleRightClick}>
