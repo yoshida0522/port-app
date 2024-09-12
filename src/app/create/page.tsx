@@ -2,90 +2,112 @@
 
 import Link from "next/link";
 import { collection, addDoc } from "firebase/firestore";
-import db from "../firebase.js";
+import db from "../firebase";
 import { useState } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-import { Start } from "@mui/icons-material";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Page() {
   const [childName, setChildName] = useState("");
-  // const [remarkText, setRemarkText] = useState("");
   const [monday, setMonday] = useState({
     date: "",
-    startTime: "",
-    endTime: "",
+    startTime: "11:00",
+    endTime: "14:00",
     remark: "",
   });
-  // const [mondayStartTime, setMondayStartTime] = useState("");
-  // const [mondayEndTime, setMondayEndTime] = useState("");
   const [tuesday, setTuesday] = useState({
     date: "",
-    startTime: "",
-    endTime: "",
+    startTime: "11:00",
+    endTime: "14:00",
     remark: "",
   });
-  // const [tuesdayStartTime, setTuesdayStartTime] = useState("");
-  // const [tuesdayEndTime, setTuesdayEndTime] = useState("");
   const [wednesday, setWednesday] = useState({
     date: "",
-    startTime: "",
-    endTime: "",
+    startTime: "11:00",
+    endTime: "14:00",
     remark: "",
   });
-  // const [wednesdayStartTime, setWednesdayStartTime] = useState("");
-  // const [wednesdayEndTime, setWednesdayEndTime] = useState("");
   const [thursday, setThursday] = useState({
     date: "",
-    startTime: "",
-    endTime: "",
+    startTime: "11:00",
+    endTime: "14:00",
     remark: "",
   });
-  // const [thursdayStartTime, setThursdayStartTime] = useState("");
-  // const [thursdayEndTime, setThursdayEndTime] = useState("");
   const [friday, setFriday] = useState({
     date: "",
-    startTime: "",
-    endTime: "",
+    startTime: "11:00",
+    endTime: "14:00",
     remark: "",
   });
-  // const [fridayStartTime, setFridayStartTime] = useState("");
-  // const [fridayEndTime, setFridayEndTime] = useState("");
-  // const [saturday, setSaturday] = useState("");
 
-  function handleClick(e) {
+  function handleClick(e: { preventDefault: () => void }) {
     e.preventDefault();
 
-    const days = [
-      { name: childName, ...monday },
-      { name: childName, ...tuesday },
-      { name: childName, ...wednesday },
-      { name: childName, ...thursday },
-      { name: childName, ...friday },
+    const days1 = [
+      {
+        id: uuidv4(),
+        name: childName,
+        realStartTime: "",
+        realEndTime: "",
+        ...monday,
+      },
+    ];
+    const days2 = [
+      {
+        id: uuidv4(),
+        name: childName,
+        realStartTime: "",
+        realEndTime: "",
+        ...tuesday,
+      },
+    ];
+    const days3 = [
+      {
+        id: uuidv4(),
+        name: childName,
+        realStartTime: "",
+        realEndTime: "",
+        ...wednesday,
+      },
+    ];
+    const days4 = [
+      {
+        id: uuidv4(),
+        name: childName,
+        realStartTime: "",
+        realEndTime: "",
+        ...thursday,
+      },
+    ];
+    const days5 = [
+      {
+        id: uuidv4(),
+        name: childName,
+        realStartTime: "",
+        realEndTime: "",
+        ...friday,
+      },
     ];
 
     addDoc(collection(db, "posts"), {
-      days: days,
-      // day1: monday,
-      // start1: mondayStartTime,
-      // end1: mondayEndTime,
-
-      // day2: tuesday,
-      // start2: tuesdayStartTime,
-      // end2: tuesdayEndTime,
-
-      // day3: wednesday,
-      // start3: wednesdayStartTime,
-      // end3: wednesdayEndTime,
-
-      // day4: thursday,
-      // start4: thursdayStartTime,
-      // end4: thursdayEndTime,
-
-      // day5: friday,
-      // start5: fridayStartTime,
-      // end5: fridayEndTime,
-      // day6: saturday,
+      days: days1,
+      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    addDoc(collection(db, "posts"), {
+      days: days2,
+      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    addDoc(collection(db, "posts"), {
+      days: days3,
+      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    addDoc(collection(db, "posts"), {
+      days: days4,
+      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    addDoc(collection(db, "posts"), {
+      days: days5,
       timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
   }
@@ -257,13 +279,7 @@ export default function Page() {
             onChange={(e) => setFriday({ ...friday, remark: e.target.value })}
           ></input>
         </p>
-        {/* <p>申し込み6</p>
-        <input
-          type="datetime-local"
-          onChange={(e) => setSaturday(e.target.value)}
-        ></input> */}
-        {/* <p>備考欄</p>
-        <input onChange={(e) => setRemarkText(e.target.value)}></input> */}
+
         <button onClick={handleClick}>送信</button>
       </form>
     </div>

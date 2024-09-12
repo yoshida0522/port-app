@@ -11,6 +11,7 @@ function Signin() {
   }
   return (
     <div className="rogButton">
+      <input placeholder="IDを入力してください"></input>
       <Button onClick={signin}>ログイン</Button>
     </div>
   );

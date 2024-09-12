@@ -71,13 +71,13 @@
  }
 
  .button{
-  background-color: rgb(249, 210, 138);
+  background-color: #83f88b;
   border-radius: 5px;
  }
 
 
  .button:hover{
-  background-color: rgb(250, 237, 213);
+  background-color: #ccf7c2;
   cursor: pointer;
   transform: scale(90%);
  }
@@ -89,6 +89,17 @@
 
  .saveButton:hover{
   background-color: rgb(181, 240, 252);
+  cursor: pointer;
+  transform: scale(90%);
+ }
+
+ .deleteButton{
+  background-color: rgb(249, 210, 138);
+  border-radius: 5px;
+ }
+
+ .deleteButton:hover{
+  background-color: rgb(250, 237, 213);
   cursor: pointer;
   transform: scale(90%);
  }

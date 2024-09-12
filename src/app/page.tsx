@@ -1,12 +1,12 @@
 "use client";
 
 import Edit from "./conponents/Edit";
-import List from "./conponents/List";
+import Main from "./conponents/Main";
 import Signin from "./conponents/Signin";
 import "./globals.css";
 import Link from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "./firebase.js";
+import { auth } from "./firebase";
 import { Margin } from "@mui/icons-material";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
     <main className="main">
       <h1 className="mainTitle">預かり保育予約管理システム</h1>
       <div>
-        {user ? <List /> : <Signin />}
+        {user ? <Main /> : <Signin />}
         {/* 予約申し込み画面 ※ボタンは後で削除する */}
         <div className="rogButton">
           <button>

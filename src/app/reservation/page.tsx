@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import Link from "next/link";
 import "../globals.css";
+import React from "react";
 import db from "../firebase";
+import { useEffect, useState } from "react";
 import {
   collection,
-  doc,
   DocumentData,
-  getDoc,
   getDocs,
+  doc,
   updateDoc,
+  getDoc,
+  deleteDoc,
 } from "firebase/firestore";
 
-function List() {
+export default function Page() {
   const [posts, setPosts] = useState<DocumentData[]>([]);
   const [search, setSearch] = useState("");
   const [editStartTime, setEditStartTime] = useState("");
@@ -86,6 +91,7 @@ function List() {
 
         await updateDoc(postRef, { days });
         console.log("データが更新されました");
+
         setEditingRow(null);
       }
     } catch (error) {
@@ -97,15 +103,15 @@ function List() {
     setEditingRow(null);
   };
 
-  const handleDelete = (id: any) => {
-    console.log(id);
+  const handleDelete = async () => {
+    await deleteDoc(doc(db, "posts"));
   };
 
   return (
     <>
-      {/* <h3 className="linkTitle">
-            <Link href="/">トップページに戻る</Link>
-          </h3> */}
+      <h3 className="linkTitle">
+        <Link href="/">トップページに戻る</Link>
+      </h3>
       <div className="reservationTitle">
         <h1>予約一覧</h1>
         <strong>検索</strong>
@@ -194,4 +200,3 @@ function List() {
     </>
   );
 }
-// export default List
