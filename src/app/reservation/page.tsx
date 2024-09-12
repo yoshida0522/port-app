@@ -15,8 +15,23 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
+interface Day {
+  date: string;
+  name: string;
+  startTime: string;
+  endTime: string;
+  realStartTime?: string;
+  realEndTime?: string;
+  remark?: string;
+}
+
+interface Post {
+  id: string;
+  days: Day[];
+}
+
 export default function Page() {
-  const [posts, setPosts] = useState<DocumentData[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [search, setSearch] = useState("");
   const [editStartTime, setEditStartTime] = useState("");
   const [editEndTime, setEditEndTime] = useState("");
@@ -34,7 +49,7 @@ export default function Page() {
         const data = doc.data();
         return { ...data, id: doc.id };
       });
-      setPosts(postsArray);
+      setPosts(postsArray as Post[]);
     };
     fetchData();
   }, []);
@@ -51,14 +66,15 @@ export default function Page() {
 
       return null;
     })
-    .filter((post) => post !== null);
+    .filter((post) => post !== null) as Post[];
 
   const handleEdit = (postIndex: number, dayIndex: number) => {
     const postToEdit = filteredPosts[postIndex];
     const dayToEdit = postToEdit.days[dayIndex];
 
-    if (dayToEdit && dayToEdit.id) {
-      console.log(`編集する日付: ${dayToEdit.date}, ID: ${dayToEdit.id}`);
+    // dayToEdit.idを削除
+    if (dayToEdit) {
+      console.log(`編集する日付: ${dayToEdit.date}`);
       setEditingRow({ postIndex, dayIndex });
     } else {
       console.log("編集対象のIDが見つかりません");
@@ -103,8 +119,19 @@ export default function Page() {
     setEditingRow(null);
   };
 
-  const handleDelete = async () => {
-    await deleteDoc(doc(db, "posts"));
+  const handleDelete = async (postIndex: number, dayIndex: number) => {
+    // await deleteDoc(doc(db, "posts"));
+    const postToDelete = filteredPosts[postIndex];
+    if (postToDelete && postToDelete.id) {
+      try {
+        await deleteDoc(doc(db, "posts", postToDelete.id));
+        console.log(`Document with ID ${postToDelete.id} deleted successfully`);
+      } catch (error) {
+        console.error("Error deleting document: ", error);
+      }
+    } else {
+      console.error("No valid document ID found for deletion");
+    }
   };
 
   return (
@@ -175,7 +202,7 @@ export default function Page() {
                           </button>
                           <button
                             className="deleteButton"
-                            onClick={handleDelete}
+                            onClick={() => handleDelete(postIndex, dayIndex)}
                           >
                             削除
                           </button>
