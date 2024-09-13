@@ -4,6 +4,8 @@ import { collection, getDocs } from "firebase/firestore";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import db from "../firebase";
+import { useRouter } from "next/router";
+// import { useRouter } from "next/navigation";
 
 interface Day {
   date: string;
@@ -22,6 +24,11 @@ interface Post {
 
 function Page() {
   const [posts, setPosts] = useState<Post[]>([]);
+
+  // エラー箇所
+  // const router = useRouter();
+  // const { name } = router.query;
+  // console.log({ name });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,8 +58,6 @@ function Page() {
       return null;
     })
     .filter((post) => post !== null) as Post[];
-
-  console.log(filteredPosts);
 
   return (
     <>
