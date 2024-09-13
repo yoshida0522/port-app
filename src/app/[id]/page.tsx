@@ -26,9 +26,15 @@ function Page() {
   const [posts, setPosts] = useState<Post[]>([]);
 
   // エラー箇所
-  // const router = useRouter();
+  const router = useRouter();
   // const { name } = router.query;
   // console.log({ name });
+  useEffect(() => {
+    if (router.isReady) {
+      const routeId = router.query.id;
+      console.log(routeId);
+    }
+  }, [router]);
 
   useEffect(() => {
     const fetchData = async () => {
