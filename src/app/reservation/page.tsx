@@ -7,7 +7,6 @@ import db from "../firebase";
 import { useEffect, useState } from "react";
 import {
   collection,
-  DocumentData,
   getDocs,
   doc,
   updateDoc,
@@ -72,7 +71,6 @@ export default function Page() {
     const postToEdit = filteredPosts[postIndex];
     const dayToEdit = postToEdit.days[dayIndex];
 
-    // dayToEdit.idを削除
     if (dayToEdit) {
       console.log(`編集する日付: ${dayToEdit.date}`);
       setEditingRow({ postIndex, dayIndex });
@@ -89,7 +87,6 @@ export default function Page() {
 
     const { postIndex, dayIndex } = editingRow;
     const postToUpdate = filteredPosts[postIndex];
-    // const dayToUpdate = postToUpdate.days[dayIndex];
 
     try {
       const postRef = doc(db, "posts", postToUpdate.id);
@@ -120,7 +117,6 @@ export default function Page() {
   };
 
   const handleDelete = async (postIndex: number, dayIndex: number) => {
-    // await deleteDoc(doc(db, "posts"));
     const postToDelete = filteredPosts[postIndex];
     if (postToDelete && postToDelete.id) {
       try {
@@ -147,7 +143,6 @@ export default function Page() {
       <table border={1} className="listTitle">
         <tbody>
           <tr className="subTitle">
-            {/* <th>ID</th> */}
             <th>園児名</th>
             <th>日にち</th>
             <th>登園時間</th>
@@ -162,7 +157,9 @@ export default function Page() {
               <React.Fragment key={postIndex}>
                 {days.map((day: any, dayIndex: any) => (
                   <tr key={dayIndex}>
-                    <td>{day.name}</td>
+                    <td>
+                      <Link href={`/${day.name}`}>{day.name}</Link>
+                    </td>
                     <td>{day.date}</td>
                     <td>{day.startTime}</td>
                     <td>{day.endTime}</td>
