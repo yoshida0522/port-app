@@ -1,11 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import db from "../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import db from "../firebase";
-import { useRouter } from "next/router";
-// import { useRouter } from "next/navigation";
+import React from "react";
+import "../../globals.css";
 
 interface Day {
   date: string;
@@ -22,19 +23,16 @@ interface Post {
   days: Day[];
 }
 
-function Page() {
-  const [posts, setPosts] = useState<Post[]>([]);
+const ChildReservationPage = () => {
+  const params = useParams();
+  let childName = params?.childName;
 
-  // エラー箇所
-  const router = useRouter();
-  // const { name } = router.query;
-  // console.log({ name });
-  useEffect(() => {
-    if (router.isReady) {
-      const routeId = router.query.id;
-      console.log(routeId);
-    }
-  }, [router]);
+  if (Array.isArray(childName)) {
+    childName = childName[0];
+  }
+
+  const decodedChildName = decodeURIComponent(childName || "");
+  const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,18 +45,17 @@ function Page() {
       });
       setPosts(postsArray as Post[]);
     };
-
     fetchData();
   }, []);
 
   const filteredPosts = posts
     .map((post) => {
-      const filteredName = post.days.filter(
-        (day: { name: string }) => day.name === "ささき"
+      const filteredDays = post.days.filter(
+        (day: { name: string }) => day.name === decodedChildName
       );
 
-      if (filteredName.length > 0) {
-        return { ...post, days: filteredName };
+      if (filteredDays.length > 0) {
+        return { ...post, days: filteredDays };
       }
 
       return null;
@@ -66,15 +63,17 @@ function Page() {
     .filter((post) => post !== null) as Post[];
 
   return (
-    <>
+    <div>
       <h3 className="linkTitle">
-        <Link href="/">トップページに戻る</Link>
+        <Link href="/reservation">一覧に戻る</Link>
       </h3>
       <div className="reservationTitle">
-        <h1>予約一覧</h1>
+        <h1>
+          {decodedChildName ? `${decodedChildName}さんの予約一覧` : "予約一覧"}
+        </h1>
       </div>
       <table border={1} className="listTitle">
-        <tbody>
+        <thead>
           <tr className="subTitle">
             <th>園児名</th>
             <th>日にち</th>
@@ -82,8 +81,10 @@ function Page() {
             <th>退園時間</th>
             <th>登園実時間</th>
             <th>退園実時間</th>
-            <th>備考欄</th>
+            <th>備考</th>
           </tr>
+        </thead>
+        <tbody>
           {filteredPosts.map((post, postIndex) => {
             const days = post.days || [];
             return (
@@ -104,8 +105,8 @@ function Page() {
           })}
         </tbody>
       </table>
-    </>
+    </div>
   );
-}
+};
 
-export default Page;
+export default ChildReservationPage;

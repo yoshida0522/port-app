@@ -158,7 +158,7 @@ export default function Page() {
                 {days.map((day: any, dayIndex: any) => (
                   <tr key={dayIndex}>
                     <td>
-                      <Link href={`/${day.name}`}>{day.name}</Link>
+                      <Link href={`/childName/${day.name}`}>{day.name}</Link>
                     </td>
                     <td>{day.date}</td>
                     <td>{day.startTime}</td>
