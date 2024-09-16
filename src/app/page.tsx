@@ -1,19 +1,14 @@
 "use client";
 
-import Edit from "./conponents/Edit";
 import Main from "./conponents/Main";
 import Signin from "./conponents/Signin";
 import "./globals.css";
 import Link from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
-import { Margin } from "@mui/icons-material";
 
 export default function Home() {
   const [user] = useAuthState(auth);
-  // const handleRightClick = () => {
-  //   console.log("RボタンOK!");
-  // };
 
   return (
     <main className="main">
@@ -26,14 +21,7 @@ export default function Home() {
             <Link href="create/">予約申し込み</Link>
           </button>
         </div>
-        {/* <div className="row-button">
-        <Edit />
-        <button className="R-button" onClick={handleRightClick}>
-            <Link href="edit/" className="link">
-              編集
-            </Link>
-          </button>
-        </div> */}
+        {/* ここまで削除 */}
       </div>
     </main>
   );

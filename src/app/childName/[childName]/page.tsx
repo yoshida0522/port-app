@@ -11,6 +11,7 @@ import "../../globals.css";
 interface Day {
   date: string;
   name: string;
+
   startTime: string;
   endTime: string;
   realStartTime?: string;
@@ -53,7 +54,6 @@ const ChildReservationPage = () => {
       const filteredDays = post.days.filter(
         (day: { name: string }) => day.name === decodedChildName
       );
-
       if (filteredDays.length > 0) {
         return { ...post, days: filteredDays };
       }

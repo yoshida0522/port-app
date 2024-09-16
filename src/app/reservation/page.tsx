@@ -30,8 +30,17 @@ interface Post {
 }
 
 export default function Page() {
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+  // console.log(getTodayDate());
+
   const [posts, setPosts] = useState<Post[]>([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(getTodayDate());
   const [editStartTime, setEditStartTime] = useState("");
   const [editEndTime, setEditEndTime] = useState("");
   const [editingRow, setEditingRow] = useState<{
@@ -116,17 +125,10 @@ export default function Page() {
     setEditingRow(null);
   };
 
-  const handleDelete = async (postIndex: number, dayIndex: number) => {
+  const handleDelete = async (postIndex: number) => {
     const postToDelete = filteredPosts[postIndex];
     if (postToDelete && postToDelete.id) {
-      try {
-        await deleteDoc(doc(db, "posts", postToDelete.id));
-        console.log(`Document with ID ${postToDelete.id} deleted successfully`);
-      } catch (error) {
-        console.error("Error deleting document: ", error);
-      }
-    } else {
-      console.error("No valid document ID found for deletion");
+      await deleteDoc(doc(db, "posts", postToDelete.id));
     }
   };
 
@@ -199,7 +201,7 @@ export default function Page() {
                           </button>
                           <button
                             className="deleteButton"
-                            onClick={() => handleDelete(postIndex, dayIndex)}
+                            onClick={() => handleDelete(postIndex)}
                           >
                             削除
                           </button>
