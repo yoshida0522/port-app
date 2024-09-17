@@ -111,13 +111,21 @@
  .reservationButton{
   display: block;
   text-align: center;
-  /* justify-content: center; */
-  
  }
 
  .rogButton {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 10px;
+ }
+
+ .inputBox {
+  margin-bottom: 10px;
+  width: 200px;
+  height: 20px;
+ }
+
+ .newId {
+  text-align: center;
  }
 
  .search{

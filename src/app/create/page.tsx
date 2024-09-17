@@ -7,8 +7,10 @@ import { useState } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
   const [childName, setChildName] = useState("");
   const [monday, setMonday] = useState({
     date: "",
@@ -116,6 +118,7 @@ export default function Page() {
       firstDate: days5[0].date,
       timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
+    router.push("/");
   }
 
   return (
