@@ -53,6 +53,7 @@ export default function Page() {
         ...monday,
       },
     ];
+
     const days2 = [
       {
         id: uuidv4(),
@@ -92,22 +93,27 @@ export default function Page() {
 
     addDoc(collection(db, "posts"), {
       days: days1,
+      firstDate: days1[0].date,
       timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     addDoc(collection(db, "posts"), {
       days: days2,
+      firstDate: days2[0].date,
       timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     addDoc(collection(db, "posts"), {
       days: days3,
+      firstDate: days3[0].date,
       timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     addDoc(collection(db, "posts"), {
       days: days4,
+      firstDate: days4[0].date,
       timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     addDoc(collection(db, "posts"), {
       days: days5,
+      firstDate: days5[0].date,
       timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
   }

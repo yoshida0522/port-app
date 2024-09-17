@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import db from "../../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import Link from "next/link";
 import React from "react";
 import "../../globals.css";
@@ -38,7 +38,12 @@ const ChildReservationPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       const postData = collection(db, "posts");
-      const querySnapshot = await getDocs(postData);
+      const q = query(postData, orderBy("firstDate", "asc"));
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
 
       const postsArray = querySnapshot.docs.map((doc) => {
         const data = doc.data();
@@ -55,6 +60,28 @@ const ChildReservationPage = () => {
         (day: { name: string }) => day.name === decodedChildName
       );
       if (filteredDays.length > 0) {
+        // console.log(
+        //   "Before Sorting:",
+        //   filteredDays.map((day) => day.date)
+        // );
+
+        // // 並べ替え: date フィールドを手動で比較
+        // filteredDays.sort((a, b) => {
+        //   const [yearA, monthA, dayA] = a.date.split("-").map(Number);
+        //   const [yearB, monthB, dayB] = b.date.split("-").map(Number);
+
+        //   // 年、月、日を比較
+        //   if (yearA !== yearB) return yearA - yearB;
+        //   if (monthA !== monthB) return monthA - monthB;
+        //   return dayA - dayB;
+        // });
+
+        // // デバッグ用ログ: 並べ替え後の結果を出力して確認
+        // console.log(
+        //   "After Sorting:",
+        //   filteredDays.map((day) => day.date)
+        // );
+
         return { ...post, days: filteredDays };
       }
 
@@ -87,6 +114,7 @@ const ChildReservationPage = () => {
         <tbody>
           {filteredPosts.map((post, postIndex) => {
             const days = post.days || [];
+
             return (
               <React.Fragment key={postIndex}>
                 {days.map((day: any, dayIndex: any) => (
