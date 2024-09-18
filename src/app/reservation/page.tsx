@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import "../globals.css";
-import React from "react";
 import db from "../firebase";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   collection,
   getDocs,
@@ -13,6 +12,7 @@ import {
   getDoc,
   deleteDoc,
 } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 interface Day {
   date: string;
@@ -30,6 +30,7 @@ interface Post {
 }
 
 export default function Page() {
+  const router = useRouter();
   const getTodayDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -115,6 +116,7 @@ export default function Page() {
         console.log("データが更新されました");
 
         setEditingRow(null);
+        router.refresh();
       }
     } catch (error) {
       console.error("データの更新に失敗しました", error);
@@ -130,14 +132,15 @@ export default function Page() {
     if (postToDelete && postToDelete.id) {
       await deleteDoc(doc(db, "posts", postToDelete.id));
     }
+    router.refresh();
   };
 
   return (
     <>
-      <h3 className="linkTitle">
+      <h3 className="center">
         <Link href="/">トップページに戻る</Link>
       </h3>
-      <div className="reservationTitle">
+      <div className="center">
         <h1>予約一覧</h1>
         <strong>検索</strong>
         <input type="date" onChange={(e) => setSearch(e.target.value)}></input>
@@ -209,7 +212,7 @@ export default function Page() {
                         </div>
                       ) : (
                         <button
-                          className="button"
+                          className="editButton"
                           onClick={() => handleEdit(postIndex, dayIndex)}
                         >
                           編集

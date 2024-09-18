@@ -3,7 +3,7 @@
 import React from "react";
 import "../globals.css";
 import Link from "next/link";
-import Signout from "./Signout";
+import Signin from "./Signin";
 
 const Main = () => {
   return (
@@ -14,7 +14,7 @@ const Main = () => {
             予約一覧
           </Link>
         </button>
-        <Signout />
+        <Signin />
       </div>
     </form>
   );

@@ -26,6 +26,7 @@
   width: 200px;
   height: 100px;
   border-radius: 20px;
+  margin-bottom: 20px;
  }
 
  .L-button:hover{
@@ -54,29 +55,22 @@
   text-decoration: none;
  }
 
- .linkTitle{
-  text-align: center;
- }
 
  .subTitle{
   background-color: rgb(247, 247, 178);
- }
-
- .reservationTitle{
-  text-align: center;
  }
 
  .listTitle{
   margin: auto;
  }
 
- .button{
+ .editButton{
   background-color: #83f88b;
   border-radius: 5px;
  }
 
 
- .button:hover{
+ .editButton:hover{
   background-color: #ccf7c2;
   cursor: pointer;
   transform: scale(90%);
@@ -104,9 +98,6 @@
   transform: scale(90%);
  }
 
- .createPage{
-  text-align: center;
- }
 
  .reservationButton{
   display: block;
@@ -118,20 +109,33 @@
   margin-top: 10px;
  }
 
+ .backButton {
+  display: block;
+  text-align: center;
+ }
+
  .inputBox {
   margin-bottom: 10px;
   width: 200px;
   height: 20px;
  }
 
- .newId {
-  text-align: center;
- }
-
  .search{
   display: grid;
   place-content: center;
  }
+
+ .passTitle{
+  display: flex;
+  place-content: center;
+  align-items: center;
+ }
+
+ .center{
+  text-align: center;
+ }
+
+
 
  
 

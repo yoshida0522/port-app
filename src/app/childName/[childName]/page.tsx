@@ -91,10 +91,10 @@ const ChildReservationPage = () => {
 
   return (
     <div>
-      <h3 className="linkTitle">
+      <h3 className="center">
         <Link href="/reservation">一覧に戻る</Link>
       </h3>
-      <div className="reservationTitle">
+      <div className="center">
         <h1>
           {decodedChildName ? `${decodedChildName}さんの予約一覧` : "予約一覧"}
         </h1>

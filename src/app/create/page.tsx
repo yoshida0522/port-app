@@ -14,31 +14,31 @@ export default function Page() {
   const [childName, setChildName] = useState("");
   const [monday, setMonday] = useState({
     date: "",
-    startTime: "11:00",
+    startTime: "",
     endTime: "14:00",
     remark: "",
   });
   const [tuesday, setTuesday] = useState({
     date: "",
-    startTime: "11:00",
+    startTime: "",
     endTime: "14:00",
     remark: "",
   });
   const [wednesday, setWednesday] = useState({
     date: "",
-    startTime: "11:00",
+    startTime: "",
     endTime: "14:00",
     remark: "",
   });
   const [thursday, setThursday] = useState({
     date: "",
-    startTime: "11:00",
+    startTime: "",
     endTime: "14:00",
     remark: "",
   });
   const [friday, setFriday] = useState({
     date: "",
-    startTime: "11:00",
+    startTime: "",
     endTime: "14:00",
     remark: "",
   });
@@ -122,7 +122,7 @@ export default function Page() {
   }
 
   return (
-    <div className="createPage">
+    <div className="center">
       <h3 className="linkTitle">
         <Link href="/">トップページに戻る</Link>
       </h3>
@@ -142,7 +142,7 @@ export default function Page() {
           <strong>登園時間</strong>
           <input
             type="time"
-            defaultValue={"11:00"}
+            // defaultValue={"11:00"}
             onChange={(e) =>
               setMonday({ ...monday, startTime: e.target.value })
             }
@@ -171,7 +171,7 @@ export default function Page() {
           <strong>登園時間</strong>
           <input
             type="time"
-            defaultValue={"11:00"}
+            // defaultValue={"11:00"}
             onChange={(e) =>
               setTuesday({ ...tuesday, startTime: e.target.value })
             }
@@ -202,7 +202,7 @@ export default function Page() {
           <strong>登園時間</strong>
           <input
             type="time"
-            defaultValue={"11:00"}
+            // defaultValue={"11:00"}
             onChange={(e) =>
               setWednesday({ ...wednesday, startTime: e.target.value })
             }
@@ -235,7 +235,7 @@ export default function Page() {
           <strong>登園時間</strong>
           <input
             type="time"
-            defaultValue={"11:00"}
+            // defaultValue={"11:00"}
             onChange={(e) =>
               setThursday({ ...thursday, startTime: e.target.value })
             }
@@ -268,7 +268,7 @@ export default function Page() {
           <strong>登園時間</strong>
           <input
             type="time"
-            defaultValue={"11:00"}
+            // defaultValue={"11:00"}
             onChange={(e) =>
               setFriday({ ...friday, startTime: e.target.value })
             }
