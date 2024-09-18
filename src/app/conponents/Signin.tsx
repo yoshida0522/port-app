@@ -1,11 +1,10 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+// import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import db, { auth } from "../firebase";
 import "../globals.css";
 import Link from "next/link";
 import { collection, getDocs } from "firebase/firestore";
-import Main from "./Main";
 
 interface User {
   id: string;
@@ -34,7 +33,7 @@ function Signin() {
     fetchData();
     const savedUser = localStorage.getItem("loggedInUser");
     if (savedUser) {
-      setIsLoggedIn(true); // ログイン状態を保持
+      setIsLoggedIn(true);
     }
   }, []);
   // function signin() {
@@ -57,10 +56,6 @@ function Signin() {
     setPass("");
   };
 
-  // if (isLoggedIn) {
-  //   return <Main />; // ログイン成功時にMainコンポーネントを表示
-  // }
-
   const handleSignoutClick = async () => {
     await auth.signOut();
     localStorage.removeItem("loggedInUser");
@@ -79,7 +74,6 @@ function Signin() {
             </button>
           </div>
           <div className="center">
-            {/* <Signout /> */}
             <button onClick={handleSignoutClick}>サインアウト</button>
           </div>
         </form>
@@ -102,7 +96,6 @@ function Signin() {
             ></input>
           </div>
           <div>
-            {/* <Button onClick={signin}>ログイン</Button> */}
             <Button onClick={handleClick}>ログイン</Button>
           </div>
           <div>

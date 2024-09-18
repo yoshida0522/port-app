@@ -48,20 +48,26 @@ export default function Page() {
     postIndex: number;
     dayIndex: number;
   } | null>(null);
+  const [shouldFetch, setShouldFetch] = useState(true);
+
+  // useEffect(() => {
+  const fetchData = async () => {
+    const postData = collection(db, "posts");
+    const querySnapshot = await getDocs(postData);
+
+    const postsArray = querySnapshot.docs.map((doc) => {
+      const data = doc.data();
+      return { ...data, id: doc.id };
+    });
+    setPosts(postsArray as Post[]);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const postData = collection(db, "posts");
-      const querySnapshot = await getDocs(postData);
-
-      const postsArray = querySnapshot.docs.map((doc) => {
-        const data = doc.data();
-        return { ...data, id: doc.id };
-      });
-      setPosts(postsArray as Post[]);
-    };
-    fetchData();
-  }, []);
+    if (shouldFetch) {
+      fetchData();
+      setShouldFetch(false); // フェッチ後にフラグをリセット
+    }
+  }, [shouldFetch]);
 
   const filteredPosts = posts
     .map((post) => {
@@ -83,6 +89,8 @@ export default function Page() {
 
     if (dayToEdit) {
       console.log(`編集する日付: ${dayToEdit.date}`);
+      setEditStartTime(dayToEdit.realStartTime || "");
+      setEditEndTime(dayToEdit.realEndTime || "");
       setEditingRow({ postIndex, dayIndex });
     } else {
       console.log("編集対象のIDが見つかりません");
@@ -116,7 +124,7 @@ export default function Page() {
         console.log("データが更新されました");
 
         setEditingRow(null);
-        router.refresh();
+        setShouldFetch(true);
       }
     } catch (error) {
       console.error("データの更新に失敗しました", error);
@@ -131,8 +139,8 @@ export default function Page() {
     const postToDelete = filteredPosts[postIndex];
     if (postToDelete && postToDelete.id) {
       await deleteDoc(doc(db, "posts", postToDelete.id));
+      setShouldFetch(true);
     }
-    router.refresh();
   };
 
   return (
@@ -174,11 +182,12 @@ export default function Page() {
                         <>
                           <input
                             type="time"
+                            value={editStartTime}
                             onChange={(e) => setEditStartTime(e.target.value)}
                           />
                         </>
                       ) : (
-                        <>{day.realStartTime}</>
+                        day.realStartTime
                       )}
                     </td>
                     <td>
@@ -187,11 +196,12 @@ export default function Page() {
                         <>
                           <input
                             type="time"
+                            value={editEndTime}
                             onChange={(e) => setEditEndTime(e.target.value)}
                           />
                         </>
                       ) : (
-                        <>{day.realEndTime}</>
+                        day.realEndTime
                       )}
                     </td>
                     <td>{day.remark}</td>
