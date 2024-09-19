@@ -60,28 +60,6 @@ const ChildReservationPage = () => {
         (day: { name: string }) => day.name === decodedChildName
       );
       if (filteredDays.length > 0) {
-        // console.log(
-        //   "Before Sorting:",
-        //   filteredDays.map((day) => day.date)
-        // );
-
-        // // 並べ替え: date フィールドを手動で比較
-        // filteredDays.sort((a, b) => {
-        //   const [yearA, monthA, dayA] = a.date.split("-").map(Number);
-        //   const [yearB, monthB, dayB] = b.date.split("-").map(Number);
-
-        //   // 年、月、日を比較
-        //   if (yearA !== yearB) return yearA - yearB;
-        //   if (monthA !== monthB) return monthA - monthB;
-        //   return dayA - dayB;
-        // });
-
-        // // デバッグ用ログ: 並べ替え後の結果を出力して確認
-        // console.log(
-        //   "After Sorting:",
-        //   filteredDays.map((day) => day.date)
-        // );
-
         return { ...post, days: filteredDays };
       }
 
@@ -117,7 +95,7 @@ const ChildReservationPage = () => {
 
             return (
               <React.Fragment key={postIndex}>
-                {days.map((day: any, dayIndex: any) => (
+                {days.map((day, dayIndex) => (
                   <tr key={dayIndex}>
                     <td>{day.name}</td>
                     <td>{day.date}</td>

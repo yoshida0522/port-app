@@ -38,7 +38,6 @@ export default function Page() {
     const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
-  // console.log(getTodayDate());
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [search, setSearch] = useState(getTodayDate());
@@ -50,7 +49,6 @@ export default function Page() {
   } | null>(null);
   const [shouldFetch, setShouldFetch] = useState(true);
 
-  // useEffect(() => {
   const fetchData = async () => {
     const postData = collection(db, "posts");
     const querySnapshot = await getDocs(postData);
@@ -65,7 +63,7 @@ export default function Page() {
   useEffect(() => {
     if (shouldFetch) {
       fetchData();
-      setShouldFetch(false); // フェッチ後にフラグをリセット
+      setShouldFetch(false);
     }
   }, [shouldFetch]);
 
@@ -168,7 +166,7 @@ export default function Page() {
             const days = post.days || [];
             return (
               <React.Fragment key={postIndex}>
-                {days.map((day: any, dayIndex: any) => (
+                {days.map((day, dayIndex) => (
                   <tr key={dayIndex}>
                     <td>
                       <Link href={`/childName/${day.name}`}>{day.name}</Link>

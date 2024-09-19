@@ -16,9 +16,6 @@ function Page() {
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    // console.log(userName);
-    // console.log(passWord);
-
     const userData = await addDoc(collection(db, "user"), {
       name: userName,
       pass: passWord,
@@ -54,7 +51,7 @@ function Page() {
             pattern="[a-zA-Z0-9]*"
             title="半角英数字で入力してください"
             placeholder="パスワードを入力してください"
-            onChange={(e: any) => {
+            onChange={(e) => {
               const inputValue = e.target.value;
               const validValue = inputValue.replace(/[^a-zA-Z0-9]/g, "");
               setPassWord(validValue);
