@@ -118,7 +118,8 @@ export default function Page() {
       firstDate: days5[0].date,
       timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
-    router.push("/thsnks");
+
+    router.push("/thanks");
   }
 
   return (
