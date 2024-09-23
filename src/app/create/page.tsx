@@ -119,14 +119,14 @@ export default function Page() {
       timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
 
-    router.push("/thanks");
+    // router.push("/thanks");
   }
 
   return (
     <div className="createCenter">
-      {/* <h3 className="linkTitle">
+      <h3 className="linkTitle">
         <Link href="/">トップページに戻る</Link>
-      </h3> */}
+      </h3>
       <form>
         <h1>預かり保育申し込み</h1>
         <p>園児名</p>
