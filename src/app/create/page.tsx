@@ -118,14 +118,14 @@ export default function Page() {
       firstDate: days5[0].date,
       timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
-    router.push("/");
+    router.push("/thsnks");
   }
 
   return (
     <div className="createCenter">
-      <h3 className="linkTitle">
+      {/* <h3 className="linkTitle">
         <Link href="/">トップページに戻る</Link>
-      </h3>
+      </h3> */}
       <form>
         <h1>預かり保育申し込み</h1>
         <p>園児名</p>
@@ -134,6 +134,7 @@ export default function Page() {
           onChange={(e) => setChildName(e.target.value)}
         ></input>
         <p>申し込み1</p>
+        <strong>日にち</strong>
         <input
           type="date"
           onChange={(e) => setMonday({ ...monday, date: e.target.value })}
@@ -163,6 +164,7 @@ export default function Page() {
           ></input>
         </p>
         <p>申し込み2</p>
+        <strong>日にち</strong>
         <input
           type="date"
           onChange={(e) => setTuesday({ ...tuesday, date: e.target.value })}
@@ -194,6 +196,7 @@ export default function Page() {
           ></input>
         </p>
         <p>申し込み3</p>
+        <strong>日にち</strong>
         <input
           type="date"
           onChange={(e) => setWednesday({ ...wednesday, date: e.target.value })}
@@ -227,6 +230,7 @@ export default function Page() {
           ></input>
         </p>
         <p>申し込み4</p>
+        <strong>日にち</strong>
         <input
           type="date"
           onChange={(e) => setThursday({ ...thursday, date: e.target.value })}
@@ -260,6 +264,7 @@ export default function Page() {
           ></input>
         </p>
         <p>申し込み5</p>
+        <strong>日にち</strong>
         <input
           type="date"
           onChange={(e) => setFriday({ ...friday, date: e.target.value })}
