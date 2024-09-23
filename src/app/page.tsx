@@ -1,26 +1,25 @@
 "use client";
 
-import Main from "./conponents/Main";
 import Signin from "./conponents/Signin";
 import "./globals.css";
-import Link from "next/link";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "./firebase";
+// import { useAuthState } from "react-firebase-hooks/auth";
+// import { auth } from "./firebase";
 
 export default function Home() {
-  const [user] = useAuthState(auth);
+  // const [user] = useAuthState(auth);
 
   return (
     <main className="main">
       <h1 className="mainTitle">預かり保育予約管理システム</h1>
       <div>
-        {user ? <Main /> : <Signin />}
+        <Signin />
+        {/* {user ? <Main /> : <Signin />} */}
         {/* 予約申し込み画面 ※ボタンは後で削除する */}
-        <div className="rogButton">
+        {/* <div className="rogButton">
           <button>
             <Link href="create/">予約申し込み</Link>
           </button>
-        </div>
+        </div> */}
         {/* ここまで削除 */}
       </div>
     </main>

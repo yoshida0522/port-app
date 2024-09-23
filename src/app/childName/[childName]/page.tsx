@@ -82,10 +82,10 @@ const ChildReservationPage = () => {
           <tr className="subTitle">
             <th>園児名</th>
             <th>日にち</th>
+            <th>登園予約時間</th>
+            <th>退園予約時間</th>
             <th>登園時間</th>
             <th>退園時間</th>
-            <th>登園実時間</th>
-            <th>退園実時間</th>
             <th>備考</th>
           </tr>
         </thead>

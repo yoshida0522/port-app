@@ -18,6 +18,9 @@ function Signin() {
   const [posts, setPosts] = useState<User[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+  };
   useEffect(() => {
     const fetchData = async () => {
       const userData = collection(db, "user");
@@ -65,7 +68,7 @@ function Signin() {
   return (
     <>
       {isLoggedIn ? (
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="reservationButton">
             <button className="L-button">
               <Link href="reservation/" className="link">

@@ -156,10 +156,10 @@ export default function Page() {
           <tr className="subTitle">
             <th>園児名</th>
             <th>日にち</th>
+            <th>登園予約時間</th>
+            <th>退園予約時間</th>
             <th>登園時間</th>
             <th>退園時間</th>
-            <th>登園実時間</th>
-            <th>退園実時間</th>
             <th>備考欄</th>
           </tr>
           {filteredPosts.map((post, postIndex) => {
@@ -169,7 +169,12 @@ export default function Page() {
                 {days.map((day, dayIndex) => (
                   <tr key={dayIndex}>
                     <td>
-                      <Link href={`/childName/${day.name}`}>{day.name}</Link>
+                      <Link
+                        className="childName"
+                        href={`/childName/${day.name}`}
+                      >
+                        {day.name}
+                      </Link>
                     </td>
                     <td>{day.date}</td>
                     <td>{day.startTime}</td>
