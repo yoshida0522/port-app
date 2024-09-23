@@ -17,6 +17,7 @@ function Signin() {
   const [pass, setPass] = useState<string>("");
   const [posts, setPosts] = useState<User[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isManegerIn, setIsManegerIn] = useState(false);
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -45,16 +46,38 @@ function Signin() {
   // }
 
   const handleClick = () => {
-    const foundUser = posts.find(
-      (post) => post.name === user && post.pass === pass
-    );
-    if (foundUser) {
-      console.log("ログイン成功");
-      setIsLoggedIn(true);
-      localStorage.setItem("loggedInUser", JSON.stringify(foundUser));
-    } else {
-      console.log("ユーザー名またはパスワードが違います");
+    if (!user || !pass) {
+      console.log("ユーザー名とパスワードを入力してください");
+      return; // 入力が不十分な場合は処理を中断
     }
+
+    const manager = posts.find(
+      (postmaneger) =>
+        postmaneger.name === "demo" && postmaneger.pass === "1234"
+    );
+
+    if (manager && user === "demo" && pass === "1234") {
+      // 管理者が見つかり、入力された情報も一致した場合
+      console.log("管理者がログインしました");
+      setIsManegerIn(true);
+      setIsLoggedIn(true);
+      localStorage.setItem("loggedInUser", JSON.stringify(manager));
+    } else {
+      // 管理者でない場合、一般ユーザーをチェック
+      const foundUser = posts.find(
+        (post) => post.name === user && post.pass === pass
+      );
+
+      if (foundUser) {
+        console.log("ログイン成功");
+        setIsLoggedIn(true);
+        localStorage.setItem("loggedInUser", JSON.stringify(foundUser));
+        setIsManegerIn(false); // 一般ユーザーの場合、管理者フラグをリセット
+      } else {
+        console.log("ユーザー名またはパスワードが違います");
+      }
+    }
+
     setUser("");
     setPass("");
   };
@@ -63,6 +86,8 @@ function Signin() {
     await auth.signOut();
     localStorage.removeItem("loggedInUser");
     setIsLoggedIn(false);
+    setIsManegerIn(false);
+    console.log("ログアウトしました");
   };
 
   return (
@@ -79,6 +104,11 @@ function Signin() {
           <div className="center">
             <button onClick={handleSignoutClick}>サインアウト</button>
           </div>
+          {isManegerIn ? (
+            <div className="center">
+              <Link href="newRegistration/">新規登録</Link>
+            </div>
+          ) : null}
         </form>
       ) : (
         <div className="rogButton">
@@ -100,9 +130,6 @@ function Signin() {
           </div>
           <div>
             <Button onClick={handleClick}>ログイン</Button>
-          </div>
-          <div>
-            <Link href="newRegistration/">新規登録</Link>
           </div>
         </div>
       )}

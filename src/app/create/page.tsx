@@ -122,7 +122,7 @@ export default function Page() {
   }
 
   return (
-    <div className="center">
+    <div className="createCenter">
       <h3 className="linkTitle">
         <Link href="/">トップページに戻る</Link>
       </h3>
@@ -149,7 +149,7 @@ export default function Page() {
           ></input>
         </p>
         <p>
-          <strong>退園時間</strong>
+          <strong>お迎え時間</strong>
           <input
             type="time"
             defaultValue={"14:00"}
@@ -178,7 +178,7 @@ export default function Page() {
           ></input>
         </p>
         <p>
-          <strong>退園時間</strong>
+          <strong>お迎え時間</strong>
           <input
             type="time"
             defaultValue={"14:00"}
@@ -209,7 +209,7 @@ export default function Page() {
           ></input>
         </p>
         <p>
-          <strong>退園時間</strong>
+          <strong>お迎え時間</strong>
           <input
             type="time"
             defaultValue={"14:00"}
@@ -242,7 +242,7 @@ export default function Page() {
           ></input>
         </p>
         <p>
-          <strong>退園時間</strong>
+          <strong>お迎え時間</strong>
           <input
             type="time"
             defaultValue={"14:00"}
@@ -275,7 +275,7 @@ export default function Page() {
           ></input>
         </p>
         <p>
-          <strong>退園時間</strong>
+          <strong>お迎え時間</strong>
           <input
             type="time"
             defaultValue={"14:00"}

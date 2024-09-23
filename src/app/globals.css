@@ -145,6 +145,15 @@
   text-decoration: none;
  }
 
+ @media (max-width:768px) {
+  
+ .createCenter{
+  text-align: center;
+  width:100%;
+
+ }
+}
+
 
 
  
