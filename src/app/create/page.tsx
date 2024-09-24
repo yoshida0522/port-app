@@ -9,6 +9,36 @@ import "firebase/compat/firestore";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 
+async function sendLineMessage(childName: string, days: any[]) {
+  const lineToken = process.env.LINE_CHANNEL_ACCESS_TOKEN;
+  const lineEndpoint = "https://api.line.me/v2/bot/message/push";
+
+  const message = days
+    .map((day) => {
+      return `【園児名】${day.name}\n【日にち】${day.date}\n【登園時間】${day.startTime}\n【お迎え時間】${day.endTime}\n【備考】${day.remark}\n`;
+    })
+    .join("\n");
+
+  const payload = {
+    to: "RECIPIENT_USER_ID", // LINEのユーザーID
+    messages: [
+      {
+        type: "text",
+        text: message,
+      },
+    ],
+  };
+
+  await fetch(lineEndpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${lineToken}`,
+    },
+    body: JSON.stringify(payload),
+  });
+}
+
 export default function Page() {
   const router = useRouter();
   const [childName, setChildName] = useState("");
@@ -46,7 +76,83 @@ export default function Page() {
   function handleClick(e: { preventDefault: () => void }) {
     e.preventDefault();
 
-    const days1 = [
+    //   const days1 = [
+    //     {
+    //       id: uuidv4(),
+    //       name: childName,
+    //       realStartTime: "",
+    //       realEndTime: "",
+    //       ...monday,
+    //     },
+    //   ];
+
+    //   const days2 = [
+    //     {
+    //       id: uuidv4(),
+    //       name: childName,
+    //       realStartTime: "",
+    //       realEndTime: "",
+    //       ...tuesday,
+    //     },
+    //   ];
+    //   const days3 = [
+    //     {
+    //       id: uuidv4(),
+    //       name: childName,
+    //       realStartTime: "",
+    //       realEndTime: "",
+    //       ...wednesday,
+    //     },
+    //   ];
+    //   const days4 = [
+    //     {
+    //       id: uuidv4(),
+    //       name: childName,
+    //       realStartTime: "",
+    //       realEndTime: "",
+    //       ...thursday,
+    //     },
+    //   ];
+    //   const days5 = [
+    //     {
+    //       id: uuidv4(),
+    //       name: childName,
+    //       realStartTime: "",
+    //       realEndTime: "",
+    //       ...friday,
+    //     },
+    //   ];
+
+    //   addDoc(collection(db, "posts"), {
+    //     days: days1,
+    //     firstDate: days1[0].date,
+    //     timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+    //   });
+    //   addDoc(collection(db, "posts"), {
+    //     days: days2,
+    //     firstDate: days2[0].date,
+    //     timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+    //   });
+    //   addDoc(collection(db, "posts"), {
+    //     days: days3,
+    //     firstDate: days3[0].date,
+    //     timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+    //   });
+    //   addDoc(collection(db, "posts"), {
+    //     days: days4,
+    //     firstDate: days4[0].date,
+    //     timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+    //   });
+    //   addDoc(collection(db, "posts"), {
+    //     days: days5,
+    //     firstDate: days5[0].date,
+    //     timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+    //   });
+
+    //   router.push("/thanks");
+    // }
+
+    const days = [
       {
         id: uuidv4(),
         name: childName,
@@ -54,9 +160,6 @@ export default function Page() {
         realEndTime: "",
         ...monday,
       },
-    ];
-
-    const days2 = [
       {
         id: uuidv4(),
         name: childName,
@@ -64,8 +167,6 @@ export default function Page() {
         realEndTime: "",
         ...tuesday,
       },
-    ];
-    const days3 = [
       {
         id: uuidv4(),
         name: childName,
@@ -73,8 +174,6 @@ export default function Page() {
         realEndTime: "",
         ...wednesday,
       },
-    ];
-    const days4 = [
       {
         id: uuidv4(),
         name: childName,
@@ -82,8 +181,6 @@ export default function Page() {
         realEndTime: "",
         ...thursday,
       },
-    ];
-    const days5 = [
       {
         id: uuidv4(),
         name: childName,
@@ -93,33 +190,24 @@ export default function Page() {
       },
     ];
 
-    addDoc(collection(db, "posts"), {
-      days: days1,
-      firstDate: days1[0].date,
-      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-    addDoc(collection(db, "posts"), {
-      days: days2,
-      firstDate: days2[0].date,
-      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-    addDoc(collection(db, "posts"), {
-      days: days3,
-      firstDate: days3[0].date,
-      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-    addDoc(collection(db, "posts"), {
-      days: days4,
-      firstDate: days4[0].date,
-      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-    addDoc(collection(db, "posts"), {
-      days: days5,
-      firstDate: days5[0].date,
-      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-
-    // router.push("/thanks");
+    // Firestoreにデータを保存
+    Promise.all(
+      days.map((day) => {
+        return addDoc(collection(db, "posts"), {
+          days: [day],
+          firstDate: day.date,
+          timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+      })
+    )
+      .then(() => {
+        // Firestoreに保存した後、LINEにメッセージを送信
+        sendLineMessage(childName, days);
+        router.push("/thanks");
+      })
+      .catch((error) => {
+        console.error("データ保存エラー:", error);
+      });
   }
 
   return (
