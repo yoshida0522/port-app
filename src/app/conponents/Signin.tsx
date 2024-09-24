@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
-// import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import db, { auth } from "../firebase";
 import "../globals.css";
 import Link from "next/link";
@@ -40,10 +39,6 @@ function Signin() {
       setIsLoggedIn(true);
     }
   }, []);
-  // function signin() {
-  //   const provider = new GoogleAuthProvider();
-  //   signInWithPopup(auth, provider);
-  // }
 
   const handleClick = () => {
     if (!user || !pass) {
@@ -101,7 +96,7 @@ function Signin() {
               </Link>
             </button>
           </div>
-          <div className="center">
+          <div className="signout">
             <button onClick={handleSignoutClick}>サインアウト</button>
           </div>
           {isManegerIn ? (

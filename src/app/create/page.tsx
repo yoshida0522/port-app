@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { collection, addDoc } from "firebase/firestore";
 import db from "../firebase";
@@ -159,7 +160,7 @@ export default function Page() {
           <strong>登園時間</strong>
           <input
             type="time"
-            // defaultValue={"11:00"}
+            defaultValue={"11:00"}
             onChange={(e) =>
               setMonday({ ...monday, startTime: e.target.value })
             }
@@ -189,7 +190,7 @@ export default function Page() {
           <strong>登園時間</strong>
           <input
             type="time"
-            // defaultValue={"11:00"}
+            defaultValue={"11:00"}
             onChange={(e) =>
               setTuesday({ ...tuesday, startTime: e.target.value })
             }
@@ -221,7 +222,7 @@ export default function Page() {
           <strong>登園時間</strong>
           <input
             type="time"
-            // defaultValue={"11:00"}
+            defaultValue={"11:00"}
             onChange={(e) =>
               setWednesday({ ...wednesday, startTime: e.target.value })
             }
@@ -255,7 +256,7 @@ export default function Page() {
           <strong>登園時間</strong>
           <input
             type="time"
-            // defaultValue={"11:00"}
+            defaultValue={"11:00"}
             onChange={(e) =>
               setThursday({ ...thursday, startTime: e.target.value })
             }
@@ -289,7 +290,7 @@ export default function Page() {
           <strong>登園時間</strong>
           <input
             type="time"
-            // defaultValue={"11:00"}
+            defaultValue={"11:00"}
             onChange={(e) =>
               setFriday({ ...friday, startTime: e.target.value })
             }

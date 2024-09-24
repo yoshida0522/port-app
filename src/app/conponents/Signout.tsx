@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { auth } from "../firebase";
 import "../globals.css";
-import Signin from "./Signin";
+// import Signin from "./Signin";
 import { useRouter } from "next/navigation";
 
 function Signout() {

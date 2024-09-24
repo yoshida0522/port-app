@@ -211,7 +211,7 @@ export default function Page() {
                     <td>
                       {editingRow?.postIndex === postIndex &&
                       editingRow?.dayIndex === dayIndex ? (
-                        <div>
+                        <div className="button">
                           <button className="saveButton" onClick={handleSave}>
                             保存
                           </button>
@@ -221,7 +221,12 @@ export default function Page() {
                           >
                             削除
                           </button>
-                          <button onClick={handleCancel}>キャンセル</button>
+                          <button
+                            className="cancelButton"
+                            onClick={handleCancel}
+                          >
+                            キャンセル
+                          </button>
                         </div>
                       ) : (
                         <button
