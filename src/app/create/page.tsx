@@ -10,33 +10,25 @@ import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 
 async function sendLineMessage(childName: string, days: any[], userId: string) {
-  const lineToken = process.env.LINE_CHANNEL_ACCESS_TOKEN;
-  const lineEndpoint = "https://api.line.me/v2/bot/message/push";
-
-  const message = days
-    .map((day) => {
-      return `【園児名】${day.name}\n【日にち】${day.date}\n【登園時間】${day.startTime}\n【お迎え時間】${day.endTime}\n【備考】${day.remark}\n`;
-    })
-    .join("\n");
-
-  const payload = {
-    to: userId,
-    messages: [
-      {
-        type: "text",
-        text: message,
+  try {
+    const response = await fetch("/api/sendMessage", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    ],
-  };
+      body: JSON.stringify({ childName, days, userId }),
+    });
 
-  await fetch(lineEndpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${lineToken}`,
-    },
-    body: JSON.stringify(payload),
-  });
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+
+    console.log("Message sent successfully:", data);
+  } catch (error) {
+    console.error("Failed to send message:", error);
+  }
 }
 
 export default function Page() {
