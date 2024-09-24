@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { collection, addDoc } from "firebase/firestore";
 import db from "../firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 
-async function sendLineMessage(childName: string, days: any[]) {
+async function sendLineMessage(childName: string, days: any[], userId: string) {
   const lineToken = process.env.LINE_CHANNEL_ACCESS_TOKEN;
   const lineEndpoint = "https://api.line.me/v2/bot/message/push";
 
@@ -20,7 +20,7 @@ async function sendLineMessage(childName: string, days: any[]) {
     .join("\n");
 
   const payload = {
-    to: "RECIPIENT_USER_ID", // LINEのユーザーID
+    to: userId,
     messages: [
       {
         type: "text",
@@ -41,6 +41,7 @@ async function sendLineMessage(childName: string, days: any[]) {
 
 export default function Page() {
   const router = useRouter();
+  const [userId, setUserId] = useState("");
   const [childName, setChildName] = useState("");
   const [monday, setMonday] = useState({
     date: "",
@@ -73,84 +74,14 @@ export default function Page() {
     remark: "",
   });
 
+  useEffect(() => {
+    fetch("/api/getUserId")
+      .then((response) => response.json())
+      .then((data) => setUserId(data.userId));
+  }, []);
+
   function handleClick(e: { preventDefault: () => void }) {
     e.preventDefault();
-
-    //   const days1 = [
-    //     {
-    //       id: uuidv4(),
-    //       name: childName,
-    //       realStartTime: "",
-    //       realEndTime: "",
-    //       ...monday,
-    //     },
-    //   ];
-
-    //   const days2 = [
-    //     {
-    //       id: uuidv4(),
-    //       name: childName,
-    //       realStartTime: "",
-    //       realEndTime: "",
-    //       ...tuesday,
-    //     },
-    //   ];
-    //   const days3 = [
-    //     {
-    //       id: uuidv4(),
-    //       name: childName,
-    //       realStartTime: "",
-    //       realEndTime: "",
-    //       ...wednesday,
-    //     },
-    //   ];
-    //   const days4 = [
-    //     {
-    //       id: uuidv4(),
-    //       name: childName,
-    //       realStartTime: "",
-    //       realEndTime: "",
-    //       ...thursday,
-    //     },
-    //   ];
-    //   const days5 = [
-    //     {
-    //       id: uuidv4(),
-    //       name: childName,
-    //       realStartTime: "",
-    //       realEndTime: "",
-    //       ...friday,
-    //     },
-    //   ];
-
-    //   addDoc(collection(db, "posts"), {
-    //     days: days1,
-    //     firstDate: days1[0].date,
-    //     timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-    //   });
-    //   addDoc(collection(db, "posts"), {
-    //     days: days2,
-    //     firstDate: days2[0].date,
-    //     timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-    //   });
-    //   addDoc(collection(db, "posts"), {
-    //     days: days3,
-    //     firstDate: days3[0].date,
-    //     timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-    //   });
-    //   addDoc(collection(db, "posts"), {
-    //     days: days4,
-    //     firstDate: days4[0].date,
-    //     timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-    //   });
-    //   addDoc(collection(db, "posts"), {
-    //     days: days5,
-    //     firstDate: days5[0].date,
-    //     timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-    //   });
-
-    //   router.push("/thanks");
-    // }
 
     const days = [
       {
@@ -158,6 +89,7 @@ export default function Page() {
         name: childName,
         realStartTime: "",
         realEndTime: "",
+        userId: userId,
         ...monday,
       },
       {
@@ -165,6 +97,7 @@ export default function Page() {
         name: childName,
         realStartTime: "",
         realEndTime: "",
+        userId: userId,
         ...tuesday,
       },
       {
@@ -172,6 +105,7 @@ export default function Page() {
         name: childName,
         realStartTime: "",
         realEndTime: "",
+        userId: userId,
         ...wednesday,
       },
       {
@@ -179,6 +113,7 @@ export default function Page() {
         name: childName,
         realStartTime: "",
         realEndTime: "",
+        userId: userId,
         ...thursday,
       },
       {
@@ -186,6 +121,7 @@ export default function Page() {
         name: childName,
         realStartTime: "",
         realEndTime: "",
+        userId: userId,
         ...friday,
       },
     ];
@@ -199,9 +135,9 @@ export default function Page() {
         });
       })
     )
-      .then(() => {
+      .then(async () => {
         // Firestoreに保存した後、LINEにメッセージを送信
-        sendLineMessage(childName, days);
+        await sendLineMessage(childName, days, userId);
         router.push("/thanks");
       })
       .catch((error) => {
@@ -214,7 +150,7 @@ export default function Page() {
       <h3 className="linkTitle">
         <Link href="/">トップページに戻る</Link>
       </h3>
-      <form>
+      <form onSubmit={handleClick}>
         <h1>預かり保育申し込み</h1>
         <p>園児名</p>
         <input
@@ -382,7 +318,7 @@ export default function Page() {
           ></input>
         </p>
 
-        <button onClick={handleClick}>送信</button>
+        <button type="submit">送信</button>
       </form>
     </div>
   );
