@@ -190,7 +190,6 @@ export default function Page() {
       },
     ];
 
-    // Firestoreにデータを保存
     Promise.all(
       days.map((day) => {
         return addDoc(collection(db, "posts"), {
