@@ -5,7 +5,7 @@ const admin = require("firebase-admin");
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.applicationDefault(),
-    databaseURL: "https://portfolio-33e86.firebaseio.com", // 必要に応じてURLを追加
+    databaseURL: "https://console.firebase.google.com/project/portfolio-33e86", // 必要に応じてURLを追加
   });
 }
 const db = admin.firestore();
