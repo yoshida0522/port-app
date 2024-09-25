@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 
 async function sendLineMessage(childName: string, days: any[], userId: string) {
+  console.log("LINEメッセージ送信開始: ", { childName, days, userId });
   try {
     const response = await fetch("/api/sendMessage", {
       method: "POST",
@@ -23,12 +24,17 @@ async function sendLineMessage(childName: string, days: any[], userId: string) {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.error);
+      // console.log("Response status:", response.status);
+      // console.log("Response body:", data); // APIが返すエラーを表示
+      throw new Error(data.error || "メッセージ送信に失敗しました");
     }
 
-    console.log("Message sent successfully:", data);
+    console.log("LINEメッセージ送信成功:", data);
   } catch (error) {
-    console.error("Failed to send message:", error);
+    const errorMessage =
+      error instanceof Error ? error.message : "不明なエラーが発生しました";
+    console.error("LINEメッセージ送信失敗:", errorMessage);
+    throw error;
   }
 }
 
@@ -69,8 +75,20 @@ export default function Page() {
 
   useEffect(() => {
     fetch("/api/getUserId")
-      .then((response) => response.json())
-      .then((data) => setUserId(data.userId));
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch userId");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // ここでuserIdをログに表示
+        console.log("Fetched userId:", data.userId);
+        setUserId(data.userId);
+      })
+      .catch((error) => {
+        console.error("Error fetching userId:", error);
+      });
   }, []);
 
   function handleClick(e: { preventDefault: () => void }) {
@@ -125,10 +143,13 @@ export default function Page() {
           days: [day],
           firstDate: day.date,
           timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).then(() => {
+          console.log("Firestoreにデータ保存成功:", day); // 保存成功時にログ表示
         });
       })
     )
       .then(async () => {
+        console.log("すべてのデータがFirestoreに保存されました");
         // Firestoreに保存した後、LINEにメッセージを送信
         await sendLineMessage(childName, days, userId);
         router.push("/thanks");

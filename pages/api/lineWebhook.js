@@ -1,6 +1,9 @@
 import { Client } from "@line/bot-sdk";
 import { createHmac } from "crypto";
 
+const admin = require("firebase-admin");
+const db = admin.firestore();
+
 const lineConfig = {
   channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
   channelSecret: process.env.LINE_CHANNEL_SECRET,
@@ -28,9 +31,27 @@ const lineWebhookHandler = async (req, res) => {
       const body = JSON.parse(rawBody);
       const events = body.events;
 
+      // 各イベントを処理
       for (const event of events) {
         await handleEvent(event);
+        if (event.type === "message" && event.message.type === "text") {
+          const userId = event.source.userId; // ユーザーIDを取得
+          console.log("Received message from user:", userId);
+
+          // 返信メッセージ
+          const replyMessage = {
+            type: "text",
+            text: `Your user ID is: ${userId}`,
+          };
+
+          // ユーザーにメッセージを返信
+          await client.replyMessage(event.replyToken, replyMessage);
+        } else if (event.type === "follow") {
+          const userId = event.source.userId; // フォローイベントからユーザーIDを取得
+          console.log("New follower:", userId);
+        }
       }
+
       res.status(200).end();
     } catch (error) {
       console.error("Error processing webhook:", error);
@@ -41,6 +62,7 @@ const lineWebhookHandler = async (req, res) => {
   }
 };
 
+// リクエストの生データを取得するヘルパー関数
 const getRawBody = (req) => {
   return new Promise((resolve, reject) => {
     let data = "";
@@ -56,6 +78,7 @@ const getRawBody = (req) => {
   });
 };
 
+// LINEの署名検証
 const validateSignature = (body, signature) => {
   const hash = createHmac("sha256", lineConfig.channelSecret)
     .update(body)
@@ -63,11 +86,45 @@ const validateSignature = (body, signature) => {
   return hash === signature;
 };
 
+// const handleEvent = async (event) => {
+//   if (event.type === "message" && event.message.type === "text") {
+//     try {
+//       // メッセージ送信
+//       await client.replyMessage(event.replyToken, {
+//         type: "text",
+//         text: `${event.message.text}`,
+//       });
+//       console.log("Message sent successfully");
+//     } catch (error) {
+//       // エラーログをより詳細に出力
+//       console.error("LINE API error:", error);
+//       console.error(
+//         "Error details:",
+//         error.originalError?.response?.data || error.message
+//       );
+//     }
+//     return client.replyMessage(event.replyToken, {
+//       type: "text",
+//       text: `${event.message.text}`,
+//     });
+//   }
+// };
+
 const handleEvent = async (event) => {
+  const userId = event.source.userId;
+
+  // FirestoreにユーザーIDを保存
+  await db.collection("users").doc(userId).set({
+    userId: userId,
+    timestamp: new Date(),
+  });
+
+  console.log("ユーザーIDが保存されました:", userId);
+
   if (event.type === "message" && event.message.type === "text") {
     return client.replyMessage(event.replyToken, {
       type: "text",
-      text: `${event.message.text}`,
+      text: `あなたのユーザーIDは: ${userId}`,
     });
   }
 };
