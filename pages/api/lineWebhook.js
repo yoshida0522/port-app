@@ -130,7 +130,7 @@ const handleEvent = async (event) => {
   console.log("ユーザーIDが保存されました:", userId);
 
   if (event.type === "message" && event.message.type === "text") {
-    return client.replyMessage(event.replyToken, {
+    return await client.replyMessage(event.replyToken, {
       type: "text",
       text: `あなたのユーザーIDは: ${userId}`,
     });
