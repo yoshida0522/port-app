@@ -5,7 +5,7 @@ const admin = require("firebase-admin");
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.applicationDefault(),
-    databaseURL: "https://<YOUR-PROJECT-ID>.firebaseio.com", // 必要に応じてURLを追加
+    databaseURL: "https://portfolio-33e86.firebaseio.com", // 必要に応じてURLを追加
   });
 }
 const db = admin.firestore();
@@ -24,6 +24,7 @@ export const config = {
 };
 
 const lineWebhookHandler = async (req, res) => {
+  console.log("Webhook received:", req.body);
   if (req.method === "POST") {
     try {
       const signature = req.headers["x-line-signature"];
@@ -118,6 +119,7 @@ const validateSignature = (body, signature) => {
 
 const handleEvent = async (event) => {
   const userId = event.source.userId;
+  console.log("Received user ID:", userId);
 
   // FirestoreにユーザーIDを保存
   await db.collection("users").doc(userId).set({
