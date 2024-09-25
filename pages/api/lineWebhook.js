@@ -2,6 +2,12 @@ import { Client } from "@line/bot-sdk";
 import { createHmac } from "crypto";
 
 const admin = require("firebase-admin");
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.applicationDefault(),
+    databaseURL: "https://<YOUR-PROJECT-ID>.firebaseio.com", // 必要に応じてURLを追加
+  });
+}
 const db = admin.firestore();
 
 const lineConfig = {
