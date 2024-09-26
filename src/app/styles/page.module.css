@@ -1,3 +1,4 @@
+/* ホーム画面 */
 .main {
   display: flex;
   flex-direction: column;
@@ -24,14 +25,6 @@
   gap: 25px;
 }
 
-.rowbutton {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
 .reservationButton {
   font-size: 30px;
   display: inline-block;
@@ -50,6 +43,11 @@
 .reservationButton:hover {
   transform: scale(90%);
   cursor: pointer;
+}
+
+.link {
+  color: black;
+  text-decoration: none;
 }
 
 .newRegistration {
@@ -92,52 +90,6 @@
   cursor: pointer;
 }
 
-.link {
-  color: black;
-  text-decoration: none;
-}
-
-.subTitle {
-  background-color: rgb(247, 247, 178);
-}
-
-.listTitle {
-  margin: auto;
-}
-
-.editButton {
-  background-color: #83f88b;
-  border-radius: 5px;
-}
-
-.editButton:hover {
-  background-color: #ccf7c2;
-  cursor: pointer;
-  transform: scale(90%);
-}
-
-.saveButton {
-  background-color: rgb(155, 217, 250);
-  border-radius: 5px;
-}
-
-.saveButton:hover {
-  background-color: rgb(181, 240, 252);
-  cursor: pointer;
-  transform: scale(90%);
-}
-
-.deleteButton {
-  background-color: rgb(250, 142, 142);
-  border-radius: 5px;
-}
-
-.deleteButton:hover {
-  background-color: rgb(250, 213, 213);
-  cursor: pointer;
-  transform: scale(90%);
-}
-
 .container {
   display: flex;
   justify-content: center;
@@ -156,6 +108,15 @@
   width: 100%;
 }
 
+.rogButton {
+  /* text-align: center;
+        margin-top: 10px; */
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
 .formGroup {
   margin-bottom: 15px;
 }
@@ -172,15 +133,6 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
-}
-
-.rogButton {
-  /* text-align: center;
-        margin-top: 10px; */
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
 }
 
 .signin {
@@ -206,45 +158,144 @@
   color: white;
 }
 
-.backButton {
-  display: block;
+/* 新規登録画面 */
+
+.titleform {
+  background-color: rgba(249, 249, 249, 0.9);
+  background-image: url("https://frame-illust.com/fi/wp-content/uploads/2016/06/8491.png"); /* 背景画像を指定 */
+  background-position: center;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  height: 700px;
+  margin: auto;
   text-align: center;
 }
 
-.cancelButton {
-  background-color: yellow;
-  border-radius: 5px;
+.maintext {
+  color: #fa5c4e;
+  margin: 50px 0 80px;
 }
 
-.cancelButton:hover {
-  background-color: rgb(251, 251, 186);
-  transform: scale(90%);
+.titletext {
+  text-align: left;
+  padding: 0 0 0 50px;
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 25px;
 }
 
-.button {
+.inputcenter {
   display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-/* .inputBox {
-        margin-bottom: 10px;
-        width: 200px;
-        height: 20px;
-        background-color: rgb(249, 249, 193);
-      } */
-
-.search {
-  display: grid;
-  place-content: center;
+.createcenter {
+  background-color: #eb6100;
+  text-decoration: none;
+  border-radius: 100vh;
+  width: 100px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 20px;
 }
+
+.createcenter:hover {
+  transform: scale(90%);
+  background-color: #f7a062;
+}
+
+.buttontext {
+  display: flex;
+  color: white;
+  font-size: 30px;
+  text-align: center;
+  justify-content: center;
+}
+
+.inputBox {
+  border: 2px solid #ff6f61;
+  border-radius: 5px;
+  padding: 10px;
+  width: 80%;
+  transition: border-color 0.3s;
+  transform: translateY(-20px);
+}
+
+/* .inputBox:focus {
+  border-color: #ff8a80; 
+  outline: none; 
+} */
 
 .passTitle {
   display: flex;
-  place-content: center;
-  align-items: center;
+  text-align: left;
+  padding: 0 0 0 50px;
+}
+
+.passWordtitle {
+  font-size: 25px;
+}
+
+.text {
+  font-size: 18px;
+  color: red;
+  margin: 30px 5px 0;
+}
+
+.backButton {
+  display: inline-block;
+  width: 100px;
+  height: 60px;
+  border-radius: 100vh;
+  color: #fff;
+  background-color: #eb6100;
+  text-decoration: none;
+  font-size: 30px;
+  line-height: 60px;
+  text-align: center;
+  /* color: black;
+  margin-top: 20px;
+  transition: color 0.3s; */
+}
+
+.backButton:hover {
+  transform: scale(90%);
+  background-color: #f7a062;
+}
+
+.button {
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
+}
+
+.button:hover {
+  background-color: #ff8a80;
+}
+/* 一覧画面 */
+
+.listTitle {
+  margin: auto;
 }
 
 .center {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.subTitle {
+  background-color: rgb(247, 247, 178);
 }
 
 .childName {
@@ -257,9 +308,77 @@
   color: rgb(159, 4, 202);
 }
 
+.saveButton {
+  background-color: rgb(155, 217, 250);
+  border-radius: 5px;
+}
+
+.saveButton:hover {
+  background-color: rgb(181, 240, 252);
+  cursor: pointer;
+  transform: scale(90%);
+}
+
+.deleteButton {
+  background-color: rgb(250, 142, 142);
+  border-radius: 5px;
+}
+
+.deleteButton:hover {
+  background-color: rgb(250, 213, 213);
+  cursor: pointer;
+  transform: scale(90%);
+}
+
+.cancelButton {
+  background-color: yellow;
+  border-radius: 5px;
+}
+
+.cancelButton:hover {
+  background-color: rgb(251, 251, 186);
+  transform: scale(90%);
+}
+
+.editButton {
+  background-color: #83f88b;
+  border-radius: 5px;
+}
+
+.editButton:hover {
+  background-color: #ccf7c2;
+  cursor: pointer;
+  transform: scale(90%);
+}
+
+/* 園児別一覧 */
+
+/* 申込画面 */
+
 @media (max-width: 768px) {
   .createCenter {
     text-align: center;
     width: 100%;
   }
+}
+
+/*  */
+/*  */
+/*  */
+
+.rowbutton {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.button {
+  display: flex;
+}
+
+.search {
+  display: grid;
+  place-content: center;
 }

@@ -6,7 +6,7 @@ import db from "../firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import "../globals.css";
+import styles from "../styles/page.module.css";
 
 function Page() {
   const router = useRouter();
@@ -28,28 +28,31 @@ function Page() {
 
   return (
     <>
-      <div>
-        <div className="center">
-          <h3>ユーザーID</h3>
+      <div className={styles.titleform}>
+        <div>
+          <h1 className={styles.maintext}>新規登録</h1>
         </div>
-        <div className="center">
+        <div>
+          <h3 className={styles.titletext}>ユーザーID</h3>
+        </div>
+        <div className={styles.inputcenter}>
           <input
-            className="inputBox"
+            className={styles.inputBox}
             value={userName}
             placeholder="ユーザーIDを入力してください"
             onChange={(e) => setUserName(e.target.value)}
           ></input>
         </div>
-        <div className="passTitle">
-          <h3>パスワード</h3>
-          <p>※半角英数字</p>
+        <div className={styles.passTitle}>
+          <h3 className={styles.passWordtitle}>パスワード</h3>
+          <p className={styles.text}>※半角英数字</p>
         </div>
-        <div className="center">
+
+        <div className={styles.inputcenter}>
           <input
-            className="inputBox"
+            className={styles.inputBox}
             value={passWord}
             pattern="[a-zA-Z0-9]*"
-            title="半角英数字で入力してください"
             placeholder="パスワードを入力してください"
             onChange={(e) => {
               const inputValue = e.target.value;
@@ -58,11 +61,13 @@ function Page() {
             }}
           ></input>
         </div>
-        <div className="center">
-          <Button onClick={handleClick}>登録</Button>
+        <div className={styles.createcenter}>
+          <Button className={styles.buttontext} onClick={handleClick}>
+            登録
+          </Button>
         </div>
         <div>
-          <Link href="/" className="backButton">
+          <Link href="/" className={styles.backButton}>
             戻る
           </Link>
         </div>

@@ -9,6 +9,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
+import styles from "../styles/page.module.css";
 
 async function sendLineMessage(childName: string, days: any[], userId: string) {
   console.log("LINEメッセージ送信開始: ", { childName, days, userId });
@@ -160,8 +161,8 @@ export default function Page() {
   }
 
   return (
-    <div className="createCenter">
-      <h3 className="linkTitle">
+    <div className={styles.createCenter}>
+      <h3 className={styles.linkTitle}>
         <Link href="/">トップページに戻る</Link>
       </h3>
       <form onSubmit={handleClick}>

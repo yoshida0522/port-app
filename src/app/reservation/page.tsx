@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import "../globals.css";
+import styles from "../styles/page.module.css";
 import db from "../firebase";
 import React, { useEffect, useState } from "react";
 import {
@@ -143,17 +143,17 @@ export default function Page() {
 
   return (
     <>
-      <h3 className="center">
+      <h3 className={styles.center}>
         <Link href="/">トップページに戻る</Link>
       </h3>
-      <div className="center">
+      <div className={styles.center}>
         <h1>予約一覧</h1>
         <strong>検索</strong>
         <input type="date" onChange={(e) => setSearch(e.target.value)}></input>
       </div>
-      <table border={1} className="listTitle">
+      <table border={1} className={styles.listTitle}>
         <tbody>
-          <tr className="subTitle">
+          <tr className={styles.subTitle}>
             <th>園児名</th>
             <th>日にち</th>
             <th>登園予約時間</th>
@@ -170,7 +170,7 @@ export default function Page() {
                   <tr key={dayIndex}>
                     <td>
                       <Link
-                        className="childName"
+                        className={styles.childName}
                         href={`/childName/${day.name}`}
                       >
                         {day.name}
@@ -211,18 +211,21 @@ export default function Page() {
                     <td>
                       {editingRow?.postIndex === postIndex &&
                       editingRow?.dayIndex === dayIndex ? (
-                        <div className="button">
-                          <button className="saveButton" onClick={handleSave}>
+                        <div className={styles.button}>
+                          <button
+                            className={styles.saveButton}
+                            onClick={handleSave}
+                          >
                             保存
                           </button>
                           <button
-                            className="deleteButton"
+                            className={styles.deleteButton}
                             onClick={() => handleDelete(postIndex)}
                           >
                             削除
                           </button>
                           <button
-                            className="cancelButton"
+                            className={styles.cancelButton}
                             onClick={handleCancel}
                           >
                             キャンセル
@@ -230,7 +233,7 @@ export default function Page() {
                         </div>
                       ) : (
                         <button
-                          className="editButton"
+                          className={styles.editButton}
                           onClick={() => handleEdit(postIndex, dayIndex)}
                         >
                           編集
