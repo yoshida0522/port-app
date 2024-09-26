@@ -35,8 +35,14 @@ function Signin() {
     };
     fetchData();
     const savedUser = localStorage.getItem("loggedInUser");
+    const isManager = localStorage.getItem("isManagerIn");
     if (savedUser) {
       setIsLoggedIn(true);
+      if (isManager === "true") {
+        setIsManegerIn(true);
+      } else {
+        setIsManegerIn(false);
+      }
     }
   }, []);
 
@@ -57,6 +63,7 @@ function Signin() {
       setIsManegerIn(true);
       setIsLoggedIn(true);
       localStorage.setItem("loggedInUser", JSON.stringify(manager));
+      localStorage.setItem("isManagerIn", "true"); // 管理者フラグを保存
     } else {
       // 管理者でない場合、一般ユーザーをチェック
       const foundUser = posts.find(
@@ -67,6 +74,7 @@ function Signin() {
         console.log("ログイン成功");
         setIsLoggedIn(true);
         localStorage.setItem("loggedInUser", JSON.stringify(foundUser));
+        localStorage.setItem("isManagerIn", "false"); // 一般ユーザーフラグを保存
         setIsManegerIn(false); // 一般ユーザーの場合、管理者フラグをリセット
       } else {
         console.log("ユーザー名またはパスワードが違います");
@@ -80,6 +88,7 @@ function Signin() {
   const handleSignoutClick = async () => {
     await auth.signOut();
     localStorage.removeItem("loggedInUser");
+    localStorage.removeItem("isManagerIn"); // 管理者フラグを削除
     setIsLoggedIn(false);
     setIsManegerIn(false);
     console.log("ログアウトしました");
@@ -88,22 +97,28 @@ function Signin() {
   return (
     <>
       {isLoggedIn ? (
-        <form onSubmit={handleSubmit}>
-          <div className="reservationButton">
-            <button className="L-button">
+        <form className="allButton" onSubmit={handleSubmit}>
+          <div>
+            <button className="reservationButton">
               <Link href="reservation/" className="link">
                 予約一覧
               </Link>
             </button>
           </div>
-          <div className="signout">
-            <button onClick={handleSignoutClick}>サインアウト</button>
-          </div>
           {isManegerIn ? (
-            <div className="center">
-              <Link href="newRegistration/">新規登録</Link>
+            <div>
+              <button className="newRegistration">
+                <Link href="newRegistration/" className="link">
+                  新規登録
+                </Link>
+              </button>
             </div>
           ) : null}
+          <div>
+            <button className="signout" onClick={handleSignoutClick}>
+              サインアウト
+            </button>
+          </div>
         </form>
       ) : (
         <div className="rogButton">
@@ -124,7 +139,7 @@ function Signin() {
             ></input>
           </div>
           <div>
-            <Button onClick={handleClick}>ログイン</Button>
+            <Button onClick={handleClick}>サインイン</Button>
           </div>
         </div>
       )}
