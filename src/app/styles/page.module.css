@@ -6,8 +6,9 @@
   align-items: center;
   margin: 0 auto;
   background-image: url("https://knsoza1.com/wp-content/uploads/2020/01/412c7c244bc54e0b08d43c0a7f095112-scaled.jpg");
-  background-size: cover;
-  background-position: top center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  /* background-position: top center; */
   height: 100vh;
   width: 770px;
   clip-path: inset(0 0 100px 0);
@@ -164,7 +165,7 @@
 
 .titleform {
   background-color: rgba(249, 249, 249, 0.9);
-  background-image: url("https://frame-illust.com/fi/wp-content/uploads/2016/06/8491.png"); /* 背景画像を指定 */
+  background-image: url("https://frame-illust.com/fi/wp-content/uploads/2016/06/8491.png");
   background-position: center;
   border-radius: 10px;
   padding: 20px;
@@ -177,7 +178,7 @@
 
 .maintext {
   color: #fa5c4e;
-  margin: 50px 0 80px;
+  margin: 50px 0 70px;
 }
 
 .titletext {
@@ -212,11 +213,11 @@
 }
 
 .buttontext {
-  display: flex;
-  color: white;
-  font-size: 30px;
-  text-align: center;
-  justify-content: center;
+  display: flex !important;
+  color: white !important;
+  font-size: 30px !important;
+  text-align: center !important;
+  justify-content: center !important;
 }
 
 .inputBox {
@@ -270,30 +271,65 @@
   background-color: #f7a062;
 }
 
-.button {
-  background-color: #ff6f61;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  font-size: 16px;
-}
-
-.button:hover {
-  background-color: #ff8a80;
-}
 /* 一覧画面 */
+
+.reservationimg {
+  display: flex;
+  flex-direction: column;
+  background-image: url("https://illust8.com/wp-content/uploads/2019/01/music_onpu_colorful_illust_2744.png");
+  background-position: center;
+}
 
 .listTitle {
   margin: auto;
+}
+
+.topPage {
+  font-size: 15px;
+  display: inline-block;
+  padding: 0.5em 1em 0.3em;
+  /* color: #ffffff; */
+  border: none;
+  width: 140px;
+  height: 25px;
+  border-radius: 10px;
+  background-color: #e4f5fb;
+  background-size: 10px 10px;
+  background-image: radial-gradient(#a6ebf7 15%, transparent 20%),
+    radial-gradient(#85ddfa 15%, transparent 20%);
+  background-position: 0 0, 15px 15px;
+  /* margin-bottom: 20px; */
+  text-align: center;
+  margin: 5px auto 30px;
+  /* line-height: 25px; */
+}
+
+.topPage:hover {
+  transform: scale(85%);
+  opacity: 0.8;
+}
+
+.topPageText {
+  text-decoration: none;
+  color: black;
 }
 
 .center {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+}
+
+.search {
+  height: 20px;
+  width: 120px;
+  margin-left: 10px;
+}
+
+.searchform {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 .subTitle {
@@ -309,6 +345,10 @@
 .childName:hover {
   color: rgb(159, 4, 202);
 }
+
+/* .childtr {
+  background-color: white;
+} */
 
 .saveButton {
   background-color: rgb(155, 217, 250);
@@ -351,6 +391,19 @@
   background-color: #ccf7c2;
   cursor: pointer;
   transform: scale(90%);
+}
+
+.button {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
 }
 
 /* 園児別一覧 */

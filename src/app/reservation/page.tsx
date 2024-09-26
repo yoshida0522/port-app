@@ -143,72 +143,82 @@ export default function Page() {
 
   return (
     <>
-      <h3 className={styles.center}>
-        <Link href="/">トップページに戻る</Link>
-      </h3>
-      <div className={styles.center}>
-        <h1>予約一覧</h1>
-        <strong>検索</strong>
-        <input type="date" onChange={(e) => setSearch(e.target.value)}></input>
-      </div>
-      <table border={1} className={styles.listTitle}>
-        <tbody>
-          <tr className={styles.subTitle}>
-            <th>園児名</th>
-            <th>日にち</th>
-            <th>登園予約時間</th>
-            <th>降園予約時間</th>
-            <th>登園時間</th>
-            <th>降園時間</th>
-            <th>備考欄</th>
-          </tr>
-          {filteredPosts.map((post, postIndex) => {
-            const days = post.days || [];
-            return (
-              <React.Fragment key={postIndex}>
-                {days.map((day, dayIndex) => (
-                  <tr key={dayIndex}>
-                    <td>
-                      <Link
-                        className={styles.childName}
-                        href={`/childName/${day.name}`}
-                      >
-                        {day.name}
-                      </Link>
-                    </td>
-                    <td>{day.date}</td>
-                    <td>{day.startTime}</td>
-                    <td>{day.endTime}</td>
-                    <td>
-                      {editingRow?.postIndex === postIndex &&
-                      editingRow?.dayIndex === dayIndex ? (
-                        <>
-                          <input
-                            type="time"
-                            value={editStartTime}
-                            onChange={(e) => setEditStartTime(e.target.value)}
-                          />
-                        </>
-                      ) : (
-                        day.realStartTime
-                      )}
-                    </td>
-                    <td>
-                      {editingRow?.postIndex === postIndex &&
-                      editingRow?.dayIndex === dayIndex ? (
-                        <>
-                          <input
-                            type="time"
-                            value={editEndTime}
-                            onChange={(e) => setEditEndTime(e.target.value)}
-                          />
-                        </>
-                      ) : (
-                        day.realEndTime
-                      )}
-                    </td>
-                    <td>{day.remark}</td>
-                    <td>
+      <div className={styles.reservationimg}>
+        <h3 className={styles.topPage}>
+          <Link href="/" className={styles.topPageText}>
+            トップページに戻る
+          </Link>
+        </h3>
+        <div className={styles.center}>
+          <h1>予約一覧</h1>
+        </div>
+        <div className={styles.searchform}>
+          <strong>検索</strong>
+          <input
+            className={styles.search}
+            type="date"
+            onChange={(e) => setSearch(e.target.value)}
+          ></input>
+        </div>
+        <table border={1} className={styles.listTitle}>
+          <tbody>
+            <tr className={styles.subTitle}>
+              <th>園児名</th>
+              <th>日にち</th>
+              <th>登園予約時間</th>
+              <th>降園予約時間</th>
+              <th>登園時間</th>
+              <th>降園時間</th>
+              <th>備考欄</th>
+            </tr>
+            {filteredPosts.map((post, postIndex) => {
+              const days = post.days || [];
+              return (
+                <React.Fragment key={postIndex}>
+                  {days.map((day, dayIndex) => (
+                    <tr key={dayIndex} className={styles.childtr}>
+                      <td>
+                        <Link
+                          className={styles.childName}
+                          href={`/childName/${day.name}`}
+                        >
+                          {day.name}
+                        </Link>
+                      </td>
+                      <td>{day.date}</td>
+                      <td>{day.startTime}</td>
+                      <td>{day.endTime}</td>
+                      <td>
+                        {editingRow?.postIndex === postIndex &&
+                        editingRow?.dayIndex === dayIndex ? (
+                          <>
+                            <input
+                              type="time"
+                              value={editStartTime}
+                              onChange={(e) => setEditStartTime(e.target.value)}
+                            />
+                          </>
+                        ) : (
+                          day.realStartTime
+                        )}
+                      </td>
+                      <td>
+                        {editingRow?.postIndex === postIndex &&
+                        editingRow?.dayIndex === dayIndex ? (
+                          <>
+                            <input
+                              type="time"
+                              value={editEndTime}
+                              onChange={(e) => setEditEndTime(e.target.value)}
+                            />
+                          </>
+                        ) : (
+                          day.realEndTime
+                        )}
+                      </td>
+                      <td>{day.remark}</td>
+
+                      {/* <td> */}
                       {editingRow?.postIndex === postIndex &&
                       editingRow?.dayIndex === dayIndex ? (
                         <div className={styles.button}>
@@ -239,14 +249,15 @@ export default function Page() {
                           編集
                         </button>
                       )}
-                    </td>
-                  </tr>
-                ))}
-              </React.Fragment>
-            );
-          })}
-        </tbody>
-      </table>
+                      {/* </td> */}
+                    </tr>
+                  ))}
+                </React.Fragment>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 }
