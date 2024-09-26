@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import db, { auth } from "../firebase";
-import "../globals.css";
+import styles from "../styles/page.module.css";
 import Link from "next/link";
 import { collection, getDocs } from "firebase/firestore";
 
@@ -18,10 +18,11 @@ function Signin() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isManegerIn, setIsManegerIn] = useState(false);
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-  };
+  const [isMounted, setIsMounted] = useState(false);
+
   useEffect(() => {
+    setIsMounted(true); // クライアントサイドでマウントされたかを確認
+
     const fetchData = async () => {
       const userData = collection(db, "user");
       const querySnapshot = await getDocs(userData);
@@ -45,6 +46,10 @@ function Signin() {
       }
     }
   }, []);
+
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+  };
 
   const handleClick = () => {
     if (!user || !pass) {
@@ -94,52 +99,70 @@ function Signin() {
     console.log("ログアウトしました");
   };
 
+  // クライアントサイドでのマウント完了後にUIを表示
+  if (!isMounted) {
+    return null; // マウントが完了するまでレンダリングしない
+  }
+
   return (
     <>
       {isLoggedIn ? (
-        <form className="allButton" onSubmit={handleSubmit}>
+        <form className={styles.allButton} onSubmit={handleSubmit}>
           <div>
-            <button className="reservationButton">
-              <Link href="reservation/" className="link">
+            <button className={styles.reservationButton}>
+              <Link href="reservation/" className={styles.link}>
                 予約一覧
               </Link>
             </button>
           </div>
           {isManegerIn ? (
             <div>
-              <button className="newRegistration">
-                <Link href="newRegistration/" className="link">
+              <button className={styles.newRegistration}>
+                <Link href="newRegistration/" className={styles.link}>
                   新規登録
                 </Link>
               </button>
             </div>
           ) : null}
           <div>
-            <button className="signout" onClick={handleSignoutClick}>
+            <button className={styles.signout} onClick={handleSignoutClick}>
               サインアウト
             </button>
           </div>
         </form>
       ) : (
-        <div className="rogButton">
-          <div>
-            <input
-              className="inputBox"
-              value={user}
-              placeholder="ユーザーIDを入力してください"
-              onChange={(e) => setUser(e.target.value)}
-            ></input>
-          </div>
-          <div>
-            <input
-              className="inputBox"
-              value={pass}
-              placeholder="パスワードを入力してください"
-              onChange={(e) => setPass(e.target.value)}
-            ></input>
-          </div>
-          <div>
-            <Button onClick={handleClick}>サインイン</Button>
+        <div className={styles.container}>
+          <div className={styles.loginBox}>
+            <h2 className={styles.rogButton}>ログイン画面</h2>
+            <form>
+              <div className={styles.formGroup}>
+                <label className={styles.label}>ユーザーID</label>
+                <input
+                  className={styles.input}
+                  // className="inputBox"
+                  value={user}
+                  placeholder="ユーザーIDを入力してください"
+                  onChange={(e) => setUser(e.target.value)}
+                  required
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label className={styles.label}>パスワード</label>
+                <input
+                  className={styles.input}
+                  // className="inputBox"
+                  value={pass}
+                  placeholder="パスワードを入力してください"
+                  onChange={(e) => setPass(e.target.value)}
+                  required
+                />
+              </div>
+              <div className={styles.signin}>
+                <Button className={styles.signinButton} onClick={handleClick}>
+                  サインイン
+                </Button>
+              </div>
+            </form>
           </div>
         </div>
       )}

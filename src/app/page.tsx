@@ -1,6 +1,6 @@
 "use client";
 
-import Signin from "./conponents/Signin";
+import Signin from "./components/Signin";
 import "./globals.css";
 
 export default function Home() {

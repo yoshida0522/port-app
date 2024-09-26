@@ -18,13 +18,13 @@
   margin-bottom: 80px;
 }
 
-.all-Button {
+.allButton {
   display: inline-flex;
   text-align: center;
   gap: 25px;
 }
 
-.row-button {
+.rowbutton {
   display: flex;
   text-align: center;
   justify-content: center;
@@ -32,7 +32,7 @@
   width: 100%;
 }
 
-.reservation-Button {
+.reservationButton {
   font-size: 30px;
   display: inline-block;
   padding: 0.5em 1em 0.3em;
@@ -47,12 +47,12 @@
   margin-bottom: 20px;
 }
 
-.reservation-Button:hover {
+.reservationButton:hover {
   transform: scale(90%);
   cursor: pointer;
 }
 
-.new-Registration {
+.newRegistration {
   font-size: 30px;
   display: inline-block;
   padding: 0.5em 1em 0.3em;
@@ -67,7 +67,7 @@
   margin-bottom: 20px;
 }
 
-.new-Registration:hover {
+.newRegistration:hover {
   transform: scale(90%);
   cursor: pointer;
 }
@@ -142,6 +142,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 300px;
   /* height: 100vh; */
   background-color: #f0f8ff;
 }
@@ -150,7 +151,7 @@
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(161, 240, 248, 0.1);
   max-width: 400px;
   width: 100%;
 }
@@ -159,43 +160,50 @@
   margin-bottom: 15px;
 }
 
-label {
+.label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-input {
-  width: 100%;
+.input {
+  width: 90%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
 }
 
-.rog-Button {
+.rogButton {
   /* text-align: center;
-  margin-top: 10px; */
+        margin-top: 10px; */
   text-align: center;
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-.signin-Button {
-  /* text-align: center; */
-  width: 100%;
-  padding: 10px;
-  background-color: #4caf50;
-  color: white;
+.signin {
+  background-color: #bdf6bf;
+  /* color: white; */
   border: none;
   border-radius: 5px;
-  font-size: 16px;
+}
+
+.signinButton {
+  width: 100%;
+  padding: 10px;
+  /* background-color: #4caf50; */
+  /* color: white; */
+  /* border: none; */
+  /* border-radius: 5px; */
+  /* font-size: 16px; */
   cursor: pointer;
 }
 
-.signin-Button:hover {
+.signinButton:hover {
   background-color: #45a049;
+  color: white;
 }
 
 .backButton {
@@ -218,11 +226,11 @@ input {
 }
 
 /* .inputBox {
-  margin-bottom: 10px;
-  width: 200px;
-  height: 20px;
-  background-color: rgb(249, 249, 193);
-} */
+        margin-bottom: 10px;
+        width: 200px;
+        height: 20px;
+        background-color: rgb(249, 249, 193);
+      } */
 
 .search {
   display: grid;
