@@ -7,8 +7,10 @@
   margin: 0 auto;
   background-image: url("https://knsoza1.com/wp-content/uploads/2020/01/412c7c244bc54e0b08d43c0a7f095112-scaled.jpg");
   background-size: cover;
+  background-position: top center;
   height: 100vh;
   width: 770px;
+  clip-path: inset(0 0 100px 0);
 }
 
 .mainTitle {
