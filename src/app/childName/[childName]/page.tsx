@@ -6,7 +6,8 @@ import db from "../../firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import Link from "next/link";
 import React from "react";
-import "../../globals.css";
+// import "../../globals.css";
+import styles from "../../styles/page.module.css";
 
 interface Day {
   date: string;
@@ -68,18 +69,18 @@ const ChildReservationPage = () => {
     .filter((post) => post !== null) as Post[];
 
   return (
-    <div>
-      <h3 className="center">
+    <div className={styles.reservationImg}>
+      <h3 className={styles.center}>
         <Link href="/reservation">一覧に戻る</Link>
       </h3>
-      <div className="center">
+      <div className={styles.center}>
         <h1>
           {decodedChildName ? `${decodedChildName}さんの予約一覧` : "予約一覧"}
         </h1>
       </div>
-      <table border={1} className="listTitle">
+      <table border={1} className={styles.listTitle}>
         <thead>
-          <tr className="subTitle">
+          <tr className={styles.subTitle}>
             <th>園児名</th>
             <th>日にち</th>
             <th>登園予約時間</th>

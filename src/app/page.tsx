@@ -1,12 +1,13 @@
 "use client";
 
 import Signin from "./components/Signin";
-import "./globals.css";
+// import "./globals.css";
+import styles from "./styles/page.module.css";
 
 export default function Home() {
   return (
-    <main className="main">
-      <h1 className="mainTitle">預かり保育予約管理システム</h1>
+    <main className={styles.main}>
+      <h1 className={styles.mainTitle}>預かり保育予約管理システム</h1>
       <div>
         <Signin />
       </div>

@@ -1,33 +1,87 @@
-.main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  background-image: url("https://knsoza1.com/wp-content/uploads/2020/01/412c7c244bc54e0b08d43c0a7f095112-scaled.jpg");
-  background-size: cover;
-  height: 100vh;
-  width: 770px;
+/* body {
+  font-family: "Arial", sans-serif;
+  background-color: #f7f9fc;
+  color: #333;
+  margin: 0;
+  padding: 20px;
 }
 
-.mainTitle {
-  font-size: 50px;
+h1 {
+  font-size: 2em;
+  color: #4a90e2;
   text-align: center;
-  text-shadow: 6px 3px #f8dcab;
-  margin-top: 150px;
-  margin-bottom: 80px;
-}
-
-.subTitle {
-  background-color: rgb(247, 247, 178);
-}
-
-.listTitle {
-  margin: auto;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
   margin-bottom: 20px;
 }
+
+p,
+strong {
+  font-size: 1em;
+  color: #333;
+}
+
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 1em;
+}
+
+input[type="text"]::placeholder {
+  color: #999;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #357abd;
+}
+
+p {
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+strong {
+  color: #4a90e2;
+}
+
+.createCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.createChildName {
+  font-size: 1.2em;
+  color: #4a90e2;
+}
+
+.createInput {
+  background-color: #f0f5fa;
+} */

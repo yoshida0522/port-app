@@ -12,7 +12,7 @@ import {
   getDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 interface Day {
   date: string;
@@ -30,7 +30,7 @@ interface Post {
 }
 
 export default function Page() {
-  const router = useRouter();
+  // const router = useRouter();
   const getTodayDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -157,6 +157,7 @@ export default function Page() {
           <input
             className={styles.search}
             type="date"
+            defaultValue={getTodayDate()}
             onChange={(e) => setSearch(e.target.value)}
           ></input>
         </div>

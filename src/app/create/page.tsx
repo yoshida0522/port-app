@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { collection, addDoc } from "firebase/firestore";
 import db from "../firebase";
 import { useEffect, useState } from "react";
@@ -43,6 +42,43 @@ export default function Page() {
   const router = useRouter();
   const [userId, setUserId] = useState("");
   const [childName, setChildName] = useState("");
+  const [days, setDays] = useState([
+    {
+      id: uuidv4(),
+      date: "",
+      startTime: "11:00",
+      endTime: "14:00",
+      remark: "",
+    }, // 月
+    {
+      id: uuidv4(),
+      date: "",
+      startTime: "11:00",
+      endTime: "14:00",
+      remark: "",
+    }, // 火
+    {
+      id: uuidv4(),
+      date: "",
+      startTime: "11:00",
+      endTime: "14:00",
+      remark: "",
+    }, // 水
+    {
+      id: uuidv4(),
+      date: "",
+      startTime: "11:00",
+      endTime: "14:00",
+      remark: "",
+    }, // 木
+    {
+      id: uuidv4(),
+      date: "",
+      startTime: "11:00",
+      endTime: "14:00",
+      remark: "",
+    }, // 金
+  ]);
   const [monday, setMonday] = useState({
     date: "",
     startTime: "",
@@ -91,6 +127,31 @@ export default function Page() {
         console.error("Error fetching userId:", error);
       });
   }, []);
+
+  const handleChange =
+    (day: string, field: string) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      switch (day) {
+        case "monday":
+          setMonday((prev) => ({ ...prev, [field]: value }));
+          break;
+        case "tuesday":
+          setTuesday((prev) => ({ ...prev, [field]: value }));
+          break;
+        case "wednesday":
+          setWednesday((prev) => ({ ...prev, [field]: value }));
+          break;
+        case "thursday":
+          setThursday((prev) => ({ ...prev, [field]: value }));
+          break;
+        case "friday":
+          setFriday((prev) => ({ ...prev, [field]: value }));
+          break;
+        default:
+          break;
+      }
+    };
 
   function handleClick(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -162,178 +223,63 @@ export default function Page() {
 
   return (
     <div className={styles.createCenter}>
-      <h3 className={styles.linkTitle}>
+      {/* <h3 className={styles.linkTitle}>
         <Link href="/">トップページに戻る</Link>
-      </h3>
+      </h3> */}
       <form onSubmit={handleClick}>
-        <h1>預かり保育申し込み</h1>
-        <p>園児名</p>
+        <h1 className={styles.createTitle}>預かり保育申し込み</h1>
+        <p className={styles.createChildName}>園児名</p>
         <input
+          className={styles.createChildInput}
           placeholder="園児名を入力してください"
           onChange={(e) => setChildName(e.target.value)}
         ></input>
-        <p>申し込み1</p>
-        <strong>日にち</strong>
-        <input
-          type="date"
-          onChange={(e) => setMonday({ ...monday, date: e.target.value })}
-        ></input>
-        <p>
-          <strong>登園時間</strong>
-          <input
-            type="time"
-            defaultValue={"11:00"}
-            onChange={(e) =>
-              setMonday({ ...monday, startTime: e.target.value })
-            }
-          ></input>
-        </p>
-        <p>
-          <strong>お迎え時間</strong>
-          <input
-            type="time"
-            defaultValue={"14:00"}
-            onChange={(e) => setMonday({ ...monday, endTime: e.target.value })}
-          ></input>
-        </p>
-        <p>
-          <strong>備考</strong>
-          <input
-            onChange={(e) => setMonday({ ...monday, remark: e.target.value })}
-          ></input>
-        </p>
-        <p>申し込み2</p>
-        <strong>日にち</strong>
-        <input
-          type="date"
-          onChange={(e) => setTuesday({ ...tuesday, date: e.target.value })}
-        ></input>
-        <p>
-          <strong>登園時間</strong>
-          <input
-            type="time"
-            defaultValue={"11:00"}
-            onChange={(e) =>
-              setTuesday({ ...tuesday, startTime: e.target.value })
-            }
-          ></input>
-        </p>
-        <p>
-          <strong>お迎え時間</strong>
-          <input
-            type="time"
-            defaultValue={"14:00"}
-            onChange={(e) =>
-              setTuesday({ ...tuesday, endTime: e.target.value })
-            }
-          ></input>
-        </p>
-        <p>
-          <strong>備考</strong>
-          <input
-            onChange={(e) => setTuesday({ ...tuesday, remark: e.target.value })}
-          ></input>
-        </p>
-        <p>申し込み3</p>
-        <strong>日にち</strong>
-        <input
-          type="date"
-          onChange={(e) => setWednesday({ ...wednesday, date: e.target.value })}
-        ></input>
-        <p>
-          <strong>登園時間</strong>
-          <input
-            type="time"
-            defaultValue={"11:00"}
-            onChange={(e) =>
-              setWednesday({ ...wednesday, startTime: e.target.value })
-            }
-          ></input>
-        </p>
-        <p>
-          <strong>お迎え時間</strong>
-          <input
-            type="time"
-            defaultValue={"14:00"}
-            onChange={(e) =>
-              setWednesday({ ...wednesday, endTime: e.target.value })
-            }
-          ></input>
-        </p>
-        <p>
-          <strong>備考</strong>
-          <input
-            onChange={(e) =>
-              setWednesday({ ...wednesday, remark: e.target.value })
-            }
-          ></input>
-        </p>
-        <p>申し込み4</p>
-        <strong>日にち</strong>
-        <input
-          type="date"
-          onChange={(e) => setThursday({ ...thursday, date: e.target.value })}
-        ></input>
-        <p>
-          <strong>登園時間</strong>
-          <input
-            type="time"
-            defaultValue={"11:00"}
-            onChange={(e) =>
-              setThursday({ ...thursday, startTime: e.target.value })
-            }
-          ></input>
-        </p>
-        <p>
-          <strong>お迎え時間</strong>
-          <input
-            type="time"
-            defaultValue={"14:00"}
-            onChange={(e) =>
-              setThursday({ ...thursday, endTime: e.target.value })
-            }
-          ></input>
-        </p>
-        <p>
-          <strong>備考</strong>
-          <input
-            onChange={(e) =>
-              setThursday({ ...thursday, remark: e.target.value })
-            }
-          ></input>
-        </p>
-        <p>申し込み5</p>
-        <strong>日にち</strong>
-        <input
-          type="date"
-          onChange={(e) => setFriday({ ...friday, date: e.target.value })}
-        ></input>
-        <p>
-          <strong>登園時間</strong>
-          <input
-            type="time"
-            defaultValue={"11:00"}
-            onChange={(e) =>
-              setFriday({ ...friday, startTime: e.target.value })
-            }
-          ></input>
-        </p>
-        <p>
-          <strong>お迎え時間</strong>
-          <input
-            type="time"
-            defaultValue={"14:00"}
-            onChange={(e) => setFriday({ ...friday, endTime: e.target.value })}
-          ></input>
-        </p>
-        <p>
-          <strong>備考</strong>
-          <input
-            onChange={(e) => setFriday({ ...friday, remark: e.target.value })}
-          ></input>
-        </p>
-
-        <button type="submit">送信</button>
+        <div className={styles.applicationContainer}>
+          {[
+            { day: "monday", title: "申し込み1" },
+            { day: "tuesday", title: "申し込み2" },
+            { day: "wednesday", title: "申し込み3" },
+            { day: "thursday", title: "申し込み4" },
+            { day: "friday", title: "申し込み5" },
+          ].map(({ day, title }, index) => (
+            <div key={index} className={styles.applicationSection}>
+              <div className={styles.applicationNumberContainer}>
+                <span className={styles.applicationNumber}>申し込み</span>
+                <span className={styles.applicationIndex}>{index + 1}</span>
+              </div>
+              <div className={styles.applicationContent}>
+                <strong className={styles.createStrong}>日にち</strong>
+                <input
+                  className={styles.createInput}
+                  type="date"
+                  onChange={handleChange(day, "date")}
+                />
+                <strong className={styles.createStrong}>登園時間</strong>
+                <input
+                  className={styles.createInput}
+                  type="time"
+                  defaultValue={"11:00"}
+                  onChange={handleChange(day, "startTime")}
+                />
+                <strong className={styles.createStrong}>お迎え時間</strong>
+                <input
+                  className={styles.createInput}
+                  type="time"
+                  defaultValue={"14:00"}
+                  onChange={handleChange(day, "endTime")}
+                />
+                <strong className={styles.createStrong}>備考</strong>
+                <input
+                  className={styles.createInput}
+                  onChange={handleChange(day, "remark")}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+        <button type="submit" className={styles.submitButton}>
+          送信
+        </button>
       </form>
     </div>
   );
