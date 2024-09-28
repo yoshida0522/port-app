@@ -21,6 +21,14 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/reservation/page.tsx", "pages/api/lineWebhook.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/reservation/page.tsx",
+    "pages/api/lineWebhook.js",
+    "src/app/components/LineRogin.tsx"
+  ],
   "exclude": ["node_modules"]
 }
