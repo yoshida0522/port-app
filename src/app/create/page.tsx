@@ -42,43 +42,44 @@ export default function Page() {
   const router = useRouter();
   const [userId, setUserId] = useState("");
   const [childName, setChildName] = useState("");
-  const [days, setDays] = useState([
-    {
-      id: uuidv4(),
-      date: "",
-      startTime: "11:00",
-      endTime: "14:00",
-      remark: "",
-    }, // 月
-    {
-      id: uuidv4(),
-      date: "",
-      startTime: "11:00",
-      endTime: "14:00",
-      remark: "",
-    }, // 火
-    {
-      id: uuidv4(),
-      date: "",
-      startTime: "11:00",
-      endTime: "14:00",
-      remark: "",
-    }, // 水
-    {
-      id: uuidv4(),
-      date: "",
-      startTime: "11:00",
-      endTime: "14:00",
-      remark: "",
-    }, // 木
-    {
-      id: uuidv4(),
-      date: "",
-      startTime: "11:00",
-      endTime: "14:00",
-      remark: "",
-    }, // 金
-  ]);
+  // const [days, setDays] = useState([
+  //   {
+  //     id: uuidv4(),
+  //     date: "",
+  //     startTime: "11:00",
+  //     endTime: "14:00",
+  //     remark: "",
+  //   }, // 月
+  //   {
+  //     id: uuidv4(),
+  //     date: "",
+  //     startTime: "11:00",
+  //     endTime: "14:00",
+  //     remark: "",
+  //   }, // 火
+  //   {
+  //     id: uuidv4(),
+  //     date: "",
+  //     startTime: "11:00",
+  //     endTime: "14:00",
+  //     remark: "",
+  //   }, // 水
+  //   {
+  //     id: uuidv4(),
+  //     date: "",
+  //     startTime: "11:00",
+  //     endTime: "14:00",
+  //     remark: "",
+  //   }, // 木
+  //   {
+  //     id: uuidv4(),
+  //     date: "",
+  //     startTime: "11:00",
+  //     endTime: "14:00",
+  //     remark: "",
+  //   }, // 金
+  // ]);
+
   const [monday, setMonday] = useState({
     date: "",
     startTime: "",

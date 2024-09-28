@@ -4,6 +4,7 @@ import db, { auth } from "../firebase";
 import styles from "../styles/page.module.css";
 import Link from "next/link";
 import { collection, getDocs } from "firebase/firestore";
+import { v4 as uuidv4 } from "uuid";
 
 interface User {
   id: string;
@@ -161,6 +162,9 @@ function Signin() {
                   サインイン
                 </Button>
               </div>
+              <Link href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2006394583&redirect_uri=https://port-10hbw8m0d-yoshida0522s-projects.vercel.app/create&state=uuidv4&scope=openid%20profile">
+                LINEでログイン
+              </Link>
             </form>
           </div>
         </div>
