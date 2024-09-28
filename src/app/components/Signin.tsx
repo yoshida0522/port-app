@@ -161,10 +161,10 @@ function Signin() {
                   サインイン
                 </Button>
               </div>
-              <LineRogin />
-              {/* <Link href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2006394583&redirect_uri=https://port-app-yoshida0522s-projects.vercel.app/create&state=uuidv4&scope=profile%20openid">
+
+              <Link href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2006394583&redirect_uri=https://port-app-yoshida0522s-projects.vercel.app/create&state=uuidv4&scope=profile%20openid">
                 LINEでログイン
-              </Link> */}
+              </Link>
             </form>
           </div>
         </div>
