@@ -409,6 +409,52 @@
 
 /* 園児別一覧 */
 
+/* LINEログイン画面 */
+
+.lineContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.lineLoginBox {
+  text-align: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.lineLogin {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.lineLink {
+  /* display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #00c300; 
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  */
+  font-size: 15px;
+  text-decoration: none;
+  color: white;
+}
+
+.lineButton {
+  background-color: #00c300;
+  height: 40px;
+  width: 150px;
+  border: none;
+  border-radius: 10px;
+}
+
 /* 申込画面 */
 
 .createCenter {
