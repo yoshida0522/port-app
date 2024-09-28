@@ -20,6 +20,7 @@ function Signin() {
   const [isManegerIn, setIsManegerIn] = useState(false);
 
   const [isMounted, setIsMounted] = useState(false);
+  const stateId = uuidv4();
 
   useEffect(() => {
     setIsMounted(true);
@@ -162,7 +163,11 @@ function Signin() {
                   サインイン
                 </Button>
               </div>
-              <Link href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2006394583&redirect_uri=https://port-10hbw8m0d-yoshida0522s-projects.vercel.app/create&state=uuidv4&scope=openid%20profile">
+              <Link
+                href={
+                  "https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2006394583&redirect_uri=https://port-8s8b92k2f-yoshida0522s-projects.vercel.app/create&state=${stateId}&scope=openid%20profile"
+                }
+              >
                 LINEでログイン
               </Link>
             </form>
