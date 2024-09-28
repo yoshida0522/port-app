@@ -21,7 +21,7 @@ function Signin() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true); // クライアントサイドでマウントされたかを確認
+    setIsMounted(true);
 
     const fetchData = async () => {
       const userData = collection(db, "user");
@@ -99,9 +99,8 @@ function Signin() {
     console.log("ログアウトしました");
   };
 
-  // クライアントサイドでのマウント完了後にUIを表示
   if (!isMounted) {
-    return null; // マウントが完了するまでレンダリングしない
+    return null;
   }
 
   return (
