@@ -20,22 +20,31 @@ import { authOptions } from "./options";
 import ClientComponent from "./clientComponent"; // クライアント用のコンポーネントを分ける
 
 export default async function Home() {
-  let session = null; // ここで session を宣言
+  let session = null;
+
   try {
     session = await getServerSession(authOptions);
+    console.log("Session:", session);
 
     if (!session) {
-      redirect("/sign_in");
-      return null; // リダイレクト後のレンダリングを防ぐ
+      console.log("No session found, redirecting...");
+      redirect("/sign_in"); // リダイレクトを実行
+      // return; ここで処理を停止
     }
   } catch (error) {
-    console.error("Error fetching session:", error);
-    return <div>Server Error</div>; // エラー時のフォールバック表示
+    if (error instanceof Error) {
+      console.error("Error fetching session:", error.message);
+      return <div>Server Error: {error.message}</div>; // エラー内容を表示
+    } else {
+      console.error("Unknown error occurred:", error);
+      return <div>Server Error: Unknown error occurred</div>;
+    }
   }
 
+  // sessionがある場合のみここに到達する
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
-      {session && <div>Welcome: {session.user?.name}</div>}
+      <div>Welcome: {session.user?.name}</div>
       <ClientComponent />
     </main>
   );
