@@ -20,15 +20,22 @@ import { authOptions } from "./options";
 import ClientComponent from "./clientComponent"; // クライアント用のコンポーネントを分ける
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
+  let session = null; // ここで session を宣言
+  try {
+    session = await getServerSession(authOptions);
 
-  if (!session) {
-    redirect("/signIn"); // セッションがなければリダイレクト
+    if (!session) {
+      redirect("/sign_in");
+      return null; // リダイレクト後のレンダリングを防ぐ
+    }
+  } catch (error) {
+    console.error("Error fetching session:", error);
+    return <div>Server Error</div>; // エラー時のフォールバック表示
   }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
-      <div>Welcome: {session?.user?.name}</div>
+      {session && <div>Welcome: {session.user?.name}</div>}
       <ClientComponent />
     </main>
   );
