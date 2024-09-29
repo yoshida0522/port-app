@@ -5,7 +5,7 @@
 export default async function handler(req, res) {
   const { code } = req.query; // 認可コードを取得
   const redirectUri = process.env.NEXT_PUBLIC_LINE_REDIRECT_URI; // リダイレクトURIを取得
-  const clientId = process.env.NEXT_PUBLIC_LINE_CHANNEL_ID; // チャネルIDを取得
+  const clientId = process.env.LINE_CHANNEL_ID; // チャネルIDを取得
   const clientSecret = process.env.LINE_CHANNEL_SECRET; // チャネルシークレットを取得
 
   try {
@@ -26,8 +26,9 @@ export default async function handler(req, res) {
 
     if (!tokenResponse.ok) {
       const errorText = await tokenResponse.text();
+      console.error(`Token response error: ${errorText}`);
       throw new Error(
-        `Failed to fetch token: ${tokenResponse.status} ${tokenResponse.statusText} - ${errorText}`
+        `Failed to fetch token: ${tokenResponse.status} ${tokenResponse.statusText}`
       );
     }
 
@@ -43,8 +44,9 @@ export default async function handler(req, res) {
 
     if (!userInfoResponse.ok) {
       const errorText = await userInfoResponse.text();
+      console.error(`User info response error: ${errorText}`);
       throw new Error(
-        `Failed to fetch user info: ${userInfoResponse.status} ${userInfoResponse.statusText} - ${errorText}`
+        `Failed to fetch user info: ${userInfoResponse.status} ${userInfoResponse.statusText}`
       );
     }
 

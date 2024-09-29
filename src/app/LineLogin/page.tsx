@@ -1,39 +1,10 @@
 // "use client";
 
 import Link from "next/link";
-import React, { useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React from "react";
 import styles from "../styles/page.module.css";
 
 function Page() {
-  // useEffect(() => {
-  //   const clientId = process.env.NEXT_PUBLIC_LIFF_ID;
-  //   console.log("Client ID:", clientId);
-
-  //   if (!process.env.NEXT_PUBLIC_LINE_REDIRECT_URI) {
-  //     throw new Error("LINEのリダイレクトURIが設定されていません");
-  //   }
-
-  //   const redirectUri = encodeURIComponent(
-  //     process.env.NEXT_PUBLIC_LINE_REDIRECT_URI
-  //   );
-  //   console.log("Redirect URI:", redirectUri);
-  // }, []);
-
-  // const state = uuidv4();
-  // const clientId = process.env.NEXT_PUBLIC_LIFF_ID;
-  // if (!process.env.NEXT_PUBLIC_LINE_REDIRECT_URI) {
-  //   throw new Error("LINEのリダイレクトURIが設定されていません");
-  // }
-
-  // const redirectUri = encodeURIComponent(
-  //   process.env.NEXT_PUBLIC_LINE_REDIRECT_URI
-  // );
-
-  // console.log(clientId);
-  // console.log(redirectUri);
-  // console.log(state);
-
   return (
     <div>
       <div className={styles.lineContainer}>

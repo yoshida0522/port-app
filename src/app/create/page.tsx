@@ -11,75 +11,10 @@ import { useRouter } from "next/navigation";
 import styles from "../styles/page.module.css";
 import Link from "next/link";
 
-async function sendLineMessage(childName: string, days: any[], userId: string) {
-  console.log("LINEメッセージ送信開始: ", { childName, days, userId });
-  try {
-    const response = await fetch("/api/sendMessage", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ childName, days, userId }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      // console.log("Response status:", response.status);
-      // console.log("Response body:", data); // APIが返すエラーを表示
-      throw new Error(data.error || "メッセージ送信に失敗しました");
-    }
-
-    console.log("LINEメッセージ送信成功:", data);
-  } catch (error) {
-    const errorMessage =
-      error instanceof Error ? error.message : "不明なエラーが発生しました";
-    console.error("LINEメッセージ送信失敗:", errorMessage);
-    throw error;
-  }
-}
-
 export default function Page() {
   const router = useRouter();
   const [userId, setUserId] = useState("");
   const [childName, setChildName] = useState("");
-  // const [days, setDays] = useState([
-  //   {
-  //     id: uuidv4(),
-  //     date: "",
-  //     startTime: "11:00",
-  //     endTime: "14:00",
-  //     remark: "",
-  //   }, // 月
-  //   {
-  //     id: uuidv4(),
-  //     date: "",
-  //     startTime: "11:00",
-  //     endTime: "14:00",
-  //     remark: "",
-  //   }, // 火
-  //   {
-  //     id: uuidv4(),
-  //     date: "",
-  //     startTime: "11:00",
-  //     endTime: "14:00",
-  //     remark: "",
-  //   }, // 水
-  //   {
-  //     id: uuidv4(),
-  //     date: "",
-  //     startTime: "11:00",
-  //     endTime: "14:00",
-  //     remark: "",
-  //   }, // 木
-  //   {
-  //     id: uuidv4(),
-  //     date: "",
-  //     startTime: "11:00",
-  //     endTime: "14:00",
-  //     remark: "",
-  //   }, // 金
-  // ]);
 
   const [monday, setMonday] = useState({
     date: "",
@@ -111,24 +46,6 @@ export default function Page() {
     endTime: "14:00",
     remark: "",
   });
-
-  useEffect(() => {
-    fetch("/api/getUserId")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch userId");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // ここでuserIdをログに表示
-        console.log("Fetched userId:", data.userId);
-        setUserId(data.userId);
-      })
-      .catch((error) => {
-        console.error("Error fetching userId:", error);
-      });
-  }, []);
 
   const handleChange =
     (day: string, field: string) =>
@@ -212,12 +129,9 @@ export default function Page() {
         });
       })
     )
-      .then(async () => {
+      .then(() => {
         console.log("すべてのデータがFirestoreに保存されました");
         router.push("/thanks");
-        // Firestoreに保存した後、LINEにメッセージを送信
-        await sendLineMessage(childName, days, userId);
-        // router.push("/thanks");
       })
       .catch((error) => {
         console.error("データ保存エラー:", error);
