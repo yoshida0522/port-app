@@ -6,7 +6,11 @@
   align-items: center;
   margin: 0 auto;
   /* background-image: url("https://knsoza1.com/wp-content/uploads/2020/01/412c7c244bc54e0b08d43c0a7f095112-scaled.jpg"); */
-  background-image: url("/images/太陽と空2.jpg");
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.3)
+    ),
+    url("/images/太陽と空2.jpg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top center;
@@ -167,7 +171,11 @@
 .titleform {
   background-color: rgba(249, 249, 249, 0.9);
   /* background-image: url("https://frame-illust.com/fi/wp-content/uploads/2016/06/8491.png"); */
-  background-image: url("/images/海.png");
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.3)
+    ),
+    url("/images/海.png");
   background-position: center;
   border-radius: 10px;
   padding: 20px;
@@ -279,9 +287,13 @@
   display: flex;
   flex-direction: column;
   /* background-image: url("https://illust8.com/wp-content/uploads/2019/01/music_onpu_colorful_illust_2744.png"); */
-  background-image: url("/images/音符.png");
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.4),
+      rgba(255, 255, 255, 0.4)
+    ),
+    url("/images/音符.png");
   background-position: center;
-  background-size: 75%;
+  background-size: 60%;
 }
 
 .listTitle {
@@ -413,7 +425,15 @@
 /* 園児別一覧 */
 
 .childImg {
-  background-image: url("/images/水玉.jpg");
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.8)
+    ),
+    url(../../../public/images/蜂.png);
+  background-size: 150px;
+  background-position: left 25px;
+  height: 170px;
+  width: 98vw;
 }
 
 .childCenter {
@@ -468,14 +488,6 @@
   color: white;
 }
 
-.lineButton {
-  background-color: #00c300;
-  height: 40px;
-  width: 150px;
-  border: none;
-  border-radius: 10px;
-}
-
 /* 申込画面 */
 
 .createCenter {
@@ -483,7 +495,14 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: #d1f6d4;
+  /* background-color: #d1f6d4; */
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.4),
+      rgba(255, 255, 255, 0.4)
+    ),
+    url(../../../public/images/星.png);
+  background-size: contain;
+  background-color: rgb(224, 217, 237);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   max-width: 600px;
@@ -504,7 +523,7 @@
 }
 
 .createChildInput {
-  width: 100%;
+  width: 103.5%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ddd;
@@ -600,41 +619,45 @@
 /* スマホサイズ向けのスタイル */
 @media (max-width: 768px) {
   .createCenter {
-    max-width: 100%; /* 幅を100%に */
-    padding: 10px; /* パディングを少し減らす */
-    box-shadow: none; /* モバイルではシャドウを控えめにする */
+    max-width: 100%;
+    padding: 10px;
+    box-shadow: none;
   }
 
   .createTitle {
-    font-size: 1.5rem; /* フォントサイズを小さく */
+    font-size: 1.5rem;
     margin-bottom: 30px;
   }
 
-  .createChildInput,
+  .createChildInput {
+    width: 102%;
+    padding: 8px;
+  }
+
   .createInput {
-    width: 100%; /* 入力欄を画面幅にフィットさせる */
-    padding: 8px; /* パディングを少し縮小 */
+    width: 90%;
+    padding: 8px;
   }
 
   .applicationSection {
-    flex-direction: column; /* 縦並びに変更 */
-    align-items: stretch; /* フル幅に合わせる */
+    flex-direction: column;
+    align-items: stretch;
     padding: 10px;
     margin-bottom: 15px;
   }
 
   .applicationNumberContainer {
-    left: -35px; /* 位置を調整 */
-    top: 0;
+    left: -44px;
+    top: -0.5px;
   }
 
   .applicationNumber {
-    height: auto; /* 高さを自動に */
-    font-size: 16px; /* フォントサイズを小さく */
+    height: 321px;
+    font-size: 16px;
   }
 
   .submitButton {
-    width: 100%; /* ボタンを幅いっぱいに */
+    width: 110%;
     padding: 12px;
   }
 
@@ -643,52 +666,14 @@
   }
 
   .applicationIndex {
-    font-size: 16px; /* フォントサイズを小さく */
-    margin-top: -100px;
+    font-size: 16px;
+    margin-top: -130px;
   }
 
   .applicationContent {
     flex-grow: 1;
   }
 }
-/* .applicationHeader {
-  display: flex; 
-  align-items: center; 
-  margin-bottom: 10px; 
-} */
-
-/* .applicationTitle {
-  font-size: 1.5rem; 
-  color: #007bff; 
-  margin-right: 10px; 
-} */
-
-/* .applicationContainer {
-  display: flex;
-  flex-wrap: wrap; 
-  justify-content: space-between; 
-} */
-
-/* .createCenter {
-  display: flex;
-  justify-content: center;
-  max-width: 650px;
-}
-
-.createChildName {
-  font-size: 20px;
-}
-
-.createInput {
-  height: 20px;
-}
-
-@media (max-width: 768px) {
-  .createCenter {
-    text-align: center;
-    width: 100%;
-  }
-} */
 
 /*  */
 /*  */

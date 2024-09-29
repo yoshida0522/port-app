@@ -73,6 +73,7 @@ const ChildReservationPage = () => {
       <h3 className={styles.childCenter}>
         <Link href="/reservation">一覧に戻る</Link>
       </h3>
+      {/* <img src="/images/音符.png" alt="背景画像" /> */}
       <div className={styles.childCenter}>
         <h1>
           {decodedChildName ? `${decodedChildName}さんの予約一覧` : "予約一覧"}
