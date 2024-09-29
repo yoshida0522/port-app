@@ -25,6 +25,12 @@ export default async function handler(req, res) {
       }),
     });
 
+    if (!tokenResponse.ok) {
+      throw new Error(
+        `Failed to fetch token: ${tokenResponse.status} ${tokenResponse.statusText}`
+      );
+    }
+
     const tokenData = await tokenResponse.json();
     console.log("Token Data:", tokenData); // 追加
 
