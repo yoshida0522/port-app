@@ -26,6 +26,8 @@ export default async function handler(req, res) {
     });
 
     const tokenData = await tokenResponse.json();
+    console.log("Token Data:", tokenData); // 追加
+
     const accessToken = tokenData.access_token;
 
     // ユーザー情報を取得
