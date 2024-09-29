@@ -143,7 +143,7 @@ export default function Page() {
 
   return (
     <>
-      <div className={styles.reservationimg}>
+      <div className={styles.reservationImg}>
         <h3 className={styles.topPage}>
           <Link href="/" className={styles.topPageText}>
             トップページに戻る

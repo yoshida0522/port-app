@@ -69,18 +69,18 @@ const ChildReservationPage = () => {
     .filter((post) => post !== null) as Post[];
 
   return (
-    <div className={styles.reservationImg}>
-      <h3 className={styles.center}>
+    <div className={styles.childImg}>
+      <h3 className={styles.childCenter}>
         <Link href="/reservation">一覧に戻る</Link>
       </h3>
-      <div className={styles.center}>
+      <div className={styles.childCenter}>
         <h1>
           {decodedChildName ? `${decodedChildName}さんの予約一覧` : "予約一覧"}
         </h1>
       </div>
-      <table border={1} className={styles.listTitle}>
+      <table border={1} className={styles.childListTitle}>
         <thead>
-          <tr className={styles.subTitle}>
+          <tr className={styles.childSubTitle}>
             <th>園児名</th>
             <th>日にち</th>
             <th>登園予約時間</th>

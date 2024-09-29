@@ -1,5 +1,3 @@
-"use client";
-
 import Signin from "./components/Signin";
 // import "./globals.css";
 import styles from "./styles/page.module.css";
