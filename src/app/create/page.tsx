@@ -214,9 +214,10 @@ export default function Page() {
     )
       .then(async () => {
         console.log("すべてのデータがFirestoreに保存されました");
+        router.push("/thanks");
         // Firestoreに保存した後、LINEにメッセージを送信
         await sendLineMessage(childName, days, userId);
-        router.push("/thanks");
+        // router.push("/thanks");
       })
       .catch((error) => {
         console.error("データ保存エラー:", error);

@@ -510,7 +510,7 @@
   background-color: rgb(224, 217, 237);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
+  max-width: 700px;
   margin: auto;
 }
 
@@ -557,6 +557,8 @@
 }
 
 .submitButton {
+  width: 100%;
+  font-size: 20px;
   padding: 10px 20px;
   background-color: #007bff;
   color: white;
@@ -568,6 +570,7 @@
 
 .submitButton:hover {
   background-color: #0056b3;
+  transform: scale(85%);
 }
 
 .createText {
@@ -613,7 +616,7 @@
   font-size: 18px;
   color: #333;
   transform: rotate(270deg);
-  margin-top: -140px;
+  margin-top: -130px;
   margin-right: 3px;
 }
 
@@ -623,7 +626,7 @@
 }
 
 /* スマホサイズ向けのスタイル */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .createCenter {
     max-width: 100%;
     padding: 10px;
@@ -674,12 +677,13 @@
   .applicationIndex {
     font-size: 16px;
     margin-top: -130px;
+    margin-left: 5px;
   }
 
   .applicationContent {
     flex-grow: 1;
   }
-}
+} */
 
 /*  */
 /*  */
