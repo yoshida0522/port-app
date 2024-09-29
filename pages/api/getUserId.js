@@ -3,11 +3,10 @@
 // }
 
 export default async function handler(req, res) {
-  const { code } = req.query; // 認証フローから受け取ったコード
-  const redirectUri =
-    "https://port-app-yoshida0522s-projects.vercel.app/create"; // リダイレクトURI
-  const clientId = "2006394583"; // チャネルID
-  const clientSecret = "fd440bd5db44f8faddde60325a5aa718"; // チャネルシークレット
+  const { code } = req.query; // 認可コードを取得
+  const redirectUri = process.env.NEXT_PUBLIC_LINE_REDIRECT_URI; // リダイレクトURIを取得
+  const clientId = process.env.NEXT_PUBLIC_LINE_CHANNEL_ID; // チャネルIDを取得
+  const clientSecret = process.env.LINE_CHANNEL_SECRET; // チャネルシークレットを取得
 
   try {
     // アクセストークンを取得
@@ -18,22 +17,21 @@ export default async function handler(req, res) {
       },
       body: new URLSearchParams({
         grant_type: "authorization_code",
-        code: code,
-        redirect_uri: redirectUri,
-        client_id: clientId,
-        client_secret: clientSecret,
+        code: code, // 取得した認可コード
+        redirect_uri: redirectUri, // リダイレクトURI
+        client_id: clientId, // チャネルID
+        client_secret: clientSecret, // チャネルシークレット
       }),
     });
 
     if (!tokenResponse.ok) {
+      const errorText = await tokenResponse.text();
       throw new Error(
-        `Failed to fetch token: ${tokenResponse.status} ${tokenResponse.statusText}`
+        `Failed to fetch token: ${tokenResponse.status} ${tokenResponse.statusText} - ${errorText}`
       );
     }
 
     const tokenData = await tokenResponse.json();
-    console.log("Token Data:", tokenData); // 追加
-
     const accessToken = tokenData.access_token;
 
     // ユーザー情報を取得
@@ -43,13 +41,20 @@ export default async function handler(req, res) {
       },
     });
 
+    if (!userInfoResponse.ok) {
+      const errorText = await userInfoResponse.text();
+      throw new Error(
+        `Failed to fetch user info: ${userInfoResponse.status} ${userInfoResponse.statusText} - ${errorText}`
+      );
+    }
+
     const userInfo = await userInfoResponse.json();
-    const lineUserId = userInfo.userId; // LINEユーザーIDを取得
+    const lineUserId = userInfo.userId;
 
     // ユーザーIDを返す
     res.status(200).json({ userId: lineUserId });
   } catch (error) {
-    console.error("Error fetching user ID:", error);
-    res.status(500).json({ error: "Failed to fetch user ID" });
+    console.error("Error:", error);
+    res.status(500).json({ error: error.message });
   }
 }
