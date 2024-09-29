@@ -13,7 +13,11 @@ function page() {
             className={styles.lineLink}
             href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2006394583&redirect_uri=https://port-app-yoshida0522s-projects.vercel.app/create&state=uuidv4&scope=profile%20openid"
           >
-            <img src="/images/btn_login_base.png" alt="ログインボタン" />
+            <img
+              className={styles.lineButton}
+              src="/images/btn_login_base.png"
+              alt="ログインボタン"
+            />
           </Link>
           {/* </form> */}
         </div>
