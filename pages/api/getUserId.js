@@ -6,8 +6,8 @@ export default async function handler(req, res) {
   const { code } = req.query; // 認証フローから受け取ったコード
   const redirectUri =
     "https://port-app-yoshida0522s-projects.vercel.app/create"; // リダイレクトURI
-  const clientId = "2006394583-9qr0JZEk"; // チャネルID
-  const clientSecret = "x/ag3vz6W38FBNkyEMSoC5doF7kBMELs6wiSuchQjY0="; // チャネルシークレット
+  const clientId = "2006394583"; // チャネルID
+  const clientSecret = "fd440bd5db44f8faddde60325a5aa718"; // チャネルシークレット
 
   try {
     // アクセストークンを取得
