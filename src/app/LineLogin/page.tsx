@@ -49,24 +49,28 @@ function Page() {
     //   <h1>Hello {displayName}</h1>
     // </div>
 
-    <div>
-      <div className={styles.lineContainer}>
-        <div className={styles.lineLoginBox}>
-          {/* <h2 className={styles.lineLogin}>ログイン</h2> */}
-          <Link
-            className={styles.lineLink}
-            href="/create"
-            // href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=profile%20openid"
-          >
-            次へ
-          </Link>
-        </div>
-      </div>
-    </div>
     // <div>
-    //   <div>console.log({displayName});</div>
-    //   <button>次へ</button>
+    //   <div className={styles.lineContainer}>
+    //     <div className={styles.lineLoginBox}>
+    //       <h2 className={styles.lineLogin}>ログイン</h2>
+    //       <Link
+    //         className={styles.lineLink}
+    //         href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2006394583&redirect_uri=https://port-app-yoshida0522s-projects.vercel.app/create&state=uuidv4&scope=profile%20openid"
+    //         // href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=profile%20openid"
+    //       >
+    //         <img
+    //           className={styles.lineButton}
+    //           src="/images/btn_login_base.png"
+    //           alt="ログインボタン"
+    //         />
+    //       </Link>
+    //     </div>
+    //   </div>
     // </div>
+    <div>
+      <div>console.log({displayName});</div>
+      {/* <button>次へ</button> */}
+    </div>
   );
 }
 
