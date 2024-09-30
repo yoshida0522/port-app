@@ -32,17 +32,12 @@ function Page() {
       const userProfile = await liff.getProfile();
       console.log(userProfile);
       setDisplayName(userProfile.displayName);
-      // if (idToken) {
-      //   router.push("/create");
-      // }
     });
   }, []);
 
   if (idToken === null) {
     return <div>Loading...</div>;
   }
-
-  // router.push("/create");
 
   return (
     // <div>
@@ -70,7 +65,7 @@ function Page() {
     <div>
       <div>
         <Link className={styles.lineLink} href="/create">
-          <button>次へ</button>
+          <button className={styles.lineButton}>次へ</button>
         </Link>
       </div>
     </div>
