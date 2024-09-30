@@ -466,11 +466,13 @@
 }
 
 .lineButton {
+  font-size: 25px;
   height: 50px;
   width: 200px;
   background-color: #0fea3a;
   color: white;
   border-radius: 10px;
+  outline: none;
 }
 
 .lineButton:hover {
@@ -496,12 +498,12 @@
   text-decoration: none;
   transition: background-color 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  */
-  height: 50px;
-  width: 200px;
-  background-color: #0fea3a;
-  font-size: 15px;
+  /* height: 50px; */
+  /* width: 200px; */
+  /* background-color: #0fea3a; */
+  /* font-size: 15px; */
   text-decoration: none;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 /* 申込画面 */
