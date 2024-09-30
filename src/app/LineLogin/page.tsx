@@ -38,9 +38,9 @@ function Page() {
   }
 
   return (
-    <div>
-      <h1>Hello {displayName}</h1>
-    </div>
+    // <div>
+    //   <h1>Hello {displayName}</h1>
+    // </div>
 
     // <div>
     //   <div className={styles.lineContainer}>
@@ -60,6 +60,10 @@ function Page() {
     //     </div>
     //   </div>
     // </div>
+
+    <div>
+      console.log({displayName})<Link href="create/"></Link>
+    </div>
   );
 }
 
