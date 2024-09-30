@@ -4,10 +4,12 @@ import Link from "next/link";
 import liff from "@line/liff";
 import React, { useEffect, useState } from "react";
 import styles from "../styles/page.module.css";
+import { useRouter } from "next/navigation";
 
 function Page() {
   const [idToken, setIdToken] = useState<string | null>(null);
   const [displayName, setDisplayName] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     liff
@@ -37,6 +39,8 @@ function Page() {
     return <div>Loading...</div>;
   }
 
+  router.push("/create");
+
   return (
     // <div>
     //   <h1>Hello {displayName}</h1>
@@ -61,9 +65,7 @@ function Page() {
     //   </div>
     // </div>
 
-    <div>
-      console.log({displayName})<Link href="create/"></Link>
-    </div>
+    <div>console.log({displayName});</div>
   );
 }
 
