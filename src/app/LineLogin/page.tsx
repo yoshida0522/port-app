@@ -69,7 +69,9 @@ function Page() {
     // </div>
     <div>
       <div>console.log({displayName});</div>
-      {/* <button>次へ</button> */}
+      <Link href="/create">
+        <button>次へ</button>
+      </Link>
     </div>
   );
 }
