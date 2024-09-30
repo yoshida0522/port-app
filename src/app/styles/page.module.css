@@ -465,6 +465,14 @@
   margin: 0 auto;
 }
 
+.lineButton {
+  height: 50px;
+  width: 200px;
+  background-color: #0fea3a;
+  color: white;
+  border-radius: 10px;
+}
+
 .lineButton:hover {
   transform: scale(85%);
   opacity: 0.5;
@@ -493,7 +501,7 @@
   background-color: #0fea3a;
   font-size: 15px;
   text-decoration: none;
-  color: white;
+  border-radius: 10px;
 }
 
 /* 申込画面 */
