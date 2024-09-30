@@ -10,14 +10,15 @@ import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import styles from "../styles/page.module.css";
 import Link from "next/link";
-import liff from "@line/liff";
+import { useLocation } from "react-router-dom";
+// import liff from "@line/liff";
 
 export default function Page() {
   const router = useRouter();
   const [userId, setUserId] = useState("");
   const [childName, setChildName] = useState("");
 
-  const [idToken, setIdToken] = useState<string | null>(null);
+  // const [idToken, setIdToken] = useState<string | null>(null);
   // const [displayName, setDisplayName] = useState<string | null>(null);
 
   const [monday, setMonday] = useState({
@@ -51,33 +52,38 @@ export default function Page() {
     remark: "",
   });
 
-  useEffect(() => {
-    liff
-      .init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID as string })
-      .then(() => {
-        console.log("LIFF init succeeded.");
-        if (liff.isLoggedIn()) {
-          const token = liff.getIDToken();
-          setIdToken(token);
-        } else {
-          liff.login();
-        }
+  const location = useLocation();
+  const { profile } = location.state || {};
 
-        liff.ready.then(async () => {
-          const userProfile = await liff.getProfile();
-          console.log(userProfile);
-          setUserId(userProfile.displayName);
-        });
-      })
-      .catch((e: any) => {
-        console.error("LIFF init failed.", e);
-        setIdToken("");
-      });
-  }, []);
+  setUserId(profile);
 
-  if (idToken === null) {
-    return <div>Loading...</div>;
-  }
+  // useEffect(() => {
+  //   liff
+  //     .init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID as string })
+  //     .then(() => {
+  //       console.log("LIFF init succeeded.");
+  //       if (liff.isLoggedIn()) {
+  //         const token = liff.getIDToken();
+  //         setIdToken(token);
+  //       } else {
+  //         liff.login();
+  //       }
+
+  //       liff.ready.then(async () => {
+  //         const userProfile = await liff.getProfile();
+  //         console.log(userProfile);
+  //         setUserId(userProfile.displayName);
+  //       });
+  //     })
+  //     .catch((e: any) => {
+  //       console.error("LIFF init failed.", e);
+  //       setIdToken("");
+  //     });
+  // }, []);
+
+  // if (idToken === null) {
+  //   return <div>Loading...</div>;
+  // }
 
   const handleChange =
     (day: string, field: string) =>

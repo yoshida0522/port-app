@@ -472,7 +472,7 @@
   background-color: #0fea3a;
   color: white;
   border-radius: 10px;
-  outline: none;
+  border: none;
 }
 
 .lineButton:hover {

@@ -5,11 +5,14 @@ import liff from "@line/liff";
 import React, { useEffect, useState } from "react";
 import styles from "../styles/page.module.css";
 import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 
 function Page() {
   const [idToken, setIdToken] = useState<string | null>(null);
-  const [displayName, setDisplayName] = useState<string | null>(null);
+  // const [displayName, setDisplayName] = useState<string | null>(null);
+  const [user, setUser] = useState("");
   const router = useRouter();
+  const navigate = useNavigate();
 
   useEffect(() => {
     liff
@@ -31,13 +34,24 @@ function Page() {
     liff.ready.then(async () => {
       const userProfile = await liff.getProfile();
       console.log(userProfile);
-      setDisplayName(userProfile.displayName);
+      // setDisplayName(userProfile.displayName);
+      setUser(userProfile.userId);
     });
   }, []);
 
   if (idToken === null) {
     return <div>Loading...</div>;
   }
+
+  const profile = {
+    userId: user,
+  };
+
+  const handleLoginSuccess = () => {
+    navigate("/create", { state: { profile } });
+  };
+
+  // const userId = user
 
   return (
     // <div>
@@ -65,7 +79,9 @@ function Page() {
     <div>
       <div className={styles.lineContainer}>
         <Link className={styles.lineLink} href="/create">
-          <button className={styles.lineButton}>次へ</button>
+          <button onClick={handleLoginSuccess} className={styles.lineButton}>
+            次へ
+          </button>
         </Link>
       </div>
     </div>
@@ -73,3 +89,4 @@ function Page() {
 }
 
 export default Page;
+// export {userId}
