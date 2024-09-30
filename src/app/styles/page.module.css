@@ -463,6 +463,9 @@
   text-align: center;
   justify-content: center;
   margin: 0 auto;
+  height: 50px;
+  width: 200px;
+  background-color: #0fea3a;
 }
 
 .lineButton:hover {
