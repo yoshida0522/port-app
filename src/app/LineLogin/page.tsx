@@ -68,10 +68,11 @@ function Page() {
     //   </div>
     // </div>
     <div>
-      <div>console.log({displayName});</div>
-      <Link href="/create">
-        <button>次へ</button>
-      </Link>
+      <div>
+        <Link className={styles.lineLink} href="/create">
+          <button>次へ</button>
+        </Link>
+      </div>
     </div>
   );
 }
