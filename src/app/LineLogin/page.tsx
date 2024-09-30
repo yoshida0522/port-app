@@ -32,14 +32,17 @@ function Page() {
       const userProfile = await liff.getProfile();
       console.log(userProfile);
       setDisplayName(userProfile.displayName);
+      if (idToken) {
+        router.push("/create");
+      }
     });
-  }, []);
+  }, [idToken]);
 
   if (idToken === null) {
     return <div>Loading...</div>;
   }
 
-  router.push("/create");
+  // router.push("/create");
 
   return (
     // <div>
