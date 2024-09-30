@@ -52,10 +52,10 @@ export default function Page() {
     remark: "",
   });
 
-  const location = useLocation();
-  const { profile } = location.state || {};
+  // const location = useLocation();
+  // const { profile } = location.state || {};
 
-  setUserId(profile);
+  // setUserId(profile);
 
   // useEffect(() => {
   //   liff
