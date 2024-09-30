@@ -63,7 +63,7 @@ function Page() {
     //   </div>
     // </div>
     <div>
-      <div>
+      <div className={styles.lineContainer}>
         <Link className={styles.lineLink} href="/create">
           <button className={styles.lineButton}>次へ</button>
         </Link>
