@@ -10,17 +10,13 @@ import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import styles from "../styles/page.module.css";
 import Link from "next/link";
-import { useLocation } from "react-router-dom";
 import liff from "@line/liff";
 
 export default function Page() {
   const router = useRouter();
-  const [userId, setUserId] = useState("");
   const [childName, setChildName] = useState("");
   const [idToken, setIdToken] = useState<string | null>(null);
   const [user, setUser] = useState("");
-
-  // const [displayName, setDisplayName] = useState<string | null>(null);
 
   const [monday, setMonday] = useState({
     date: "",
@@ -53,16 +49,11 @@ export default function Page() {
     remark: "",
   });
 
-  // const location = useLocation();
-  // const { profile } = location.state || {};
-
-  // setUserId(profile);
-
   useEffect(() => {
     liff
       .init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID as string })
       .then(() => {
-        console.log("LIFF init succeeded.");
+        console.log("LIFFの初期化に成功しました");
         if (liff.isLoggedIn()) {
           const token = liff.getIDToken();
           setIdToken(token);
@@ -71,14 +62,13 @@ export default function Page() {
         }
       })
       .catch((e: any) => {
-        console.error("LIFF init failed.", e);
+        console.error("LIFFの初期化に失敗しました", e);
         setIdToken("");
       });
 
     liff.ready.then(async () => {
       const userProfile = await liff.getProfile();
       console.log(userProfile);
-      // setDisplayName(userProfile.displayName);
       setUser(userProfile.userId);
     });
   }, []);
@@ -121,7 +111,6 @@ export default function Page() {
         name: childName,
         realStartTime: "",
         realEndTime: "",
-        // userId: userId,
         userId: user,
         ...monday,
       },
@@ -130,7 +119,6 @@ export default function Page() {
         name: childName,
         realStartTime: "",
         realEndTime: "",
-        // userId: userId,
         userId: user,
         ...tuesday,
       },
@@ -139,7 +127,6 @@ export default function Page() {
         name: childName,
         realStartTime: "",
         realEndTime: "",
-        // userId: userId,
         userId: user,
         ...wednesday,
       },
@@ -148,7 +135,6 @@ export default function Page() {
         name: childName,
         realStartTime: "",
         realEndTime: "",
-        // userId: userId,
         userId: user,
         ...thursday,
       },
@@ -157,14 +143,23 @@ export default function Page() {
         name: childName,
         realStartTime: "",
         realEndTime: "",
-        // userId: userId,
         userId: user,
         ...friday,
       },
     ];
 
+    // dateが空でない曜日データのみフィルタリング
+    const filteredDays = days.filter(
+      (day) => day.date && day.date.trim() !== ""
+    );
+
+    if (filteredDays.length === 0) {
+      console.log("保存するデータがありません");
+      return; // データがない場合は処理を終了
+    }
+
     Promise.all(
-      days.map((day) => {
+      filteredDays.map((day) => {
         return addDoc(collection(db, "posts"), {
           days: [day],
           firstDate: day.date,
