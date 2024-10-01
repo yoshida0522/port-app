@@ -58,6 +58,11 @@
   text-decoration: none;
 }
 
+.managerMenu {
+  display: flex;
+  flex-direction: column;
+}
+
 .newRegistration {
   font-size: 30px;
   display: inline-block;
@@ -141,6 +146,11 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
+}
+
+.errorMessage {
+  font-size: 15px;
+  color: red;
 }
 
 .signin {
@@ -233,16 +243,13 @@
 .inputBox {
   border: 2px solid #ff6f61;
   border-radius: 5px;
-  padding: 10px;
+  padding: 5px;
+  font-size: 20px;
+  height: 30px;
   width: 80%;
   transition: border-color 0.3s;
   transform: translateY(-20px);
 }
-
-/* .inputBox:focus {
-  border-color: #ff8a80; 
-  outline: none; 
-} */
 
 .passTitle {
   display: flex;
@@ -271,9 +278,6 @@
   font-size: 30px;
   line-height: 60px;
   text-align: center;
-  /* color: black;
-  margin-top: 20px;
-  transition: color 0.3s; */
 }
 
 .backButton:hover {
@@ -286,7 +290,6 @@
 .reservationImg {
   display: flex;
   flex-direction: column;
-  /* background-image: url("https://illust8.com/wp-content/uploads/2019/01/music_onpu_colorful_illust_2744.png"); */
   background-image: linear-gradient(
       rgba(255, 255, 255, 0.4),
       rgba(255, 255, 255, 0.4)
@@ -304,7 +307,6 @@
   font-size: 15px;
   display: inline-block;
   padding: 0.5em 1em 0.3em;
-  /* color: #ffffff; */
   border: none;
   width: 140px;
   height: 25px;
@@ -314,10 +316,8 @@
   background-image: radial-gradient(#a6ebf7 15%, transparent 20%),
     radial-gradient(#85ddfa 15%, transparent 20%);
   background-position: 0 0, 15px 15px;
-  /* margin-bottom: 20px; */
   text-align: center;
   margin: 5px auto 30px;
-  /* line-height: 25px; */
 }
 
 .topPage:hover {
@@ -361,10 +361,6 @@
 .childName:hover {
   color: rgb(159, 4, 202);
 }
-
-/* .childtr {
-  background-color: white;
-} */
 
 .saveButton {
   background-color: rgb(155, 217, 250);
@@ -488,22 +484,7 @@
 }
 
 .lineLink {
-  /* display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #00c300; 
-  border-radius: 5px;
   text-decoration: none;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  */
-  /* height: 50px; */
-  /* width: 200px; */
-  /* background-color: #0fea3a; */
-  /* font-size: 15px; */
-  text-decoration: none;
-  /* border-radius: 10px; */
 }
 
 /* 申込画面 */
@@ -513,7 +494,6 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  /* background-color: #d1f6d4; */
   background-image: linear-gradient(
       rgba(255, 255, 255, 0.4),
       rgba(255, 255, 255, 0.4)
@@ -698,23 +678,74 @@
   }
 } */
 
-/*  */
-/*  */
-/*  */
-/* 
-.rowbutton {
+/* 管理画面 */
+.managerImg {
   display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0.6)
+    ),
+    url("/images/星.png");
+  background-position: center;
+  background-size: 60%;
+  height: 100vh;
+}
+.managerEdit {
+  background-color: #91f9a6;
+  border-radius: 5px;
+}
+
+.managerSave {
+  background-color: #85ddfa;
+  border-radius: 5px;
+}
+
+.managerDelete {
+  background-color: #f7a062;
+  border-radius: 5px;
+}
+
+.managerCancel {
+  background-color: rgb(247, 247, 122);
+  border-radius: 5px;
+}
+
+.tableLine {
+  border: none;
+}
+
+.userList {
+  background-color: white;
+  width: 550px;
+  margin: 0 auto;
+}
+
+.managerPage {
+  font-size: 15px;
+  display: inline-block;
+  padding: 0.5em 1em 0.3em;
+  border: none;
+  width: 140px;
+  height: 25px;
+  border-radius: 10px;
+  background-color: #c6eaf7;
+  background-size: 10px 10px;
+  background-image: radial-gradient(#7ee7fa 15%, transparent 20%),
+    radial-gradient(#5cd3fa 15%, transparent 20%);
+  background-position: 0 0, 15px 15px;
   text-align: center;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  margin: 5px auto 30px;
 }
 
-.button {
-  display: flex;
+.managerPage:hover {
+  transform: scale(85%);
+  opacity: 0.7;
 }
 
-.search {
-  display: grid;
-  place-content: center;
-} */
+.managerPageText {
+  text-decoration: none;
+  color: black;
+}
+/*  */
+/*  */

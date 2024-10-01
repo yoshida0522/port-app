@@ -19,6 +19,7 @@ function Page() {
     const userData = await addDoc(collection(db, "user"), {
       name: userName,
       pass: passWord,
+      manager: false,
     });
     console.log(userData);
     setUserName("");

@@ -11,6 +11,7 @@ interface User {
   id: string;
   name: string;
   pass: string;
+  manager: boolean;
 }
 
 function Signin() {
@@ -20,6 +21,7 @@ function Signin() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isManegerIn, setIsManegerIn] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -53,38 +55,32 @@ function Signin() {
   };
 
   const handleClick = () => {
+    setErrorMessage(null); // エラーメッセージをリセット
     if (!user || !pass) {
-      console.log("ユーザー名とパスワードを入力してください");
+      setErrorMessage("ユーザー名とパスワードを入力してください");
       return; // 入力が不十分な場合は処理を中断
     }
 
-    const manager = posts.find(
-      (postmaneger) =>
-        postmaneger.name === "demo" && postmaneger.pass === "1234"
+    const foundUser = posts.find(
+      (post) => post.name === user && post.pass === pass
     );
 
-    if (manager && user === "demo" && pass === "1234") {
-      // 管理者が見つかり、入力された情報も一致した場合
-      console.log("管理者がログインしました");
-      setIsManegerIn(true);
+    if (foundUser) {
+      console.log("ログイン成功");
       setIsLoggedIn(true);
-      localStorage.setItem("loggedInUser", JSON.stringify(manager));
-      localStorage.setItem("isManagerIn", "true"); // 管理者フラグを保存
-    } else {
-      // 管理者でない場合、一般ユーザーをチェック
-      const foundUser = posts.find(
-        (post) => post.name === user && post.pass === pass
-      );
+      localStorage.setItem("loggedInUser", JSON.stringify(foundUser));
 
-      if (foundUser) {
-        console.log("ログイン成功");
-        setIsLoggedIn(true);
-        localStorage.setItem("loggedInUser", JSON.stringify(foundUser));
-        localStorage.setItem("isManagerIn", "false"); // 一般ユーザーフラグを保存
-        setIsManegerIn(false); // 一般ユーザーの場合、管理者フラグをリセット
+      // `manager`がtrueであれば管理者としてログイン
+      if (foundUser.manager) {
+        console.log("管理者がログインしました");
+        setIsManegerIn(true);
+        localStorage.setItem("isManagerIn", "true"); // 管理者フラグを保存
       } else {
-        console.log("ユーザー名またはパスワードが違います");
+        setIsManegerIn(false);
+        localStorage.setItem("isManagerIn", "false"); // 一般ユーザーフラグを保存
       }
+    } else {
+      setErrorMessage("ユーザー名またはパスワードが違います");
     }
 
     setUser("");
@@ -106,6 +102,7 @@ function Signin() {
 
   return (
     <>
+      {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
       {isLoggedIn ? (
         <form className={styles.allButton} onSubmit={handleSubmit}>
           <div>
@@ -116,15 +113,17 @@ function Signin() {
             </button>
           </div>
           {isManegerIn ? (
-            <div>
+            <div className={styles.managerMenu}>
               <button className={styles.newRegistration}>
                 <Link href="newRegistration/" className={styles.link}>
                   新規登録
                 </Link>
               </button>
-              {/* <button>
-                <Link href="">ユーザー管理</Link>
-              </button> */}
+              <button className={styles.newRegistration}>
+                <Link href="managerMenu/" className={styles.link}>
+                  ID管理
+                </Link>
+              </button>
             </div>
           ) : null}
           <div>
