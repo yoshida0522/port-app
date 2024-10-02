@@ -14,6 +14,12 @@ import liff from "@line/liff";
 // import SendMessage from "../components/sendMessage";
 
 export default function Page() {
+  // メッセージ送信に使用
+  const express = require("express");
+  const fetch = require("node-fetch"); // LINE API呼び出しに使用
+  const bodyParser = require("body-parser");
+  const app = express();
+  //
   const router = useRouter();
   const [childName, setChildName] = useState("");
   const [idToken, setIdToken] = useState<string | null>(null);
@@ -176,18 +182,77 @@ export default function Page() {
       .then(() => {
         console.log("すべてのデータがFirestoreに保存されました");
 
-        //
-        //
-
-        //
-        //
-        //
-        // メッセージ送信が終わったらthanksへ遷移
-        router.push("/thanks");
+        // router.push("/thanks");
       })
       .catch((error) => {
         console.error("データ保存エラー:", error);
       });
+
+    // リクエストのbodyをJSONで解析
+    app.use(bodyParser.json());
+    require("dotenv").config();
+
+    // LINEのチャネルアクセストークン (LINE Developersから取得)
+    const LINE_ACCESS_TOKEN = process.env.LINE_ACCESS_TOKEN;
+
+    // フロントエンドからのPOSTリクエストを受け取る
+    app.post(
+      "/api/sendLineMessage",
+      async (
+        req: { body: { name: any; message: any } },
+        res: {
+          status: (arg0: number) => {
+            (): any;
+            new (): any;
+            send: { (arg0: string): void; new (): any };
+          };
+        }
+      ) => {
+        // フロントエンドから送られたnameとmessageを取得
+        const { message } = req.body;
+
+        // LINE APIに送信するメッセージデータを準備
+        const lineMessage = {
+          to: user, // メッセージを送りたいユーザーのuserId
+          messages: [
+            {
+              type: "text",
+              text: `名前: ${childName}\nメッセージ: ${message}`,
+            },
+          ],
+        };
+
+        // LINE Messaging APIにメッセージを送る
+        try {
+          const response = await fetch(
+            "https://api.line.me/v2/bot/message/push",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${LINE_ACCESS_TOKEN}`, // トークンをヘッダーに追加
+              },
+              body: JSON.stringify(lineMessage), // メッセージデータを送信
+            }
+          );
+
+          if (response.ok) {
+            res.status(200).send("メッセージが送信されました");
+          } else {
+            res.status(response.status).send("メッセージ送信に失敗しました");
+          }
+        } catch (error) {
+          res.status(500).send("サーバーエラーが発生しました");
+        }
+      }
+    );
+
+    // サーバーの起動
+    app.listen(3000, () => {
+      console.log("サーバーが3000ポートで起動しました");
+    });
+    // メッセージ送信が終わったらthanksへ遷移
+    router.push("/thanks");
   }
 
   return (
