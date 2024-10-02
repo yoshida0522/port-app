@@ -6,8 +6,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     const { name, message } = req.body;
 
+    const user = localStorage.getItem("userId");
+
     const lineMessage = {
-      to: '受信者のLINEユーザーID',  // メッセージを送りたいユーザーのuserId
+      to: user,  // メッセージを送りたいユーザーのuserId
       messages: [
         {
           type: 'text',

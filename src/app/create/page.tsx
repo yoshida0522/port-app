@@ -13,12 +13,12 @@ import Link from "next/link";
 import liff from "@line/liff";
 // import SendMessage from "../components/sendMessage";
 
-export default function Page() {
+export default function CreatePage() {
   // メッセージ送信に使用
-  const express = require("express");
-  const fetch = require("node-fetch"); // LINE API呼び出しに使用
-  const bodyParser = require("body-parser");
-  const app = express();
+  // const express = require("express");
+  // const fetch = require("node-fetch");
+  // const bodyParser = require("body-parser");
+  // const app = express();
   //
   const router = useRouter();
   const [childName, setChildName] = useState("");
@@ -112,7 +112,7 @@ export default function Page() {
       }
     };
 
-  function handleClick(e: { preventDefault: () => void }) {
+  const handleClick = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     const days = [
@@ -188,69 +188,26 @@ export default function Page() {
         console.error("データ保存エラー:", error);
       });
 
-    // リクエストのbodyをJSONで解析
-    app.use(bodyParser.json());
-    require("dotenv").config();
+    // メッセージ送信処理
+    const formData = {
+      name: childName,
+      message: "送信メッセージ内容",
+    };
 
-    // LINEのチャネルアクセストークン (LINE Developersから取得)
-    const LINE_ACCESS_TOKEN = process.env.LINE_ACCESS_TOKEN;
-
-    // フロントエンドからのPOSTリクエストを受け取る
-    app.post(
-      "/api/sendLineMessage",
-      async (
-        req: { body: { name: any; message: any } },
-        res: {
-          status: (arg0: number) => {
-            (): any;
-            new (): any;
-            send: { (arg0: string): void; new (): any };
-          };
-        }
-      ) => {
-        // フロントエンドから送られたnameとmessageを取得
-        const { message } = req.body;
-
-        // LINE APIに送信するメッセージデータを準備
-        const lineMessage = {
-          to: user, // メッセージを送りたいユーザーのuserId
-          messages: [
-            {
-              type: "text",
-              text: `名前: ${childName}\nメッセージ: ${message}`,
-            },
-          ],
-        };
-
-        // LINE Messaging APIにメッセージを送る
-        try {
-          const response = await fetch("/api/sendLineMessage", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${LINE_ACCESS_TOKEN}`, // トークンをヘッダーに追加
-            },
-            body: JSON.stringify(lineMessage), // メッセージデータを送信
-          });
-
-          if (response.ok) {
-            res.status(200).send("メッセージが送信されました");
-          } else {
-            res.status(response.status).send("メッセージ送信に失敗しました");
-          }
-        } catch (error) {
-          res.status(500).send("サーバーエラーが発生しました");
-        }
-      }
-    );
-
-    // サーバーの起動
-    app.listen(3000, () => {
-      console.log("サーバーが3000ポートで起動しました");
+    const res = await fetch("/api/sendLineMessage", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData), // フォームデータをJSON形式で送信
     });
+
+    const result = await res.json(); // APIのレスポンスを取得
+    console.log(result.message); // レスポンスメッセージをコンソールに表示
+
     // メッセージ送信が終わったらthanksへ遷移
     router.push("/thanks");
-  }
+  };
 
   return (
     <div className={styles.createCenter}>
