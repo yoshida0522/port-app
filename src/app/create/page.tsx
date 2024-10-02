@@ -202,8 +202,14 @@ export default function CreatePage() {
       body: JSON.stringify(formData), // フォームデータをJSON形式で送信
     });
 
-    const result = await res.json(); // APIのレスポンスを取得
-    console.log(result.message); // レスポンスメッセージをコンソールに表示
+    if (!res.ok) {
+      console.error("エラーが発生しました:", res.statusText); // エラーメッセージを表示
+    } else {
+      const result = await res
+        .json()
+        .catch((err) => console.error("JSON parse error:", err));
+      console.log(result); // 正しいレスポンスをコンソールに表示
+    }
 
     // メッセージ送信が終わったらthanksへ遷移
     router.push("/thanks");
