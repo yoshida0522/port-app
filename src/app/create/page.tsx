@@ -224,17 +224,14 @@ export default function Page() {
 
         // LINE Messaging APIにメッセージを送る
         try {
-          const response = await fetch(
-            "https://api.line.me/v2/bot/message/push",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${LINE_ACCESS_TOKEN}`, // トークンをヘッダーに追加
-              },
-              body: JSON.stringify(lineMessage), // メッセージデータを送信
-            }
-          );
+          const response = await fetch("/api/sendLineMessage", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${LINE_ACCESS_TOKEN}`, // トークンをヘッダーに追加
+            },
+            body: JSON.stringify(lineMessage), // メッセージデータを送信
+          });
 
           if (response.ok) {
             res.status(200).send("メッセージが送信されました");
