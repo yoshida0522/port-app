@@ -3,7 +3,15 @@ import { NextApiRequest, NextApiResponse } from 'next';
 const LINE_ACCESS_TOKEN = process.env.LINE_ACCESS_TOKEN;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
+    res.setHeader('Access-Control-Allow-Origin', '*'); // 全てのオリジンを許可
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // 許可されるHTTPメソッド
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // 許可されるHTTPヘッダー
+ 
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end(); // OPTIONSリクエストには200で応答
+      }
+
+    if (req.method === 'POST') {
     const { name, message } = req.body;
 
     const user = localStorage.getItem("userId");

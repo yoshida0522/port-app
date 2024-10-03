@@ -1,17 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import db from "../../firebase";
+import db from "../firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import Link from "next/link";
 import React from "react";
-// import "../../globals.css";
-import styles from "../../styles/page.module.css";
+import styles from "../styles/page.module.css";
+import liff from "@line/liff";
 
 interface Day {
   date: string;
   name: string;
+  userId: string;
 
   startTime: string;
   endTime: string;
@@ -22,20 +22,17 @@ interface Day {
 
 interface Post {
   id: string;
+
   days: Day[];
 }
 
-const ChildReservationPage = () => {
-  // URLパラメータを取得
-  const params = useParams();
-  let childName = params?.childName;
-
-  if (Array.isArray(childName)) {
-    childName = childName[0];
-  }
-
-  const decodedChildName = decodeURIComponent(childName || "");
+const UsersPage = () => {
+  // const decodedChildName = decodeURIComponent(childName || "");
+  // const storedUserId = localStorage.getItem("userId");
+  // const [userId, setUserId] = useState<string | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
+  const [idToken, setIdToken] = useState<string | null>(null);
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,10 +53,40 @@ const ChildReservationPage = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    liff
+      .init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID as string })
+      .then(() => {
+        console.log("LIFFの初期化に成功しました");
+        if (liff.isLoggedIn()) {
+          const token = liff.getIDToken();
+          setIdToken(token);
+        } else {
+          liff.login();
+        }
+      })
+      .catch((e: any) => {
+        console.error("LIFFの初期化に失敗しました", e);
+        setIdToken("");
+      });
+
+    liff.ready.then(async () => {
+      const userProfile = await liff.getProfile();
+      console.log(userProfile);
+      setUser(userProfile.userId);
+    });
+  }, []);
+
+  if (idToken === null) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(user);
+
   const filteredPosts = posts
     .map((post) => {
       const filteredDays = post.days.filter(
-        (day: { name: string }) => day.name === decodedChildName
+        (day: { userId: string }) => day.userId === user
       );
       if (filteredDays.length > 0) {
         return { ...post, days: filteredDays };
@@ -71,14 +98,12 @@ const ChildReservationPage = () => {
 
   return (
     <div className={styles.childImg}>
-      <h3 className={styles.childCenter}>
+      {/* <h3 className={styles.childCenter}>
         <Link href="/reservation">一覧に戻る</Link>
-      </h3>
+      </h3> */}
       {/* <img src="/images/音符.png" alt="背景画像" /> */}
       <div className={styles.childCenter}>
-        <h1>
-          {decodedChildName ? `${decodedChildName}さんの予約一覧` : "予約一覧"}
-        </h1>
+        <h1>{user ? `${user}さんの予約一覧` : "予約一覧"}</h1>
       </div>
       <table border={1} className={styles.childListTitle}>
         <thead>
@@ -87,8 +112,6 @@ const ChildReservationPage = () => {
             <th>日にち</th>
             <th>登園予約時間</th>
             <th>降園予約時間</th>
-            <th>登園時間</th>
-            <th>降園時間</th>
             <th>備考</th>
           </tr>
         </thead>
@@ -104,8 +127,6 @@ const ChildReservationPage = () => {
                     <td>{day.date}</td>
                     <td>{day.startTime}</td>
                     <td>{day.endTime}</td>
-                    <td>{day.realStartTime}</td>
-                    <td>{day.realEndTime}</td>
                     <td>{day.remark}</td>
                   </tr>
                 ))}
@@ -118,4 +139,4 @@ const ChildReservationPage = () => {
   );
 };
 
-export default ChildReservationPage;
+export default UsersPage;
