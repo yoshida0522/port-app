@@ -1,20 +1,19 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-// import styles from "./styles/page.module.css";
+import React from "react";
+import styles from "../styles/page.module.css";
 
 function Page() {
-  // const [userId, setUserId] = useState<string | null>(null);
-
-  // useEffect(() => {
-  //   const storedUserId = localStorage.getItem("userId");
-  //   setUserId(storedUserId);
-  // }, []);
-
   return (
-    <div>
-      <h1>送信しました!</h1>
-      {/* {userId ? <p>ユーザーID: {userId}</p> : <p>ユーザーIDが見つかりません</p>} */}
+    <div className={styles.thanks}>
+      <h1>送信完了しました!</h1>
+      <div>
+        <p>
+          ご予約内容はLINE公式アカウントの
+          <br />
+          予約確認からご確認できます。
+        </p>
+      </div>
     </div>
   );
 }
