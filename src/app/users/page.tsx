@@ -84,9 +84,13 @@ const UsersPage = () => {
 
   const filteredPosts = posts
     .map((post) => {
-      const filteredDays = post.days.filter(
-        (day: { userId: string }) => day.userId === user
-      );
+      const filteredDays = post.days.filter((day) => {
+        const dayDate = new Date(day.date);
+        const today = new Date();
+
+        // 当日以降の日付を残す
+        return dayDate >= today && day.userId === user;
+      });
       return filteredDays.length > 0 ? { ...post, days: filteredDays } : null;
     })
     .filter((post) => post !== null) as Post[];
