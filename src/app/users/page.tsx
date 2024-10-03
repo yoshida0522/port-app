@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import db from "../firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
-import Link from "next/link";
 import React from "react";
 import styles from "../styles/page.module.css";
 import liff from "@line/liff";
@@ -27,35 +26,15 @@ interface Post {
 }
 
 const UsersPage = () => {
-  // const decodedChildName = decodeURIComponent(childName || "");
-  // const storedUserId = localStorage.getItem("userId");
-  // const [userId, setUserId] = useState<string | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
   const [idToken, setIdToken] = useState<string | null>(null);
-  const [user, setUser] = useState("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const postData = collection(db, "posts");
-      const q = query(postData, orderBy("firstDate", "asc"));
-      const querySnapshot = await getDocs(q);
-
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-      });
-
-      const postsArray = querySnapshot.docs.map((doc) => {
-        const data = doc.data();
-        return { ...data, id: doc.id };
-      });
-      setPosts(postsArray as Post[]);
-    };
-    fetchData();
-  }, []);
+  const [user, setUser] = useState<string | null>(null);
+  const [name, setName] = useState("");
+  const [loading, setLoading] = useState(true); // ローディング状態の管理
 
   useEffect(() => {
     liff
-      .init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID as string })
+      .init({ liffId: process.env.NEXT_PUBLIC_LIFF_USER_ID as string })
       .then(() => {
         console.log("LIFFの初期化に成功しました");
         if (liff.isLoggedIn()) {
@@ -74,12 +53,33 @@ const UsersPage = () => {
       const userProfile = await liff.getProfile();
       console.log(userProfile);
       setUser(userProfile.userId);
+      setName(userProfile.displayName);
+      setLoading(false); // ローディング完了
     });
   }, []);
 
-  if (idToken === null) {
+  if (idToken === null || loading) {
     return <div>Loading...</div>;
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const postData = collection(db, "posts");
+      const q = query(postData, orderBy("firstDate", "asc"));
+      const querySnapshot = await getDocs(q);
+
+      // querySnapshot.forEach((doc) => {
+      //   console.log(doc.id, " => ", doc.data());
+      // });
+
+      const postsArray = querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+        return { ...data, id: doc.id };
+      });
+      setPosts(postsArray as Post[]);
+    };
+    fetchData();
+  }, []);
 
   console.log(user);
 
@@ -88,30 +88,22 @@ const UsersPage = () => {
       const filteredDays = post.days.filter(
         (day: { userId: string }) => day.userId === user
       );
-      if (filteredDays.length > 0) {
-        return { ...post, days: filteredDays };
-      }
-
-      return null;
+      return filteredDays.length > 0 ? { ...post, days: filteredDays } : null;
     })
     .filter((post) => post !== null) as Post[];
 
   return (
     <div className={styles.childImg}>
-      {/* <h3 className={styles.childCenter}>
-        <Link href="/reservation">一覧に戻る</Link>
-      </h3> */}
-      {/* <img src="/images/音符.png" alt="背景画像" /> */}
       <div className={styles.childCenter}>
-        <h1>{user ? `${user}さんの予約一覧` : "予約一覧"}</h1>
+        <h1>{name ? `${name}さんの予約一覧` : "予約一覧"}</h1>
       </div>
       <table border={1} className={styles.childListTitle}>
         <thead>
           <tr className={styles.childSubTitle}>
             <th>園児名</th>
             <th>日にち</th>
-            <th>登園予約時間</th>
-            <th>降園予約時間</th>
+            <th>登園時間</th>
+            <th>お迎え時間</th>
             <th>備考</th>
           </tr>
         </thead>
