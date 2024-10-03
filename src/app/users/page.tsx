@@ -33,34 +33,34 @@ const UsersPage = () => {
   const [loading, setLoading] = useState(true); // ローディング状態の管理
 
   useEffect(() => {
-    liff
-      .init({ liffId: process.env.NEXT_PUBLIC_LIFF_USER_ID as string })
-      .then(() => {
+    const initializeLiff = async () => {
+      try {
+        await liff.init({
+          liffId: process.env.NEXT_PUBLIC_LIFF_USER_ID as string,
+        });
         console.log("LIFFの初期化に成功しました");
+
         if (liff.isLoggedIn()) {
           const token = liff.getIDToken();
           setIdToken(token);
         } else {
           liff.login();
         }
-      })
-      .catch((e: any) => {
+
+        const userProfile = await liff.getProfile();
+        console.log(userProfile);
+        setUser(userProfile.userId);
+        setName(userProfile.displayName);
+      } catch (e: any) {
         console.error("LIFFの初期化に失敗しました", e);
-        setIdToken("");
-      });
+        setIdToken(""); // 初期化失敗時のトークンは空文字列
+      } finally {
+        setLoading(false); // ローディング完了
+      }
+    };
 
-    liff.ready.then(async () => {
-      const userProfile = await liff.getProfile();
-      console.log(userProfile);
-      setUser(userProfile.userId);
-      setName(userProfile.displayName);
-      setLoading(false); // ローディング完了
-    });
+    initializeLiff();
   }, []);
-
-  if (idToken === null || loading) {
-    return <div>Loading...</div>;
-  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,6 +80,10 @@ const UsersPage = () => {
     };
     fetchData();
   }, []);
+
+  if (idToken === null || loading) {
+    return <div>Loading...</div>;
+  }
 
   console.log(user);
 
