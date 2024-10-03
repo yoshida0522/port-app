@@ -11,15 +11,9 @@ import { useRouter } from "next/navigation";
 import styles from "../styles/page.module.css";
 import Link from "next/link";
 import liff from "@line/liff";
-// import SendMessage from "../components/sendMessage";
+import { sendLineMessage } from "../../../sendLineMessage";
 
 export default function CreatePage() {
-  // メッセージ送信に使用
-  // const express = require("express");
-  // const fetch = require("node-fetch");
-  // const bodyParser = require("body-parser");
-  // const app = express();
-  //
   const router = useRouter();
   const [childName, setChildName] = useState("");
   const [idToken, setIdToken] = useState<string | null>(null);
@@ -165,7 +159,7 @@ export default function CreatePage() {
 
     if (filteredDays.length === 0) {
       console.log("保存するデータがありません");
-      return; // データがない場合は処理を終了
+      return;
     }
 
     Promise.all(
@@ -182,34 +176,24 @@ export default function CreatePage() {
       .then(() => {
         console.log("すべてのデータがFirestoreに保存されました");
 
-        // router.push("/thanks");
+        // メッセージを構築
+        const message =
+          `園児名: ${childName}\n` +
+          filteredDays
+            .map(
+              (day) =>
+                `日付: ${day.date}, 登園時間: ${day.startTime}, お迎え時間: ${day.endTime}, 備考: ${day.remark}`
+            )
+            .join("\n");
+
+        // メッセージを送信
+        sendLineMessage(user, message);
       })
       .catch((error) => {
         console.error("データ保存エラー:", error);
       });
 
     // メッセージ送信処理
-    const formData = {
-      name: childName,
-      message: "送信メッセージ内容",
-    };
-
-    const res = await fetch("/api/sendLineMessage", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData), // フォームデータをJSON形式で送信
-    });
-
-    if (!res.ok) {
-      console.error("エラーが発生しました:", res.statusText); // エラーメッセージを表示
-    } else {
-      const result = await res
-        .json()
-        .catch((err) => console.error("JSON parse error:", err));
-      console.log(result); // 正しいレスポンスをコンソールに表示
-    }
 
     // メッセージ送信が終わったらthanksへ遷移
     router.push("/thanks");
