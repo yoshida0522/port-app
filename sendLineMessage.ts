@@ -4,7 +4,7 @@ const LINE_API_URL = "https://api.line.me/v2/bot/message/push";
 
 export const sendLineMessage = async (userId: string, message: string) => {
   try {
-    await axios.post(
+    const response = await axios.post(
       LINE_API_URL,
       {
         to: userId,
@@ -18,12 +18,21 @@ export const sendLineMessage = async (userId: string, message: string) => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_LINE_CHANNEL_ACCESS_TOKEN}`, // 環境変数にアクセストークンを設定
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_LINE_CHANNEL_ACCESS_TOKEN}`,
         },
       }
     );
-    console.log("メッセージが送信されました");
-  } catch (error) {
-    console.error("メッセージ送信エラー:", error);
+    console.log("メッセージが送信されました", response.data);
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      // Axiosのエラーの場合
+      console.error(
+        "メッセージ送信エラー:",
+        error.response?.data || error.message
+      );
+    } else {
+      // その他のエラー
+      console.error("メッセージ送信エラー:", error);
+    }
   }
 };
