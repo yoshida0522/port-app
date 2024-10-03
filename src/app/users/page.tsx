@@ -30,7 +30,7 @@ const UsersPage = () => {
   const [idToken, setIdToken] = useState<string | null>(null);
   const [user, setUser] = useState<string | null>(null);
   const [name, setName] = useState("");
-  const [loading, setLoading] = useState(true); // ローディング状態の管理
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const initializeLiff = async () => {
@@ -51,14 +51,13 @@ const UsersPage = () => {
         console.log(userProfile);
         setUser(userProfile.userId);
         setName(userProfile.displayName);
-      } catch (e: any) {
+      } catch (e) {
         console.error("LIFFの初期化に失敗しました", e);
-        setIdToken(""); // 初期化失敗時のトークンは空文字列
+        setIdToken("");
       } finally {
-        setLoading(false); // ローディング完了
+        setLoading(false);
       }
     };
-
     initializeLiff();
   }, []);
 
@@ -67,10 +66,6 @@ const UsersPage = () => {
       const postData = collection(db, "posts");
       const q = query(postData, orderBy("firstDate", "asc"));
       const querySnapshot = await getDocs(q);
-
-      // querySnapshot.forEach((doc) => {
-      //   console.log(doc.id, " => ", doc.data());
-      // });
 
       const postsArray = querySnapshot.docs.map((doc) => {
         const data = doc.data();

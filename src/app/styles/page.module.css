@@ -446,6 +446,37 @@
   background-color: rgb(247, 247, 178);
 }
 
+/* スマホ用画面 */
+@media screen and (max-width: 600px) {
+  .childImg {
+    /* background-image: linear-gradient(
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 255, 255, 0.8)
+      ),
+      url(../../../public/images/蜂.png); */
+    background-size: 150px;
+    background-position: left 25px;
+    height: 170px;
+    width: 98vw;
+  }
+
+  .childCenter {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .childListTitle {
+    font-size: 0.8em;
+    margin: auto;
+  }
+
+  .childSubTitle {
+    font-size: 0.8em;
+    background-color: rgb(247, 247, 178);
+  }
+}
+
 /* LINEログイン画面 */
 
 .lineContainer {
@@ -619,7 +650,7 @@
 }
 
 /* スマホサイズ向けのスタイル */
-@media (max-width: 600px) {
+@media screen and (max-width: 600px) {
   .createCenter {
     max-width: 100%;
     padding: 10px;
