@@ -79,7 +79,11 @@ export default function CreatePage() {
   }
 
   // userIdを保存
-  localStorage.setItem("userId", user);
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("userId", user);
+    }
+  }, [user]);
 
   const handleChange =
     (day: string, field: string) =>
@@ -172,28 +176,54 @@ export default function CreatePage() {
           console.log("Firestoreにデータ保存成功:", day); // 保存成功時にログ表示
         });
       })
-    )
-      .then(() => {
-        console.log("すべてのデータがFirestoreに保存されました");
+    ).then(() => {
+      console.log("すべてのデータがFirestoreに保存されました");
 
-        // メッセージを構築
-        const message =
-          `園児名: ${childName}\n` +
-          filteredDays
-            .map(
-              (day) =>
-                `日付: ${day.date}, 登園時間: ${day.startTime}, お迎え時間: ${day.endTime}, 備考: ${day.remark}`
-            )
-            .join("\n");
+      // メッセージを構築
+      const message =
+        `園児名: ${childName}\n` +
+        filteredDays
+          .map(
+            (day) =>
+              `日付: ${day.date}, 登園時間: ${day.startTime}, お迎え時間: ${day.endTime}, 備考: ${day.remark}`
+          )
+          .join("\n");
 
-        // メッセージを送信
-        sendLineMessage(user, message);
-      })
-      .catch((error) => {
-        console.error("データ保存エラー:", error);
-      });
+      // メッセージを送信
+      // lineWebhook(user, message);
+      //   const lineWebhook = async (userId: string, message: string) => {
+      //     await sendLineMessage(userId, message);
+      //   };
+      // })
+      // .catch((error) => {
+      //   console.error("データ保存エラー:", error);
+      // });
 
-    // メッセージ送信処理
+      // メッセージ送信処理
+      const sendMessageToLINE = async (message: string) => {
+        const accessToken =
+          "HrdWhF6LCombABpNRZDkV/fsXR+WcotUAhp7rApxZzHh96E+CWYExMJ/NimYKjIIDvHpJS9e5GwdSed8ylLDbZ/rZnBLDWJd6yY2mxhwODrt0x/OUb6XAo8WowMRaTeYShjX3S1CPwlcRcS0oYldRAdB04t89/1O/w1cDnyilFU="; // チャネルアクセストークン
+        const url = "https://api.line.me/v2/bot/message/push";
+        const body = {
+          to: "USER_ID", // 送信先のユーザーID
+          messages: [
+            {
+              type: "text",
+              text: message, // 送信するメッセージ
+            },
+          ],
+        };
+        const headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        };
+        await fetch(url, {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(body),
+        });
+      };
+    });
 
     // メッセージ送信が終わったらthanksへ遷移
     router.push("/thanks");
@@ -262,3 +292,6 @@ export default function CreatePage() {
     </div>
   );
 }
+// function lineWebhook(user: string, message: string) {
+//   throw new Error("Function not implemented.");
+// }

@@ -4,10 +4,13 @@ const LINE_API_URL = "https://api.line.me/v2/bot/message/push";
 
 export const sendLineMessage = async (userId: string, message: string) => {
   console.log("ユーザーID:", userId);
-  console.log(
-    "アクセストークン:",
-    process.env.NEXT_PUBLIC_LINE_CHANNEL_ACCESS_TOKEN
-  );
+  console.log("メッセージ:", message);
+
+  if (!process.env.NEXT_PUBLIC_LINE_CHANNEL_ACCESS_TOKEN) {
+    console.error("アクセストークンが設定されていません");
+    return;
+  }
+
   try {
     const response = await axios.post(
       LINE_API_URL,
