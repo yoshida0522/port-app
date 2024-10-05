@@ -100,7 +100,7 @@ const UsersPage = () => {
   const filteredPosts = posts
     .map((post) => {
       const filteredDays = post.days.filter((day) => {
-        const dayDate = new Date(day.date + "T" + day.startTime); // 予約の日付と時間を結合してタイムスタンプ化
+        const dayDate = new Date(day.date + "T" + day.startTime); // 予約の日付と時間をタイムスタンプ化
         const now = new Date(); // 現在の日時
 
         // 前日の15時を取得
@@ -113,13 +113,27 @@ const UsersPage = () => {
         tomorrow.setDate(now.getDate() + 1);
         tomorrow.setHours(0, 0, 0, 0); // 翌日の0時
 
+        // 翌々日の日付を取得
+        const dayAfterTomorrow = new Date(now);
+        dayAfterTomorrow.setDate(now.getDate() + 2);
+        dayAfterTomorrow.setHours(0, 0, 0, 0); // 翌々日の0時
+
         // 条件:
         // 1. 予約日が翌日であり、かつ現在が前日の15時を過ぎている場合は編集不可
-        if (dayDate >= tomorrow && now > yesterday15) {
-          return false;
+        if (
+          dayDate >= tomorrow &&
+          dayDate < dayAfterTomorrow &&
+          now > yesterday15
+        ) {
+          return false; // 翌日の予約は前日の15時以降編集不可
         }
 
-        // 2. 予約日が今日または将来で、ユーザーIDが一致する場合は表示
+        // 2. 予約日が翌々日以降であれば、常に編集可能
+        if (dayDate >= dayAfterTomorrow) {
+          return true;
+        }
+
+        // 3. 予約日が今日または将来で、ユーザーIDが一致する場合は表示
         return dayDate >= now && day.userId === user;
       });
 
