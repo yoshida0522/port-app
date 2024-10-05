@@ -133,6 +133,7 @@ const UsersPage = () => {
           ...days[dayIndex],
           startTime: editStartTime,
           endTime: editEndTime,
+          remark: editRemark,
         };
 
         await updateDoc(postRef, { days });
