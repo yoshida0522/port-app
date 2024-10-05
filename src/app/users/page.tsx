@@ -2,7 +2,16 @@
 
 import { useEffect, useState } from "react";
 import db from "../firebase";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  updateDoc,
+} from "firebase/firestore";
 import React from "react";
 import styles from "../styles/page.module.css";
 import liff from "@line/liff";
@@ -31,6 +40,14 @@ const UsersPage = () => {
   const [user, setUser] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(true);
+  const [editingRow, setEditingRow] = useState<{
+    postIndex: number;
+    dayIndex: number;
+  } | null>(null);
+  const [shouldFetch, setShouldFetch] = useState(true);
+  const [editStartTime, setEditStartTime] = useState("");
+  const [editEndTime, setEditEndTime] = useState("");
+  const [editRemark, setEditRemark] = useState("");
 
   useEffect(() => {
     const initializeLiff = async () => {
@@ -62,25 +79,23 @@ const UsersPage = () => {
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const postData = collection(db, "posts");
-      const q = query(postData, orderBy("firstDate", "asc"));
-      const querySnapshot = await getDocs(q);
+    if (shouldFetch) {
+      const fetchData = async () => {
+        const postData = collection(db, "posts");
+        const q = query(postData, orderBy("firstDate", "asc"));
+        const querySnapshot = await getDocs(q);
 
-      const postsArray = querySnapshot.docs.map((doc) => {
-        const data = doc.data();
-        return { ...data, id: doc.id };
-      });
-      setPosts(postsArray as Post[]);
-    };
-    fetchData();
-  }, []);
+        const postsArray = querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          return { ...data, id: doc.id };
+        });
+        setPosts(postsArray as Post[]);
+      };
 
-  if (idToken === null || loading) {
-    return <div>Loading...</div>;
-  }
-
-  console.log(user);
+      fetchData();
+      setShouldFetch(false);
+    }
+  }, [shouldFetch]);
 
   const filteredPosts = posts
     .map((post) => {
@@ -97,6 +112,71 @@ const UsersPage = () => {
     })
     .filter((post) => post !== null) as Post[];
 
+  const handleSave = async () => {
+    if (editingRow === null) {
+      console.log("編集対象が選択されていません");
+      return;
+    }
+
+    const { postIndex, dayIndex } = editingRow;
+    const postToUpdate = filteredPosts[postIndex];
+
+    try {
+      const postRef = doc(db, "posts", postToUpdate.id);
+      const docSnap = await getDoc(postRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const days = data.days || [];
+
+        days[dayIndex] = {
+          ...days[dayIndex],
+          startTime: editStartTime,
+          endTime: editEndTime,
+        };
+
+        await updateDoc(postRef, { days });
+        console.log("データが更新されました");
+
+        setEditingRow(null);
+        setShouldFetch(true);
+      }
+    } catch (error) {
+      console.error("データの更新に失敗しました", error);
+    }
+  };
+
+  const handleDelete = async (postIndex: number) => {
+    const postToDelete = filteredPosts[postIndex];
+    if (postToDelete && postToDelete.id) {
+      await deleteDoc(doc(db, "posts", postToDelete.id));
+      setShouldFetch(true);
+    }
+  };
+
+  const handleCancel = () => {
+    setEditingRow(null);
+  };
+
+  const handleEdit = (postIndex: number, dayIndex: number) => {
+    const postToEdit = filteredPosts[postIndex];
+    const dayToEdit = postToEdit.days[dayIndex];
+
+    if (dayToEdit) {
+      console.log(`編集する日付: ${dayToEdit.date}`);
+      setEditStartTime(dayToEdit.startTime || "");
+      setEditEndTime(dayToEdit.endTime || "");
+      setEditRemark(dayToEdit.remark || "");
+      setEditingRow({ postIndex, dayIndex });
+    } else {
+      console.log("編集対象のIDが見つかりません");
+    }
+  };
+
+  if (idToken === null || loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className={styles.childImg}>
       <div className={styles.childCenter}>
@@ -110,6 +190,7 @@ const UsersPage = () => {
             <th>登園時間</th>
             <th>お迎え時間</th>
             <th>備考</th>
+            <th>アクション</th>
           </tr>
         </thead>
         <tbody>
@@ -122,9 +203,52 @@ const UsersPage = () => {
                   <tr key={dayIndex}>
                     <td>{day.name}</td>
                     <td>{day.date}</td>
-                    <td>{day.startTime}</td>
-                    <td>{day.endTime}</td>
-                    <td>{day.remark}</td>
+                    {editingRow?.postIndex === postIndex &&
+                    editingRow?.dayIndex === dayIndex ? (
+                      <>
+                        <td>
+                          <input
+                            type="time"
+                            value={editStartTime}
+                            onChange={(e) => setEditStartTime(e.target.value)}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="time"
+                            value={editEndTime}
+                            onChange={(e) => setEditEndTime(e.target.value)}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            value={editRemark}
+                            onChange={(e) => setEditRemark(e.target.value)}
+                          />
+                        </td>
+                        <td>
+                          <button onClick={handleSave}>保存</button>
+                          <button onClick={handleCancel}>キャンセル</button>
+                        </td>
+                      </>
+                    ) : (
+                      <>
+                        <td>{day.startTime}</td>
+                        <td>{day.endTime}</td>
+                        <td>{day.remark}</td>
+                        <td>
+                          <button
+                            onClick={() => handleEdit(postIndex, dayIndex)}
+                          >
+                            編集
+                          </button>
+                          <button onClick={() => handleDelete(postIndex)}>
+                            削除
+                          </button>
+                        </td>
+                      </>
+                    )}
                   </tr>
                 ))}
               </React.Fragment>

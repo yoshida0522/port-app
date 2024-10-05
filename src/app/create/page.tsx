@@ -205,7 +205,7 @@ export default function CreatePage() {
           "HrdWhF6LCombABpNRZDkV/fsXR+WcotUAhp7rApxZzHh96E+CWYExMJ/NimYKjIIDvHpJS9e5GwdSed8ylLDbZ/rZnBLDWJd6yY2mxhwODrt0x/OUb6XAo8WowMRaTeYShjX3S1CPwlcRcS0oYldRAdB04t89/1O/w1cDnyilFU="; // チャネルアクセストークン
         const url = "https://api.line.me/v2/bot/message/push";
         const body = {
-          to: "USER_ID", // 送信先のユーザーID
+          to: user, // 送信先のユーザーID
           messages: [
             {
               type: "text",
