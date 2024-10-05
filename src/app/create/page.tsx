@@ -180,14 +180,14 @@ export default function CreatePage() {
       console.log("すべてのデータがFirestoreに保存されました");
 
       // メッセージを構築
-      const message =
-        `園児名: ${childName}\n` +
-        filteredDays
-          .map(
-            (day) =>
-              `日付: ${day.date}, 登園時間: ${day.startTime}, お迎え時間: ${day.endTime}, 備考: ${day.remark}`
-          )
-          .join("\n");
+      // const message =
+      //   `園児名: ${childName}\n` +
+      //   filteredDays
+      //     .map(
+      //       (day) =>
+      //         `日付: ${day.date}, 登園時間: ${day.startTime}, お迎え時間: ${day.endTime}, 備考: ${day.remark}`
+      //     )
+      //     .join("\n");
 
       // メッセージを送信
       // lineWebhook(user, message);
@@ -200,29 +200,29 @@ export default function CreatePage() {
       // });
 
       // メッセージ送信処理
-      const sendMessageToLINE = async (message: string) => {
-        const accessToken =
-          "HrdWhF6LCombABpNRZDkV/fsXR+WcotUAhp7rApxZzHh96E+CWYExMJ/NimYKjIIDvHpJS9e5GwdSed8ylLDbZ/rZnBLDWJd6yY2mxhwODrt0x/OUb6XAo8WowMRaTeYShjX3S1CPwlcRcS0oYldRAdB04t89/1O/w1cDnyilFU="; // チャネルアクセストークン
-        const url = "https://api.line.me/v2/bot/message/push";
-        const body = {
-          to: user, // 送信先のユーザーID
-          messages: [
-            {
-              type: "text",
-              text: message, // 送信するメッセージ
-            },
-          ],
-        };
-        const headers = {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        };
-        await fetch(url, {
-          method: "POST",
-          headers: headers,
-          body: JSON.stringify(body),
-        });
-      };
+      // const sendMessageToLINE = async (message: string) => {
+      //   const accessToken =
+      //     "HrdWhF6LCombABpNRZDkV/fsXR+WcotUAhp7rApxZzHh96E+CWYExMJ/NimYKjIIDvHpJS9e5GwdSed8ylLDbZ/rZnBLDWJd6yY2mxhwODrt0x/OUb6XAo8WowMRaTeYShjX3S1CPwlcRcS0oYldRAdB04t89/1O/w1cDnyilFU="; // チャネルアクセストークン
+      //   const url = "https://api.line.me/v2/bot/message/push";
+      //   const body = {
+      //     to: user, // 送信先のユーザーID
+      //     messages: [
+      //       {
+      //         type: "text",
+      //         text: message, // 送信するメッセージ
+      //       },
+      //     ],
+      //   };
+      //   const headers = {
+      //     "Content-Type": "application/json",
+      //     Authorization: `Bearer ${accessToken}`,
+      //   };
+      //   await fetch(url, {
+      //     method: "POST",
+      //     headers: headers,
+      //     body: JSON.stringify(body),
+      //   });
+      // };
     });
 
     // メッセージ送信が終わったらthanksへ遷移
