@@ -100,16 +100,29 @@ const UsersPage = () => {
   const filteredPosts = posts
     .map((post) => {
       const filteredDays = post.days.filter((day) => {
-        const dayDate = new Date(day.date);
-        const today = new Date();
-        // 前日の日付を取得するために、1日引く
-        today.setDate(today.getDate() - 1);
-        today.setHours(15, 0, 0, 0); // 前日の15時（午後3時）に設定
+        const dayDate = new Date(day.date + "T" + day.startTime); // 予約の日付と時間を結合してタイムスタンプ化
+        const now = new Date(); // 現在の日時
 
-        // 日付が前日午後3時以降の場合だけ残す
-        const dayTime = new Date(day.date + "T" + day.startTime);
-        return dayTime >= today && day.userId === user;
+        // 前日の15時を取得
+        const yesterday15 = new Date(now);
+        yesterday15.setDate(now.getDate() - 1);
+        yesterday15.setHours(15, 0, 0, 0); // 15時を設定
+
+        // 翌日の日付を取得
+        const tomorrow = new Date(now);
+        tomorrow.setDate(now.getDate() + 1);
+        tomorrow.setHours(0, 0, 0, 0); // 翌日の0時
+
+        // 条件:
+        // 1. 予約日が翌日であり、かつ現在が前日の15時を過ぎている場合は編集不可
+        if (dayDate >= tomorrow && now > yesterday15) {
+          return false;
+        }
+
+        // 2. 予約日が今日または将来で、ユーザーIDが一致する場合は表示
+        return dayDate >= now && day.userId === user;
       });
+
       return filteredDays.length > 0 ? { ...post, days: filteredDays } : null;
     })
     .filter((post) => post !== null) as Post[];
