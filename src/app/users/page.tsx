@@ -100,8 +100,8 @@ const UsersPage = () => {
   const filteredPosts = posts
     .map((post) => {
       const filteredDays = post.days.filter((day) => {
-        const dayDate = new Date(day.date + "T" + day.startTime); // 予約の日付と時間をタイムスタンプ化
-        const now = new Date(); // 現在の日時
+        const dayDate = new Date(day.date + "T" + day.startTime);
+        const now = new Date();
 
         // 前日の15時を取得
         const yesterday15 = new Date(now);
@@ -137,6 +137,7 @@ const UsersPage = () => {
         return dayDate >= now && day.userId === user;
       });
 
+      // もしフィルタリングされた日がある場合、投稿を返す
       return filteredDays.length > 0 ? { ...post, days: filteredDays } : null;
     })
     .filter((post) => post !== null) as Post[];
