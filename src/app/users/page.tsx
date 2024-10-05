@@ -228,8 +228,18 @@ const UsersPage = () => {
                           />
                         </td>
                         <td>
-                          <button onClick={handleSave}>保存</button>
-                          <button onClick={handleCancel}>キャンセル</button>
+                          <button
+                            className={styles.usersSave}
+                            onClick={handleSave}
+                          >
+                            保存
+                          </button>
+                          <button
+                            className={styles.usersCancel}
+                            onClick={handleCancel}
+                          >
+                            キャンセル
+                          </button>
                         </td>
                       </>
                     ) : (
@@ -239,11 +249,15 @@ const UsersPage = () => {
                         <td>{day.remark}</td>
                         <td>
                           <button
+                            className={styles.usersEdit}
                             onClick={() => handleEdit(postIndex, dayIndex)}
                           >
                             編集
                           </button>
-                          <button onClick={() => handleDelete(postIndex)}>
+                          <button
+                            className={styles.usersDelete}
+                            onClick={() => handleDelete(postIndex)}
+                          >
                             削除
                           </button>
                         </td>
