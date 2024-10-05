@@ -104,9 +104,11 @@ const UsersPage = () => {
         const today = new Date();
         // 前日の日付を取得するために、1日引く
         today.setDate(today.getDate() - 1);
+        today.setHours(15, 0, 0, 0); // 前日の15時（午後3時）に設定
 
-        // 前日以降の日付を残す
-        return dayDate >= today && day.userId === user;
+        // 日付が前日午後3時以降の場合だけ残す
+        const dayTime = new Date(day.date + "T" + day.startTime);
+        return dayTime >= today && day.userId === user;
       });
       return filteredDays.length > 0 ? { ...post, days: filteredDays } : null;
     })
