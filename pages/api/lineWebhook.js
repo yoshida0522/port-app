@@ -139,36 +139,41 @@
 
 // export default lineWebhookHandler;
 
-import { lineWebhook } from "../../sendLineMessage"; // あなたのlineWebhook関数が定義されている場所
+//
+//
+//
+//
 
-const lineConfig = {
-  channelSecret: process.env.LINE_CHANNEL_SECRET,
-};
+// import { lineWebhook } from "../../sendLineMessage"; // あなたのlineWebhook関数が定義されている場所
 
-export default async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*"); // すべてのオリジンを許可
-  if (req.method === "POST") {
-    const events = req.body.events;
+// const lineConfig = {
+//   channelSecret: process.env.LINE_CHANNEL_SECRET,
+// };
 
-    // LINEプラットフォームからのリクエストを処理
-    if (events) {
-      for (const event of events) {
-        const userId = event.source.userId;
-        if (!userId) {
-          console.error("ユーザーIDが取得できませんでした");
-          continue; // 次のイベントに進む
-        }
-        const message = event.message.text;
+// export default async function handler(req, res) {
+//   res.setHeader("Access-Control-Allow-Origin", "*"); // すべてのオリジンを許可
+//   if (req.method === "POST") {
+//     const events = req.body.events;
 
-        // メッセージの送信処理
-        await lineWebhook(userId, `受け取ったメッセージ: ${message}`);
-      }
-    }
+//     // LINEプラットフォームからのリクエストを処理
+//     if (events) {
+//       for (const event of events) {
+//         const userId = event.source.userId;
+//         if (!userId) {
+//           console.error("ユーザーIDが取得できませんでした");
+//           continue; // 次のイベントに進む
+//         }
+//         const message = event.message.text;
 
-    // LINEにステータスコード200でレスポンスを返す
-    res.status(200).send("OK");
-  } else {
-    // POSTリクエスト以外には405を返す
-    res.status(405).send("Method Not Allowed");
-  }
-}
+//         // メッセージの送信処理
+//         await lineWebhook(userId, `受け取ったメッセージ: ${message}`);
+//       }
+//     }
+
+//     // LINEにステータスコード200でレスポンスを返す
+//     res.status(200).send("OK");
+//   } else {
+//     // POSTリクエスト以外には405を返す
+//     res.status(405).send("Method Not Allowed");
+//   }
+// }

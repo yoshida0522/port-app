@@ -74,16 +74,16 @@ export default function CreatePage() {
     });
   }, []);
 
-  if (idToken === null) {
-    return <div>Loading...</div>;
-  }
-
   // userIdを保存
   useEffect(() => {
     if (user) {
       localStorage.setItem("userId", user);
     }
   }, [user]);
+
+  if (idToken === null) {
+    return <div>Loading...</div>;
+  }
 
   const handleChange =
     (day: string, field: string) =>
