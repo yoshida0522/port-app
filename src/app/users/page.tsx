@@ -99,6 +99,7 @@ const UsersPage = () => {
 
   const filteredPosts = posts
     .map((post) => {
+      // まず日付でフィルタリング
       const filteredDays = post.days.filter((day) => {
         const dayDate = new Date(day.date + "T" + day.startTime);
         const now = new Date();
@@ -106,20 +107,20 @@ const UsersPage = () => {
         // 前日の15時を取得
         const yesterday15 = new Date(now);
         yesterday15.setDate(now.getDate() - 1);
-        yesterday15.setHours(15, 0, 0, 0); // 15時を設定
+        yesterday15.setHours(15, 0, 0, 0);
 
         // 翌日の日付を取得
         const tomorrow = new Date(now);
         tomorrow.setDate(now.getDate() + 1);
-        tomorrow.setHours(0, 0, 0, 0); // 翌日の0時
+        tomorrow.setHours(0, 0, 0, 0);
 
         // 翌々日の日付を取得
         const dayAfterTomorrow = new Date(now);
         dayAfterTomorrow.setDate(now.getDate() + 2);
-        dayAfterTomorrow.setHours(0, 0, 0, 0); // 翌々日の0時
+        dayAfterTomorrow.setHours(0, 0, 0, 0);
 
-        // 条件:
-        // 1. 予約日が翌日であり、かつ現在が前日の15時を過ぎている場合は編集不可
+        // 条件に基づいてフィルタリング
+        // 1. 翌日で前日の15時を過ぎている場合は編集不可
         if (
           dayDate >= tomorrow &&
           dayDate < dayAfterTomorrow &&
@@ -128,18 +129,26 @@ const UsersPage = () => {
           return false; // 翌日の予約は前日の15時以降編集不可
         }
 
-        // 2. 予約日が翌々日以降であれば、常に編集可能
+        // 2. 翌々日以降は常に編集可能
         if (dayDate >= dayAfterTomorrow) {
           return true;
         }
 
-        // 3. 予約日が今日または将来で、ユーザーIDが一致する場合は表示
-        return dayDate >= now && day.userId === user;
+        // 3. 今日または未来の日付の場合
+        return dayDate >= now;
       });
 
-      // もしフィルタリングされた日がある場合、投稿を返す
-      return filteredDays.length > 0 ? { ...post, days: filteredDays } : null;
+      // 日付でフィルタリングされた後にユーザーIDでフィルタリング
+      const userFilteredDays = filteredDays.filter(
+        (day) => day.userId === user
+      );
+
+      // フィルタリング後の日付が存在する場合のみ、投稿を返す
+      return userFilteredDays.length > 0
+        ? { ...post, days: userFilteredDays }
+        : null;
     })
+
     .filter((post) => post !== null) as Post[];
 
   const handleSave = async () => {
