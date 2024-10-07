@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation";
 import styles from "../styles/page.module.css";
 import Link from "next/link";
 import liff from "@line/liff";
-import { sendLineMessage } from "../../../sendLineMessage";
 import axios from "axios";
 
 export default function CreatePage() {
@@ -111,6 +110,21 @@ export default function CreatePage() {
       }
     };
 
+  // LINE通知を行う関数
+  const sendLineNotification = async () => {
+    try {
+      console.log("ボタンが押されました！");
+
+      // LINEで、ボタンが押されたことを通知する
+      await axios.post("/pages/api/linebot", {
+        message: "ボタンが押されました！",
+      });
+      console.log("LINEメッセージ送信成功");
+    } catch (error) {
+      console.error("LINEメッセージ送信エラー:", error);
+    }
+  };
+
   const handleClick = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
@@ -188,21 +202,6 @@ export default function CreatePage() {
       router.push("/thanks");
     } catch (error) {
       console.error("エラーが発生しました:", error);
-    }
-  };
-
-  // LINE通知を行う関数
-  const sendLineNotification = async () => {
-    try {
-      console.log("ボタンが押されました！");
-
-      // LINEで、ボタンが押されたことを通知する
-      await axios.post("/api/linebot", {
-        message: "ボタンが押されました！",
-      });
-      console.log("LINEメッセージ送信成功");
-    } catch (error) {
-      console.error("LINEメッセージ送信エラー:", error);
     }
   };
 
