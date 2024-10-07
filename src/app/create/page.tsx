@@ -12,6 +12,7 @@ import styles from "../styles/page.module.css";
 import Link from "next/link";
 import liff from "@line/liff";
 import { sendLineMessage } from "../../../sendLineMessage";
+import axios from "axios";
 
 export default function CreatePage() {
   const router = useRouter();
@@ -166,67 +167,43 @@ export default function CreatePage() {
       return;
     }
 
-    Promise.all(
-      filteredDays.map((day) => {
-        return addDoc(collection(db, "posts"), {
-          days: [day],
-          firstDate: day.date,
-          timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-        }).then(() => {
-          console.log("Firestoreにデータ保存成功:", day); // 保存成功時にログ表示
-        });
-      })
-    ).then(() => {
+    try {
+      // Firestoreにデータを保存
+      await Promise.all(
+        filteredDays.map((day) => {
+          return addDoc(collection(db, "posts"), {
+            days: [day],
+            firstDate: day.date,
+            timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+          });
+        })
+      );
+
       console.log("すべてのデータがFirestoreに保存されました");
 
-      // メッセージを構築
-      // const message =
-      //   `園児名: ${childName}\n` +
-      //   filteredDays
-      //     .map(
-      //       (day) =>
-      //         `日付: ${day.date}, 登園時間: ${day.startTime}, お迎え時間: ${day.endTime}, 備考: ${day.remark}`
-      //     )
-      //     .join("\n");
+      // LINE通知処理
+      await sendLineNotification();
 
-      // メッセージを送信
-      // lineWebhook(user, message);
-      //   const lineWebhook = async (userId: string, message: string) => {
-      //     await sendLineMessage(userId, message);
-      //   };
-      // })
-      // .catch((error) => {
-      //   console.error("データ保存エラー:", error);
-      // });
+      // メッセージ送信が終わったらthanksへ遷移
+      router.push("/thanks");
+    } catch (error) {
+      console.error("エラーが発生しました:", error);
+    }
+  };
 
-      // メッセージ送信処理
-      // const sendMessageToLINE = async (message: string) => {
-      //   const accessToken =
-      //     "HrdWhF6LCombABpNRZDkV/fsXR+WcotUAhp7rApxZzHh96E+CWYExMJ/NimYKjIIDvHpJS9e5GwdSed8ylLDbZ/rZnBLDWJd6yY2mxhwODrt0x/OUb6XAo8WowMRaTeYShjX3S1CPwlcRcS0oYldRAdB04t89/1O/w1cDnyilFU="; // チャネルアクセストークン
-      //   const url = "https://api.line.me/v2/bot/message/push";
-      //   const body = {
-      //     to: user, // 送信先のユーザーID
-      //     messages: [
-      //       {
-      //         type: "text",
-      //         text: message, // 送信するメッセージ
-      //       },
-      //     ],
-      //   };
-      //   const headers = {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${accessToken}`,
-      //   };
-      //   await fetch(url, {
-      //     method: "POST",
-      //     headers: headers,
-      //     body: JSON.stringify(body),
-      //   });
-      // };
-    });
+  // LINE通知を行う関数
+  const sendLineNotification = async () => {
+    try {
+      console.log("ボタンが押されました！");
 
-    // メッセージ送信が終わったらthanksへ遷移
-    router.push("/thanks");
+      // LINEで、ボタンが押されたことを通知する
+      await axios.post("/api/linebot", {
+        message: "ボタンが押されました！",
+      });
+      console.log("LINEメッセージ送信成功");
+    } catch (error) {
+      console.error("LINEメッセージ送信エラー:", error);
+    }
   };
 
   return (
