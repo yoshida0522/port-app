@@ -12,6 +12,7 @@ import styles from "../styles/page.module.css";
 import Link from "next/link";
 import liff from "@line/liff";
 import axios from "axios";
+import SendMessage from "../components/sendMessage";
 
 export default function CreatePage() {
   const router = useRouter();
@@ -111,19 +112,19 @@ export default function CreatePage() {
     };
 
   // LINE通知を行う関数
-  const sendLineNotification = async () => {
-    try {
-      console.log("ボタンが押されました！");
+  // const sendLineNotification = async () => {
+  //   try {
+  //     console.log("ボタンが押されました！");
 
-      // LINEで、ボタンが押されたことを通知する
-      await axios.post("/pages/api/linebot", {
-        message: "ボタンが押されました！",
-      });
-      console.log("LINEメッセージ送信成功");
-    } catch (error) {
-      console.error("LINEメッセージ送信エラー:", error);
-    }
-  };
+  //     // LINEで、ボタンが押されたことを通知する
+  //     await axios.post("/api/linebot", {
+  //       message: "ボタンが押されました！",
+  //     });
+  //     console.log("LINEメッセージ送信成功");
+  //   } catch (error) {
+  //     console.error("LINEメッセージ送信エラー:", error);
+  //   }
+  // };
 
   const handleClick = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -196,7 +197,10 @@ export default function CreatePage() {
       console.log("すべてのデータがFirestoreに保存されました");
 
       // LINE通知処理
-      await sendLineNotification();
+      // await sendLineNotification();
+      await axios.post("/api/linebot", {
+        message: "ボタンが押されました！",
+      });
 
       // メッセージ送信が終わったらthanksへ遷移
       router.push("/thanks");
