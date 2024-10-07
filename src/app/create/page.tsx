@@ -12,7 +12,6 @@ import styles from "../styles/page.module.css";
 import Link from "next/link";
 import liff from "@line/liff";
 import axios from "axios";
-import SendMessage from "../components/sendMessage";
 
 export default function CreatePage() {
   const router = useRouter();
