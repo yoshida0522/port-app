@@ -196,7 +196,6 @@ const UsersPage = () => {
     const now = new Date();
     return new Date(now.getFullYear(), now.getMonth(), now.getDate());
   };
-  console.log(getTodayDate);
 
   return (
     <div className={styles.childImg}>
@@ -217,12 +216,12 @@ const UsersPage = () => {
         <tbody>
           {filteredPosts.map((post, postIndex) => {
             const days = post.days || [];
+            const todayDate = getTodayDate(); // 当日の日付を取得
 
             return (
               <React.Fragment key={postIndex}>
                 {days.map((day, dayIndex) => {
                   const dayDate = new Date(day.date); // 予約の日付を取得
-                  const todayDate = getTodayDate(); // 当日の日付を取得
 
                   return (
                     <tr key={dayIndex}>
