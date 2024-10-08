@@ -201,9 +201,19 @@ export default function CreatePage() {
     // LINE通知処理
 
     try {
+      let message = "以下の内容で予約しました:\n\n";
+
+      days.forEach((day) => {
+        message += `園児名 ${day.name}:\n`;
+        message += `日にち ${day.date}:\n`;
+        message += `登園時間 ${day.startTime}:\n`;
+        message += `お迎え時間 ${day.endTime}:\n`;
+        message += `備考 ${day.remark}:\n`;
+      });
+
       const response = await axios.post("/api/linebot", {
-        message: "LINEに送信されました！",
         userId: user,
+        message: message,
       });
 
       if (response.status === 200) {
