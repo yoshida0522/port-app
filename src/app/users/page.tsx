@@ -105,18 +105,18 @@ const UsersPage = () => {
         const now = new Date();
 
         // // 前日の15時を取得
-        const yesterday = new Date(now);
-        yesterday.setDate(now.getDate() - 1);
-        yesterday.setHours(0, 0, 0, 0);
+        // const yesterday = new Date(now);
+        // yesterday.setDate(now.getDate() - 1);
+        // yesterday.setHours(0, 0, 0, 0);
 
         // 当日の日付を取得
         // const today = new Date(now);
         // today.setHours(0, 0, 0, 0);
 
         // 明日の日付を取得
-        // const tomorrow = new Date(now);
-        // tomorrow.setDate(now.getDate() + 1);
-        // tomorrow.setHours(0, 0, 0, 0);
+        const tomorrow = new Date(now);
+        tomorrow.setDate(now.getDate() + 1);
+        tomorrow.setHours(0, 0, 0, 0);
 
         // 翌々日の日付を取得
         // const dayAfterTomorrow = new Date(now);
@@ -137,7 +137,7 @@ const UsersPage = () => {
         // }
 
         // 明日以降の予約を表示
-        return dayDate >= yesterday;
+        return dayDate >= tomorrow;
       });
 
       // 日付でフィルタリングされた後にユーザーIDでフィルタリング
