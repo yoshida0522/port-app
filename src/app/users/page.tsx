@@ -104,10 +104,14 @@ const UsersPage = () => {
         const dayDate = new Date(day.date + "T" + day.startTime);
         const now = new Date();
 
-        // 前日の15時を取得
-        const yesterday15 = new Date(now);
-        yesterday15.setDate(now.getDate() - 1);
-        yesterday15.setHours(15, 0, 0, 0);
+        // // 前日の15時を取得
+        // const yesterday15 = new Date(now);
+        // yesterday15.setDate(now.getDate() - 1);
+        // yesterday15.setHours(15, 0, 0, 0);
+
+        // 当日の15時を取得
+        const today15 = new Date(now);
+        today15.setHours(15, 0, 0, 0);
 
         // 翌日の日付を取得
         const tomorrow = new Date(now);
@@ -122,10 +126,8 @@ const UsersPage = () => {
         // 条件に基づいてフィルタリング
         // 1. 翌日で前日の15時を過ぎている場合は編集不可
         if (dayDate >= tomorrow && dayDate < dayAfterTomorrow) {
-          if (now < yesterday15) {
-            return true; // まだ15時を過ぎていないので編集可能
-          } else {
-            return false; // 15時を過ぎたら編集不可
+          if (now < today15) {
+            return false; // 15時を過ぎたら翌日の編集不可
           }
         }
 
