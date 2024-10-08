@@ -18,6 +18,7 @@ export default function CreatePage() {
   const [childName, setChildName] = useState("");
   const [idToken, setIdToken] = useState<string | null>(null);
   const [user, setUser] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // 追加
 
   const [monday, setMonday] = useState({
     date: "",
@@ -110,23 +111,9 @@ export default function CreatePage() {
       }
     };
 
-  // LINE通知を行う関数
-  // const sendLineNotification = async () => {
-  //   try {
-  //     console.log("ボタンが押されました！");
-
-  //     // LINEで、ボタンが押されたことを通知する
-  //     await axios.post("/api/linebot", {
-  //       message: "ボタンが押されました！",
-  //     });
-  //     console.log("LINEメッセージ送信成功");
-  //   } catch (error) {
-  //     console.error("LINEメッセージ送信エラー:", error);
-  //   }
-  // };
-
   const handleClick = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    setIsSubmitting(true); // 送信中に設定
 
     const days = [
       {
@@ -178,6 +165,7 @@ export default function CreatePage() {
 
     if (filteredDays.length === 0) {
       console.log("保存するデータがありません");
+      setIsSubmitting(false); // 送信が完了したので戻す
       return;
     }
 
@@ -256,7 +244,7 @@ export default function CreatePage() {
             { day: "wednesday", title: "申し込み3" },
             { day: "thursday", title: "申し込み4" },
             { day: "friday", title: "申し込み5" },
-          ].map(({ day, title }, index) => (
+          ].map(({ day }, index) => (
             <div key={index} className={styles.applicationSection}>
               <div className={styles.applicationNumberContainer}>
                 <span className={styles.applicationNumber}>申し込み</span>
@@ -293,7 +281,7 @@ export default function CreatePage() {
           ))}
         </div>
         <button type="submit" className={styles.submitButton}>
-          送信
+          {isSubmitting ? "送信中..." : "送信"} {/* ボタンの内容を切り替え */}
         </button>
       </form>
     </div>
