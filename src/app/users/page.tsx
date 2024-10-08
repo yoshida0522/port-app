@@ -104,40 +104,12 @@ const UsersPage = () => {
         const dayDate = new Date(day.date);
         const now = new Date();
 
-        // // 前日の15時を取得
-        // const yesterday = new Date(now);
-        // yesterday.setDate(now.getDate() - 1);
-        // yesterday.setHours(0, 0, 0, 0);
-
         // 当日の日付を取得
-        // const today = new Date(now);
-        // today.setHours(0, 0, 0, 0);
-
-        // 明日の日付を取得
-        const tomorrow = new Date(now);
-        tomorrow.setDate(now.getDate() + 1);
-        tomorrow.setHours(0, 0, 0, 0);
-
-        // 翌々日の日付を取得
-        // const dayAfterTomorrow = new Date(now);
-        // dayAfterTomorrow.setDate(now.getDate() + 1);
-        // dayAfterTomorrow.setHours(0, 0, 0, 0);
-
-        // 条件に基づいてフィルタリング
-        // 1. 翌日で前日の15時を過ぎている場合は編集不可
-        // if (dayDate >= tomorrow && dayDate < dayAfterTomorrow) {
-        //   if (now < today15) {
-        //     return false; // 15時を過ぎたら翌日の編集不可
-        //   }
-        // }
-
-        // 2. 翌日以降は常に編集可能
-        // if (dayDate >= dayAfterTomorrow) {
-        //   return true;
-        // }
+        const today = new Date(now);
+        today.setHours(0, 0, 0, 0);
 
         // 明日以降の予約を表示
-        return dayDate >= tomorrow;
+        return dayDate >= today;
       });
 
       // 日付でフィルタリングされた後にユーザーIDでフィルタリング
@@ -219,6 +191,12 @@ const UsersPage = () => {
     return <div>Loading...</div>;
   }
 
+  // 現在の日付を取得する関数
+  const getTodayDate = () => {
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  };
+
   return (
     <div className={styles.childImg}>
       <div className={styles.childCenter}>
@@ -241,72 +219,84 @@ const UsersPage = () => {
 
             return (
               <React.Fragment key={postIndex}>
-                {days.map((day, dayIndex) => (
-                  <tr key={dayIndex}>
-                    <td>{day.name}</td>
-                    <td>{day.date}</td>
-                    {editingRow?.postIndex === postIndex &&
-                    editingRow?.dayIndex === dayIndex ? (
-                      <>
-                        <td>
-                          <input
-                            type="time"
-                            value={editStartTime}
-                            onChange={(e) => setEditStartTime(e.target.value)}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="time"
-                            value={editEndTime}
-                            onChange={(e) => setEditEndTime(e.target.value)}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            value={editRemark}
-                            onChange={(e) => setEditRemark(e.target.value)}
-                          />
-                        </td>
-                        <td>
-                          <button
-                            className={styles.usersSave}
-                            onClick={handleSave}
-                          >
-                            保存
-                          </button>
-                          <button
-                            className={styles.usersCancel}
-                            onClick={handleCancel}
-                          >
-                            キャンセル
-                          </button>
-                        </td>
-                      </>
-                    ) : (
-                      <>
-                        <td>{day.startTime}</td>
-                        <td>{day.endTime}</td>
-                        <td>{day.remark}</td>
-                        <td>
-                          <button
-                            className={styles.usersEdit}
-                            onClick={() => handleEdit(postIndex, dayIndex)}
-                          >
-                            編集
-                          </button>
-                          <button
-                            className={styles.usersDelete}
-                            onClick={() => handleDelete(postIndex)}
-                          >
-                            削除
-                          </button>
-                        </td>
-                      </>
-                    )}
-                  </tr>
-                ))}
+                {days.map((day, dayIndex) => {
+                  const dayDate = new Date(day.date); // 予約の日付を取得
+                  const todayDate = getTodayDate(); // 当日の日付を取得
+
+                  return (
+                    <tr key={dayIndex}>
+                      <td>{day.name}</td>
+                      <td>{day.date}</td>
+                      {editingRow?.postIndex === postIndex &&
+                      editingRow?.dayIndex === dayIndex ? (
+                        <>
+                          <td>
+                            <input
+                              type="time"
+                              value={editStartTime}
+                              onChange={(e) => setEditStartTime(e.target.value)}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="time"
+                              value={editEndTime}
+                              onChange={(e) => setEditEndTime(e.target.value)}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              value={editRemark}
+                              onChange={(e) => setEditRemark(e.target.value)}
+                            />
+                          </td>
+                          <td>
+                            <button
+                              className={styles.usersSave}
+                              onClick={handleSave}
+                            >
+                              保存
+                            </button>
+                            <button
+                              className={styles.usersCancel}
+                              onClick={handleCancel}
+                            >
+                              キャンセル
+                            </button>
+                          </td>
+                        </>
+                      ) : (
+                        <>
+                          <td>{day.startTime}</td>
+                          <td>{day.endTime}</td>
+                          <td>{day.remark}</td>
+                          <td>
+                            {/* 当日の日付の場合、編集ボタンを表示しない */}
+                            {dayDate > todayDate ? (
+                              <>
+                                <button
+                                  className={styles.usersEdit}
+                                  onClick={() =>
+                                    handleEdit(postIndex, dayIndex)
+                                  }
+                                >
+                                  編集
+                                </button>
+                                <button
+                                  className={styles.usersDelete}
+                                  onClick={() => handleDelete(postIndex)}
+                                >
+                                  削除
+                                </button>
+                              </>
+                            ) : null}
+                          </td>
+                        </>
+                      )}
+                    </tr>
+                  );
+                })}
               </React.Fragment>
             );
           })}
