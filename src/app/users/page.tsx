@@ -115,12 +115,12 @@ const UsersPage = () => {
 
         // 翌日の日付を取得
         const tomorrow = new Date(now);
-        tomorrow.setDate(now.getDate() + 1);
+        tomorrow.setDate(now.getDate());
         tomorrow.setHours(0, 0, 0, 0);
 
         // 翌々日の日付を取得
         const dayAfterTomorrow = new Date(now);
-        dayAfterTomorrow.setDate(now.getDate() + 2);
+        dayAfterTomorrow.setDate(now.getDate() + 1);
         dayAfterTomorrow.setHours(0, 0, 0, 0);
 
         // 条件に基づいてフィルタリング
@@ -131,12 +131,7 @@ const UsersPage = () => {
           }
         }
 
-        // 2. 今日の予約は常に表示
-        if (dayDate.toDateString() === now.toDateString()) {
-          return true; // 今日の予約は常に表示
-        }
-
-        // 2. 翌々日以降は常に編集可能
+        // 2. 翌日以降は常に編集可能
         if (dayDate >= dayAfterTomorrow) {
           return true;
         }
