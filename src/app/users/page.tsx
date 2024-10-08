@@ -196,6 +196,7 @@ const UsersPage = () => {
     const now = new Date();
     return new Date(now.getFullYear(), now.getMonth(), now.getDate());
   };
+  console.log(getTodayDate);
 
   return (
     <div className={styles.childImg}>
