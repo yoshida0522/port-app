@@ -101,7 +101,7 @@ const UsersPage = () => {
     .map((post) => {
       // まず日付でフィルタリング
       const filteredDays = post.days.filter((day) => {
-        const dayDate = new Date(day.date + "T");
+        const dayDate = new Date(day.date);
         const now = new Date();
 
         // // 前日の15時を取得
