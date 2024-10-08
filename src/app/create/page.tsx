@@ -22,31 +22,31 @@ export default function CreatePage() {
 
   const [monday, setMonday] = useState({
     date: "",
-    startTime: "11:00",
+    startTime: "14:00",
     endTime: "14:00",
     remark: "",
   });
   const [tuesday, setTuesday] = useState({
     date: "",
-    startTime: "11:00",
+    startTime: "14:00",
     endTime: "14:00",
     remark: "",
   });
   const [wednesday, setWednesday] = useState({
     date: "",
-    startTime: "11:00",
+    startTime: "14:00",
     endTime: "14:00",
     remark: "",
   });
   const [thursday, setThursday] = useState({
     date: "",
-    startTime: "11:00",
+    startTime: "14:00",
     endTime: "14:00",
     remark: "",
   });
   const [friday, setFriday] = useState({
     date: "",
-    startTime: "11:00",
+    startTime: "14:00",
     endTime: "14:00",
     remark: "",
   });
