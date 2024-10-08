@@ -101,7 +101,7 @@ const UsersPage = () => {
     .map((post) => {
       // まず日付でフィルタリング
       const filteredDays = post.days.filter((day) => {
-        const dayDate = new Date(day.date + "T" + day.startTime);
+        const dayDate = new Date(day.date + "T");
         const now = new Date();
 
         // // 前日の15時を取得
@@ -110,34 +110,34 @@ const UsersPage = () => {
         // yesterday15.setHours(15, 0, 0, 0);
 
         // 当日の15時を取得
-        const today15 = new Date(now);
-        today15.setHours(15, 0, 0, 0);
+        // const today = new Date(now);
+        // today.setHours(15, 0, 0, 0);
 
-        // 翌日の日付を取得
+        // 明日の日付を取得
         const tomorrow = new Date(now);
-        tomorrow.setDate(now.getDate());
+        tomorrow.setDate(now.getDate() + 1);
         tomorrow.setHours(0, 0, 0, 0);
 
         // 翌々日の日付を取得
-        const dayAfterTomorrow = new Date(now);
-        dayAfterTomorrow.setDate(now.getDate() + 1);
-        dayAfterTomorrow.setHours(0, 0, 0, 0);
+        // const dayAfterTomorrow = new Date(now);
+        // dayAfterTomorrow.setDate(now.getDate() + 1);
+        // dayAfterTomorrow.setHours(0, 0, 0, 0);
 
         // 条件に基づいてフィルタリング
         // 1. 翌日で前日の15時を過ぎている場合は編集不可
-        if (dayDate >= tomorrow && dayDate < dayAfterTomorrow) {
-          if (now < today15) {
-            return false; // 15時を過ぎたら翌日の編集不可
-          }
-        }
+        // if (dayDate >= tomorrow && dayDate < dayAfterTomorrow) {
+        //   if (now < today15) {
+        //     return false; // 15時を過ぎたら翌日の編集不可
+        //   }
+        // }
 
         // 2. 翌日以降は常に編集可能
-        if (dayDate >= dayAfterTomorrow) {
-          return true;
-        }
+        // if (dayDate >= dayAfterTomorrow) {
+        //   return true;
+        // }
 
-        // 3. 今日または未来の日付の場合
-        return dayDate >= now;
+        // 明日以降の予約を表示
+        return dayDate >= tomorrow;
       });
 
       // 日付でフィルタリングされた後にユーザーIDでフィルタリング
