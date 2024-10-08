@@ -226,9 +226,9 @@ export default function CreatePage() {
 
   return (
     <div className={styles.createCenter}>
-      <h3 className={styles.linkTitle}>
+      {/* <h3 className={styles.linkTitle}>
         <Link href="/">トップページに戻る</Link>
-      </h3>
+      </h3> */}
       <form onSubmit={handleClick}>
         <h1 className={styles.createTitle}>預かり保育申し込み</h1>
         <p className={styles.createChildName}>園児名</p>
