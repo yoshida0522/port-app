@@ -124,7 +124,7 @@ const UsersPage = () => {
         if (
           dayDate >= tomorrow &&
           dayDate < dayAfterTomorrow &&
-          now > yesterday15
+          (now > yesterday15 || now.getHours() < 15) // 15時前は編集可能
         ) {
           return false; // 翌日の予約は前日の15時以降編集不可
         }
