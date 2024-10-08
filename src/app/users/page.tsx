@@ -230,7 +230,7 @@ const UsersPage = () => {
             <th>登園時間</th>
             <th>お迎え時間</th>
             <th>備考</th>
-            <th>アクション</th>
+            {/* <th>アクション</th> */}
           </tr>
         </thead>
         <tbody>

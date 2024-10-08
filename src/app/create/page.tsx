@@ -201,13 +201,16 @@ export default function CreatePage() {
     // LINE通知処理
 
     try {
-      let message = `${days[0].name}さんの予約を\n以下の内容で送信しました:\n\n`;
+      let message = `${days[0].name}さんの予約を\n以下の内容で受け付けました:\n\n`;
 
       days.forEach((day) => {
-        message += `日にち ${day.date}:\n`;
-        message += `登園時間 ${day.startTime}:\n`;
-        message += `お迎え時間 ${day.endTime}:\n`;
-        message += `備考 ${day.remark}:\n\n\n`;
+        // dateが空でない場合にのみメッセージを追加
+        if (day.date && day.date.trim() !== "") {
+          message += `日にち ${day.date}:\n`;
+          message += `登園時間 ${day.startTime}:\n`;
+          message += `お迎え時間 ${day.endTime}:\n`;
+          message += `備考 ${day.remark}:\n\n`;
+        }
       });
 
       const response = await axios.post("/api/linebot", {
