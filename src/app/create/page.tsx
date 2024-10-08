@@ -195,7 +195,7 @@ export default function CreatePage() {
         // dateが空でない場合にのみメッセージを追加
         if (day.date && day.date.trim() !== "") {
           message += `日にち ${day.date}:\n`;
-          message += `登園時間 ${day.startTime}:\n`;
+          message += `預かり開始時間 ${day.startTime}:\n`;
           message += `お迎え時間 ${day.endTime}:\n`;
           message += `備考 ${day.remark}:\n\n`;
         }
@@ -257,7 +257,7 @@ export default function CreatePage() {
                   type="date"
                   onChange={handleChange(day, "date")}
                 />
-                <strong className={styles.createStrong}>登園時間</strong>
+                <strong className={styles.createStrong}>預かり開始時間</strong>
                 <input
                   className={styles.createInput}
                   type="time"

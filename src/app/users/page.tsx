@@ -212,7 +212,7 @@ const UsersPage = () => {
           <tr className={styles.childSubTitle}>
             <th>園児名</th>
             <th>日にち</th>
-            <th>登園時間</th>
+            <th>預かり開始時間</th>
             <th>お迎え時間</th>
             <th>備考</th>
             {/* <th>アクション</th> */}
