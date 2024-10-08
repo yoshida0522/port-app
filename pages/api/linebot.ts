@@ -19,11 +19,17 @@ export default async function handler(
 ) {
   try {
     const message = req.body.message;
+    const userId = req.body.userId;
 
-    await client.pushMessage("U6a934c65da47bd1a06d768e5e35da61f", {
+    await client.pushMessage(userId, {
       type: "text",
       text: message,
     });
+
+    // await client.pushMessage("U6a934c65da47bd1a06d768e5e35da61f", {
+    //     type: "text",
+    //     text: message,
+    //   });
 
     res
       .status(200)
