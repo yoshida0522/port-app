@@ -128,85 +128,85 @@ export default function CreatePage() {
   const handleClick = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    const days = [
-      {
-        id: uuidv4(),
-        name: childName,
-        realStartTime: "",
-        realEndTime: "",
-        userId: user,
-        ...monday,
-      },
-      {
-        id: uuidv4(),
-        name: childName,
-        realStartTime: "",
-        realEndTime: "",
-        userId: user,
-        ...tuesday,
-      },
-      {
-        id: uuidv4(),
-        name: childName,
-        realStartTime: "",
-        realEndTime: "",
-        userId: user,
-        ...wednesday,
-      },
-      {
-        id: uuidv4(),
-        name: childName,
-        realStartTime: "",
-        realEndTime: "",
-        userId: user,
-        ...thursday,
-      },
-      {
-        id: uuidv4(),
-        name: childName,
-        realStartTime: "",
-        realEndTime: "",
-        userId: user,
-        ...friday,
-      },
-    ];
+    // const days = [
+    //   {
+    //     id: uuidv4(),
+    //     name: childName,
+    //     realStartTime: "",
+    //     realEndTime: "",
+    //     userId: user,
+    //     ...monday,
+    //   },
+    //   {
+    //     id: uuidv4(),
+    //     name: childName,
+    //     realStartTime: "",
+    //     realEndTime: "",
+    //     userId: user,
+    //     ...tuesday,
+    //   },
+    //   {
+    //     id: uuidv4(),
+    //     name: childName,
+    //     realStartTime: "",
+    //     realEndTime: "",
+    //     userId: user,
+    //     ...wednesday,
+    //   },
+    //   {
+    //     id: uuidv4(),
+    //     name: childName,
+    //     realStartTime: "",
+    //     realEndTime: "",
+    //     userId: user,
+    //     ...thursday,
+    //   },
+    //   {
+    //     id: uuidv4(),
+    //     name: childName,
+    //     realStartTime: "",
+    //     realEndTime: "",
+    //     userId: user,
+    //     ...friday,
+    //   },
+    // ];
 
-    // dateが空でない曜日データのみフィルタリング
-    const filteredDays = days.filter(
-      (day) => day.date && day.date.trim() !== ""
-    );
+    // // dateが空でない曜日データのみフィルタリング
+    // const filteredDays = days.filter(
+    //   (day) => day.date && day.date.trim() !== ""
+    // );
 
-    if (filteredDays.length === 0) {
-      console.log("保存するデータがありません");
-      return;
-    }
+    // if (filteredDays.length === 0) {
+    //   console.log("保存するデータがありません");
+    //   return;
+    // }
 
-    try {
-      // Firestoreにデータを保存
-      await Promise.all(
-        filteredDays.map((day) => {
-          return addDoc(collection(db, "posts"), {
-            days: [day],
-            firstDate: day.date,
-            timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-          });
-        })
-      );
+    // try {
+    //   // Firestoreにデータを保存
+    //   await Promise.all(
+    //     filteredDays.map((day) => {
+    //       return addDoc(collection(db, "posts"), {
+    //         days: [day],
+    //         firstDate: day.date,
+    //         timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+    //       });
+    //     })
+    //   );
 
-      console.log("すべてのデータがFirestoreに保存されました");
+    //   console.log("すべてのデータがFirestoreに保存されました");
 
-      // LINE通知処理
-      // await sendLineNotification();
-      await axios.post("/api/linebot", {
-        message: "ボタンが押されました！",
-      });
+    // LINE通知処理
+    // await sendLineNotification();
+    await axios.post("/api/linebot", {
+      message: "ボタンが押されました！",
+    });
 
-      // メッセージ送信が終わったらthanksへ遷移
-      console.log("メッセージの送信が完了しました");
-      router.push("/thanks");
-    } catch (error) {
-      console.error("エラーが発生しました:", error);
-    }
+    // メッセージ送信が終わったらthanksへ遷移
+    //     console.log("メッセージの送信が完了しました");
+    //     router.push("/thanks");
+    //   } catch (error) {
+    //     console.error("エラーが発生しました:", error);
+    //   }
   };
 
   return (
@@ -272,6 +272,3 @@ export default function CreatePage() {
     </div>
   );
 }
-// function lineWebhook(user: string, message: string) {
-//   throw new Error("Function not implemented.");
-// }
