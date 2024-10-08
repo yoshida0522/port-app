@@ -131,6 +131,11 @@ const UsersPage = () => {
           }
         }
 
+        // 2. 今日の予約は常に表示
+        if (dayDate.toDateString() === now.toDateString()) {
+          return true; // 今日の予約は常に表示
+        }
+
         // 2. 翌々日以降は常に編集可能
         if (dayDate >= dayAfterTomorrow) {
           return true;
