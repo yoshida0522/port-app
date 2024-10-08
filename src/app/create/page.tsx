@@ -197,9 +197,29 @@ export default function CreatePage() {
 
     // LINE通知処理
     // await sendLineNotification();
-    await axios.post("/api/linebot", {
-      message: "ボタンが押されました！",
-    });
+
+    // await axios.post("/api/linebot", {
+    //   message: "ボタンが押されました！",
+    // });
+
+    // 変更後
+    try {
+      const response = await axios.post("/api/linebot", {
+        message: "ボタンが押されました！",
+      });
+
+      if (response.status === 200) {
+        console.log("LINEに通知が成功しました:", response.data);
+      } else {
+        console.error(
+          "LINEへの通知に失敗しました:",
+          response.status,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("LINEへの通知エラー:", error);
+    }
 
     // メッセージ送信が終わったらthanksへ遷移
     //     console.log("メッセージの送信が完了しました");
