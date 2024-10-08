@@ -197,6 +197,11 @@ const UsersPage = () => {
     return new Date(now.getFullYear(), now.getMonth(), now.getDate());
   };
 
+  const parseDate = (dateString: string) => {
+    const [year, month, day] = dateString.split("-").map(Number);
+    return new Date(year, month - 1, day); // 月は0から始まるので-1する
+  };
+
   return (
     <div className={styles.childImg}>
       <div className={styles.childCenter}>
@@ -221,7 +226,7 @@ const UsersPage = () => {
             return (
               <React.Fragment key={postIndex}>
                 {days.map((day, dayIndex) => {
-                  const dayDate = new Date(day.date); // 予約の日付を取得
+                  const dayDate = parseDate(day.date); // 予約の日付を取得
 
                   return (
                     <tr key={dayIndex}>
