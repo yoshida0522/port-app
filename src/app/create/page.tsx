@@ -202,6 +202,7 @@ export default function CreatePage() {
       });
 
       // メッセージ送信が終わったらthanksへ遷移
+      console.log("メッセージの送信が完了しました");
       router.push("/thanks");
     } catch (error) {
       console.error("エラーが発生しました:", error);
