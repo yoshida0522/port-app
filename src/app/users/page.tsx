@@ -121,12 +121,12 @@ const UsersPage = () => {
 
         // 条件に基づいてフィルタリング
         // 1. 翌日で前日の15時を過ぎている場合は編集不可
-        if (
-          dayDate >= tomorrow &&
-          dayDate < dayAfterTomorrow &&
-          (now > yesterday15 || now.getHours() < 15) // 15時前は編集可能
-        ) {
-          return false; // 翌日の予約は前日の15時以降編集不可
+        if (dayDate >= tomorrow && dayDate < dayAfterTomorrow) {
+          if (now < yesterday15) {
+            return true; // まだ15時を過ぎていないので編集可能
+          } else {
+            return false; // 15時を過ぎたら編集不可
+          }
         }
 
         // 2. 翌々日以降は常に編集可能
