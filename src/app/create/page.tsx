@@ -9,7 +9,6 @@ import "firebase/compat/firestore";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import styles from "../styles/page.module.css";
-import Link from "next/link";
 import liff from "@line/liff";
 import axios from "axios";
 
@@ -18,7 +17,7 @@ export default function CreatePage() {
   const [childName, setChildName] = useState("");
   const [idToken, setIdToken] = useState<string | null>(null);
   const [user, setUser] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false); // 追加
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [monday, setMonday] = useState({
     date: "",
@@ -63,19 +62,17 @@ export default function CreatePage() {
           liff.login();
         }
       })
-      .catch((e: any) => {
+      .catch((e: Error) => {
         console.error("LIFFの初期化に失敗しました", e);
         setIdToken("");
       });
 
     liff.ready.then(async () => {
       const userProfile = await liff.getProfile();
-      console.log(userProfile);
       setUser(userProfile.userId);
     });
   }, []);
 
-  // userIdを保存
   useEffect(() => {
     if (user) {
       localStorage.setItem("userId", user);
@@ -113,7 +110,7 @@ export default function CreatePage() {
 
   const handleClick = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    setIsSubmitting(true); // 送信中に設定
+    setIsSubmitting(true);
 
     const days = [
       {
@@ -158,19 +155,17 @@ export default function CreatePage() {
       },
     ];
 
-    // dateが空でない曜日データのみフィルタリング
     const filteredDays = days.filter(
       (day) => day.date && day.date.trim() !== ""
     );
 
     if (filteredDays.length === 0) {
       console.log("保存するデータがありません");
-      setIsSubmitting(false); // 送信が完了したので戻す
+      setIsSubmitting(false);
       return;
     }
 
     try {
-      // Firestoreにデータを保存
       await Promise.all(
         filteredDays.map((day) => {
           return addDoc(collection(db, "posts"), {
@@ -186,13 +181,10 @@ export default function CreatePage() {
       console.error("エラーが発生しました:", error);
     }
 
-    // LINE通知処理
-
     try {
       let message = `${days[0].name}さんの予約を\n以下の内容で受け付けました:\n\n`;
 
       days.forEach((day) => {
-        // dateが空でない場合にのみメッセージを追加
         if (day.date && day.date.trim() !== "") {
           message += `日にち ${day.date}:\n`;
           message += `預かり開始時間 ${day.startTime}:\n`;
@@ -219,16 +211,12 @@ export default function CreatePage() {
       console.error("LINEへの通知エラー:", error);
     }
 
-    // メッセージ送信が終わったらthanksへ遷移
     console.log("メッセージの送信が完了しました");
     router.push("/thanks");
   };
 
   return (
     <div className={styles.createCenter}>
-      {/* <h3 className={styles.linkTitle}>
-        <Link href="/">トップページに戻る</Link>
-      </h3> */}
       <form onSubmit={handleClick}>
         <h1 className={styles.createTitle}>預かり保育申し込み</h1>
         <p className={styles.createChildName}>園児名</p>
@@ -257,7 +245,7 @@ export default function CreatePage() {
                   type="date"
                   onChange={handleChange(day, "date")}
                 />
-                <strong className={styles.createStrong}>預かり開始時間</strong>
+                <strong className={styles.createStrong}>延長開始時間</strong>
                 <input
                   className={styles.createInput}
                   type="time"
@@ -281,7 +269,7 @@ export default function CreatePage() {
           ))}
         </div>
         <button type="submit" className={styles.submitButton}>
-          {isSubmitting ? "送信中..." : "送信"} {/* ボタンの内容を切り替え */}
+          {isSubmitting ? "送信中..." : "送信"}
         </button>
       </form>
     </div>

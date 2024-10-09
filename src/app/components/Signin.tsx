@@ -34,7 +34,6 @@ function Signin() {
         const data = doc.data() as User;
         return { ...data, id: doc.id };
       });
-      console.log(usersArray);
       setPosts(usersArray);
     };
     fetchData();
@@ -55,10 +54,10 @@ function Signin() {
   };
 
   const handleClick = () => {
-    setErrorMessage(null); // エラーメッセージをリセット
+    setErrorMessage(null);
     if (!user || !pass) {
       setErrorMessage("ユーザー名とパスワードを入力してください");
-      return; // 入力が不十分な場合は処理を中断
+      return;
     }
 
     const foundUser = posts.find(
@@ -70,14 +69,12 @@ function Signin() {
       setIsLoggedIn(true);
       localStorage.setItem("loggedInUser", JSON.stringify(foundUser));
 
-      // `manager`がtrueであれば管理者としてログイン
       if (foundUser.manager) {
-        console.log("管理者がログインしました");
         setIsManegerIn(true);
-        localStorage.setItem("isManagerIn", "true"); // 管理者フラグを保存
+        localStorage.setItem("isManagerIn", "true");
       } else {
         setIsManegerIn(false);
-        localStorage.setItem("isManagerIn", "false"); // 一般ユーザーフラグを保存
+        localStorage.setItem("isManagerIn", "false");
       }
     } else {
       setErrorMessage("ユーザー名またはパスワードが違います");
@@ -90,10 +87,9 @@ function Signin() {
   const handleSignoutClick = async () => {
     await auth.signOut();
     localStorage.removeItem("loggedInUser");
-    localStorage.removeItem("isManagerIn"); // 管理者フラグを削除
+    localStorage.removeItem("isManagerIn");
     setIsLoggedIn(false);
     setIsManegerIn(false);
-    console.log("ログアウトしました");
   };
 
   if (!isMounted) {
@@ -141,7 +137,6 @@ function Signin() {
                 <label className={styles.label}>ユーザーID</label>
                 <input
                   className={styles.input}
-                  // className="inputBox"
                   value={user}
                   placeholder="ユーザーIDを入力してください"
                   onChange={(e) => setUser(e.target.value)}
@@ -152,7 +147,6 @@ function Signin() {
                 <label className={styles.label}>パスワード</label>
                 <input
                   className={styles.input}
-                  // className="inputBox"
                   value={pass}
                   placeholder="パスワードを入力してください"
                   onChange={(e) => setPass(e.target.value)}
@@ -164,9 +158,6 @@ function Signin() {
                   サインイン
                 </Button>
               </div>
-              {/* <Link href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2006394583&redirect_uri=https://port-app-yoshida0522s-projects.vercel.app/create&state=uuidv4&scope=profile%20openid">
-                LINEでログイン
-              </Link> */}
             </form>
           </div>
         </div>

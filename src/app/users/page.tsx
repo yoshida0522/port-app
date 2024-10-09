@@ -65,7 +65,6 @@ const UsersPage = () => {
         }
 
         const userProfile = await liff.getProfile();
-        console.log(userProfile);
         setUser(userProfile.userId);
         setName(userProfile.displayName);
       } catch (e) {
@@ -99,25 +98,20 @@ const UsersPage = () => {
 
   const filteredPosts = posts
     .map((post) => {
-      // まず日付でフィルタリング
       const filteredDays = post.days.filter((day) => {
         const dayDate = new Date(day.date);
         const now = new Date();
 
-        // 当日の日付を取得
         const today = new Date(now);
         today.setHours(0, 0, 0, 0);
 
-        // 明日以降の予約を表示
         return dayDate >= today;
       });
 
-      // 日付でフィルタリングされた後にユーザーIDでフィルタリング
       const userFilteredDays = filteredDays.filter(
         (day) => day.userId === user
       );
 
-      // フィルタリング後の日付が存在する場合のみ、投稿を返す
       return userFilteredDays.length > 0
         ? { ...post, days: userFilteredDays }
         : null;
@@ -191,7 +185,6 @@ const UsersPage = () => {
     return <div>Loading...</div>;
   }
 
-  // 現在の日付を取得する関数
   const getTodayDate = () => {
     const now = new Date();
     return new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -199,7 +192,7 @@ const UsersPage = () => {
 
   const parseDate = (dateString: string) => {
     const [year, month, day] = dateString.split("-").map(Number);
-    return new Date(year, month - 1, day); // 月は0から始まるので-1する
+    return new Date(year, month - 1, day);
   };
 
   return (
@@ -212,21 +205,20 @@ const UsersPage = () => {
           <tr className={styles.childSubTitle}>
             <th>園児名</th>
             <th>日にち</th>
-            <th>預かり開始時間</th>
+            <th>延長開始時間</th>
             <th>お迎え時間</th>
             <th>備考</th>
-            {/* <th>アクション</th> */}
           </tr>
         </thead>
         <tbody>
           {filteredPosts.map((post, postIndex) => {
             const days = post.days || [];
-            const todayDate = getTodayDate(); // 当日の日付を取得
+            const todayDate = getTodayDate();
 
             return (
               <React.Fragment key={postIndex}>
                 {days.map((day, dayIndex) => {
-                  const dayDate = parseDate(day.date); // 予約の日付を取得
+                  const dayDate = parseDate(day.date);
 
                   return (
                     <tr key={dayIndex}>
@@ -277,7 +269,6 @@ const UsersPage = () => {
                           <td>{day.endTime}</td>
                           <td>{day.remark}</td>
                           <td>
-                            {/* 当日の日付の場合、編集ボタンを表示しない */}
                             {dayDate > todayDate ? (
                               <>
                                 <button

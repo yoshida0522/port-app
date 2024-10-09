@@ -6,11 +6,6 @@ const config = {
   channelSecret: process.env.LINE_CHANNEL_SECRET || "",
 };
 
-// コンソールでアクセストークンを確認
-console.log(process.env.LINE_CHANNEL_ACCESS_TOKEN);
-// コンソールでチャネルシークレットを確認
-console.log(process.env.LINE_CHANNEL_SECRET);
-
 const client = new line.Client(config);
 
 export default async function handler(
@@ -25,11 +20,6 @@ export default async function handler(
       type: "text",
       text: message,
     });
-
-    // await client.pushMessage("U6a934c65da47bd1a06d768e5e35da61f", {
-    //     type: "text",
-    //     text: message,
-    //   });
 
     res
       .status(200)

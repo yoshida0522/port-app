@@ -31,7 +31,6 @@ function Page() {
     pass: "",
     manager: false,
   });
-  // コンポーネントがマウントされた時にデータを取得
   useEffect(() => {
     fetchAllData();
   }, []);
@@ -46,22 +45,19 @@ function Page() {
         id: doc.id,
         name: data.name,
         pass: data.pass,
-        manager: data.manager ?? false, // デフォルトで false
+        manager: data.manager ?? false,
       };
       dataArray.push(userDataWithDefaults);
     });
 
-    console.log("Fetched data:", dataArray); // 取得したデータを表示
     setData(dataArray);
   };
 
-  // 編集ボタンを押したときの処理
   const handleEdit = (user: User) => {
     setEditingUserId(user.id);
-    setEditedUser({ name: user.name, pass: user.pass, manager: user.manager }); // 編集するユーザーの情報をセット
+    setEditedUser({ name: user.name, pass: user.pass, manager: user.manager });
   };
 
-  // 入力フォームの変更を管理
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEditedUser((prev) => ({ ...prev, [name]: value }));
@@ -71,7 +67,6 @@ function Page() {
     setEditedUser((prev) => ({ ...prev, manager: !prev.manager }));
   };
 
-  // 保存ボタンを押したときの処理
   const handleSave = async (userId: string) => {
     try {
       const userDocRef = doc(db, "user", userId);
@@ -93,22 +88,20 @@ function Page() {
         )
       );
 
-      setEditingUserId(null); // 編集モードを解除
+      setEditingUserId(null);
     } catch (error) {
-      console.error("Error updating user: ", error);
+      console.error("更新中にエラーが発生しました: ", error);
     }
   };
 
-  // 削除ボタンを押したときの処理
   const handleDelete = async (userId: string) => {
     try {
       const userDocRef = doc(db, "user", userId);
       await deleteDoc(userDocRef);
 
-      // データを削除後、UIからも削除
       setData((prevData) => prevData.filter((user) => user.id !== userId));
     } catch (error) {
-      console.error("Error deleting user: ", error);
+      console.error("削除中にエラーが発生しました: ", error);
     }
   };
 
@@ -119,7 +112,6 @@ function Page() {
           トップページに戻る
         </Link>
       </h3>
-      {/* </div> */}
       <div className={styles.center}>
         <h1>ユーザー管理</h1>
       </div>

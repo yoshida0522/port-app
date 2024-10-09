@@ -6,7 +6,6 @@ import db from "../../firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import Link from "next/link";
 import React from "react";
-// import "../../globals.css";
 import styles from "../../styles/page.module.css";
 
 interface Day {
@@ -26,7 +25,6 @@ interface Post {
 }
 
 const ChildReservationPage = () => {
-  // URLパラメータを取得
   const params = useParams();
   let childName = params?.childName;
 
@@ -74,7 +72,6 @@ const ChildReservationPage = () => {
       <h3 className={styles.childCenter}>
         <Link href="/reservation">一覧に戻る</Link>
       </h3>
-      {/* <img src="/images/音符.png" alt="背景画像" /> */}
       <div className={styles.childCenter}>
         <h1>
           {decodedChildName ? `${decodedChildName}さんの予約一覧` : "予約一覧"}
@@ -85,10 +82,10 @@ const ChildReservationPage = () => {
           <tr className={styles.childSubTitle}>
             <th>園児名</th>
             <th>日にち</th>
-            <th>登園予約時間</th>
-            <th>降園予約時間</th>
-            <th>登園時間</th>
-            <th>降園時間</th>
+            <th>延長開始時間</th>
+            <th>お迎え時間</th>
+            <th>開始時間</th>
+            <th>終了時間</th>
             <th>備考</th>
           </tr>
         </thead>
