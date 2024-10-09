@@ -249,7 +249,7 @@ export default function CreatePage() {
                 <input
                   className={styles.createInput}
                   type="time"
-                  defaultValue={"11:00"}
+                  defaultValue={"14:00"}
                   onChange={handleChange(day, "startTime")}
                 />
                 <strong className={styles.createStrong}>お迎え時間</strong>
