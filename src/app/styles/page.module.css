@@ -5,7 +5,6 @@
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  /* background-image: url("https://knsoza1.com/wp-content/uploads/2020/01/412c7c244bc54e0b08d43c0a7f095112-scaled.jpg"); */
   background-image: linear-gradient(
       rgba(255, 255, 255, 0.3),
       rgba(255, 255, 255, 0.3)
@@ -108,7 +107,6 @@
   justify-content: center;
   align-items: center;
   width: 300px;
-  /* height: 100vh; */
   background-color: #f0f8ff;
 }
 
@@ -122,8 +120,6 @@
 }
 
 .rogButton {
-  /* text-align: center;
-        margin-top: 10px; */
   text-align: center;
   font-size: 24px;
   font-weight: bold;
@@ -155,7 +151,6 @@
 
 .signin {
   background-color: #bdf6bf;
-  /* color: white; */
   border: none;
   border-radius: 5px;
 }
@@ -163,11 +158,6 @@
 .signinButton {
   width: 100%;
   padding: 10px;
-  /* background-color: #4caf50; */
-  /* color: white; */
-  /* border: none; */
-  /* border-radius: 5px; */
-  /* font-size: 16px; */
   cursor: pointer;
 }
 
@@ -180,7 +170,6 @@
 
 .titleform {
   background-color: rgba(249, 249, 249, 0.9);
-  /* background-image: url("https://frame-illust.com/fi/wp-content/uploads/2016/06/8491.png"); */
   background-image: linear-gradient(
       rgba(255, 255, 255, 0.3),
       rgba(255, 255, 255, 0.3)
@@ -191,7 +180,7 @@
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   max-width: 600px;
-  height: 700px;
+  height: 90vh;
   margin: auto;
   text-align: center;
 }
@@ -450,11 +439,6 @@
 /* スマホ用画面 */
 @media screen and (max-width: 600px) {
   .childImg {
-    /* background-image: linear-gradient(
-        rgba(255, 255, 255, 0.8),
-        rgba(255, 255, 255, 0.8)
-      ),
-      url(../../../public/images/蜂.png); */
     background-size: 150px;
     background-position: left 25px;
     height: 170px;
@@ -799,16 +783,13 @@
   text-decoration: none;
   color: black;
 }
-/*  */
-/*  */
+
 /* thanksページ */
 .thanks {
   text-align: center;
   margin-top: 100px;
 }
 
-/*  */
-/*  */
 /* userページ */
 .usersCancel {
   background-color: rgb(247, 247, 122);
