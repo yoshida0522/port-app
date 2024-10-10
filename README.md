@@ -17,21 +17,29 @@
 
 ## 機能一覧
 
+-
+
 ## 使用技術
 
-・フロントエンド
-・フレームワーク
-・バックエンド
-firebase  
-・バージョン管理  
- GitHub  
-・デプロイ  
- vercel
+フロントエンド  
+*HTML  
+*CSS  
+*TypeScript  
+*Next.js(React)
+バックエンド  
+*Firebase  
+バージョン管理  
+*GitHub  
+デプロイ  
+\*Vercel  
+API  
+*LINE ログイン(認証)  
+*LINE Messaging API(リマインド)
 
 ```bash
+.env
 NEXT_PUBLIC_LINE_CHANNEL_ACCESS_TOKEN="YOUR_ACCESS_TOKEN"
 LINE_CHANNEL_SECRET="YOUR_CHANNEL_SECRET"
 NEXT_PUBLIC_LIFF_ID="YOUR_LIFF_ID"
-NEXTAUTH_SECRET="YOUR_SECRET"
 NEXT_PUBLIC_LIFF_USER_ID="YOUR_LIFF_USER_ID"
 ```
