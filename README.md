@@ -21,20 +21,20 @@
 
 ## 使用技術
 
-フロントエンド  
-*HTML  
-*CSS  
-*TypeScript  
-*Next.js(React)
-バックエンド  
-*Firebase  
-バージョン管理  
-*GitHub  
-デプロイ  
-\*Vercel  
-API  
-*LINE ログイン(認証)  
-*LINE Messaging API(リマインド)
+**フロントエンド  
+-HTML  
+-CSS  
+-TypeScript  
+-Next.js(React)
+**バックエンド  
+-Firebase  
+**バージョン管理  
+-GitHub  
+**デプロイ  
+-Vercel  
+\*\*API  
+-LINE ログイン(認証)  
+-LINE Messaging API(リマインド)
 
 ```bash
 .env
