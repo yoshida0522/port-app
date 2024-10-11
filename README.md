@@ -40,23 +40,27 @@
   管理者 ID でログインした場合は、予約一覧の他に新規登録と ID 管理のメニューが表示されます。  
   ※一般ユーザー ID の場合は、予約一覧のみの表示になります。
 
+管理者用ホーム画面  
 ![管理者用ホーム画面](https://github.com/user-attachments/assets/f8433360-9afe-48e3-b6fe-034fb1566b06)
 
+新登録画面  
 ![新規登録画面](https://github.com/user-attachments/assets/8a2f851f-b352-4124-b128-c05089d4cacd)
 
-![ID管理画面](https://github.com/user-attachments/assets/696916f0-c898-4ae7-ac6b-3d97e248354b)
+ID 管理画面  
+![ID管理画面](https://github.com/user-attachments/assets/d8dc7bb4-24c6-4b91-838f-f86de6507eab)
 
+一般ユーザー用ホーム画面  
 ![一般ユーザー用ホーム画面](https://github.com/user-attachments/assets/570dba0b-2219-4954-b68d-6512d8748c34)
 
 - 予約一覧  
   予約一覧で保護者が送信した予約内容が確認できます。
 
-![予約一覧画面](https://github.com/user-attachments/assets/5426463c-0ed8-4394-9e3a-5385f76095db)
+![予約一覧画面](https://github.com/user-attachments/assets/248ca74a-76ba-45c6-854c-9be22111bfec)
 
 - 園児別の一覧  
   予約一覧で表示されている園児名をクリックすることで、選択した園児の予約一覧を全て確認することができます。
 
-![園児別画面](https://github.com/user-attachments/assets/eba08620-e9af-4b9d-9045-799c3346e7fc)
+![園児別画面](https://github.com/user-attachments/assets/589f9d26-b273-4eaf-a67c-b1586683b17b)
 
 ## 機能一覧
 
