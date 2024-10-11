@@ -126,26 +126,26 @@
 
 ## 使用技術
 
-**フロントエンド**
+**【フロントエンド】**
 
 - HTML
 - CSS
 - TypeScript
 - Next.js(React)
 
-**バックエンド**
+**【バックエンド】**
 
 - Firebase
 
-**バージョン管理**
+**【バージョン管理】**
 
 - GitHub
 
-**デプロイ**
+**【デプロイ】**
 
 - Vercel
 
-  **API**
+**【API】**
 
 - LINE ログイン(認証)
 - LINE Messaging API(リマインド)
