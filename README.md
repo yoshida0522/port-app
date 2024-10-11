@@ -2,6 +2,7 @@
 
 ## アプリ URL
 
+**幼稚園側管理アプリ**
 ・https://azukari-child.vercel.app/
 
 デモアカウント  
@@ -12,6 +13,14 @@
 (一般ユーザー用)  
 ユーザー ID: test  
 パスワード：1111
+<br>
+
+**保護者用 LINE 公式アカウント**
+
+アカウント名：預かり予約
+・https://lin.ee/JFnAPqq  
+<br>
+<br>
 
 ## アプリについて
 
@@ -19,14 +28,35 @@
 
 **保護者側**  
 ※スマホでの操作を想定しています。
+<br>
+<br>
+
+【 LINE 公式アカウント画面 】  
+<br>
+
+![LINEメニュー画面](https://github.com/user-attachments/assets/1844d9c2-7183-4b0c-bd76-8e26e5a7b0b5)
+<br>
+<br>
+<br>
 
 - 予約申込  
-  保護者は LINE の公式アカウントにある申込ページから必要事項を入力して送信すると  
-  自分の LINE に送信内容が送られてきます。
+   保護者は LINE の公式アカウントにある申込ページから必要事項を入力して送信すると  
+   自分の LINE に送信内容が送られてきます。
+  <br>
+  <br>
+  ![予約申込画面](https://github.com/user-attachments/assets/66aa5344-76ec-46f9-ba7e-4cf31941f5c3)
+  <br>
+  <br>
 
 - 予約確認  
-  予約確認では当日以降の予約の確認と、予約の変更ができます。  
-  ※当日の予約変更はできません。また、前日以前の予約は表示されません。
+   予約確認では当日以降の予約の確認と、予約の変更ができます。  
+   ※当日の予約変更はできません。また、前日以前の予約は表示されません。
+  <br>
+  <br>
+  ![予約確認](https://github.com/user-attachments/assets/eb67a3d3-9481-4b29-86dc-8b53d96ad17c)  
+  <br>
+  <br>
+  <br>
 
 **幼稚園側**  
 ※PC での操作を想定しています。
@@ -62,7 +92,8 @@
 <br>
 
 - 予約一覧  
-   予約一覧で保護者が送信した予約内容が確認できます。
+   予約一覧で保護者が送信した予約内容が確認できます。  
+   カレンダーの日付を変えることで、指定した日の予約も確認できます。  
   <br>
 
 ![予約一覧画面](https://github.com/user-attachments/assets/248ca74a-76ba-45c6-854c-9be22111bfec)
@@ -74,18 +105,19 @@
   <br>
 
 ![園児別画面](https://github.com/user-attachments/assets/589f9d26-b273-4eaf-a67c-b1586683b17b)
+<br>  
 <br>
 
 ## 機能一覧
 
-**保護者側**
+**保護者側機能**
 
 - ログイン機能(LINE 認証)
 - 予約申込(1 度に 5 件まで)
 - 予約内容のリマインド機能
 - 予約確認(一覧)
 
-**幼稚園側**
+**幼稚園側機能**
 
 - ログイン機能(ユーザー ID、パスワード)
 - 新規登録
@@ -103,15 +135,15 @@
 - TypeScript
 - Next.js(React)
 
-  **バックエンド**
+**バックエンド**
 
 - Firebase
 
-  **バージョン管理**
+**バージョン管理**
 
 - GitHub
 
-  **デプロイ**
+**デプロイ**
 
 - Vercel
 
@@ -120,8 +152,15 @@
 - LINE ログイン(認証)
 - LINE Messaging API(リマインド)
 
-```bash
+##　注意点  
+LINE の API を使用するには下記の設定が必要です。  
+事前に公式アカウントから取得をしてください。  
+<br>
+<br>
+
 .env
+
+```bash
 NEXT_PUBLIC_LINE_CHANNEL_ACCESS_TOKEN="YOUR_ACCESS_TOKEN"
 LINE_CHANNEL_SECRET="YOUR_CHANNEL_SECRET"
 NEXT_PUBLIC_LIFF_ID="YOUR_LIFF_ID"
