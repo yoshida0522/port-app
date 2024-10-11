@@ -2,7 +2,7 @@
 
 ## アプリ URL
 
-**幼稚園側管理アプリ**
+**幼稚園側管理アプリ**  
 ・https://azukari-child.vercel.app/
 
 デモアカウント  
@@ -17,8 +17,8 @@
 
 **保護者用 LINE 公式アカウント**
 
-アカウント名：預かり予約
-・https://lin.ee/JFnAPqq  
+アカウント名：預かり予約  
+・https://lin.ee/BJHOPtH  
 <br>
 <br>
 
@@ -31,11 +31,9 @@
 <br>
 <br>
 
-【 LINE 公式アカウント画面 】  
-<br>
+【 LINE 公式アカウント画面 】
 
 ![LINEメニュー画面](https://github.com/user-attachments/assets/1844d9c2-7183-4b0c-bd76-8e26e5a7b0b5)
-<br>
 <br>
 <br>
 
@@ -151,13 +149,14 @@
 
 - LINE ログイン(認証)
 - LINE Messaging API(リマインド)
+  <br>
+  <br>
 
-##　注意点  
+##　注意点
+
 LINE の API を使用するには下記の設定が必要です。  
 事前に公式アカウントから取得をしてください。  
 <br>
-<br>
-
 .env
 
 ```bash
