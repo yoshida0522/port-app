@@ -62,14 +62,12 @@ function Page() {
             }}
           ></input>
         </div>
-        <div className={styles.createcenter}>
-          <Button className={styles.buttontext} onClick={handleClick}>
-            登録
-          </Button>
-        </div>
+        <button className={styles.buttonText} onClick={handleClick}>
+          登録
+        </button>
         <div>
-          <Link href="/" className={styles.backButton}>
-            戻る
+          <Link href="/">
+            <button className={styles.backButton}>戻る</button>
           </Link>
         </div>
       </div>

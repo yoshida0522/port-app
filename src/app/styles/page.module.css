@@ -36,7 +36,6 @@
   font-size: 30px;
   display: inline-block;
   padding: 0.5em 1em 0.3em;
-  color: #ffffff;
   border: none;
   border-radius: 5px;
   background-color: #ffcccc;
@@ -66,8 +65,8 @@
   font-size: 30px;
   display: inline-block;
   padding: 0.5em 1em 0.3em;
-  color: #ffffff;
   border: none;
+  width: 180px;
   border-radius: 5px;
   background-color: #bbcbfa;
   background-size: 10px 10px;
@@ -204,29 +203,21 @@
   margin-bottom: 20px;
 }
 
-.createcenter {
+.buttonText {
   background-color: #eb6100;
-  text-decoration: none;
-  border-radius: 100vh;
+  border: none;
+  font-size: 30px;
+  color: white;
   width: 100px;
   height: 60px;
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
   margin-bottom: 20px;
+  border-radius: 30px;
 }
 
-.createcenter:hover {
+.buttonText:hover {
   transform: scale(90%);
   background-color: #f7a062;
-}
-
-.buttontext {
-  display: flex !important;
-  color: white !important;
-  font-size: 30px !important;
-  text-align: center !important;
-  justify-content: center !important;
+  cursor: pointer;
 }
 
 .inputBox {
@@ -257,21 +248,21 @@
 }
 
 .backButton {
-  display: inline-block;
   width: 100px;
   height: 60px;
-  border-radius: 100vh;
+  border-radius: 30px;
   color: #fff;
   background-color: #eb6100;
-  text-decoration: none;
   font-size: 30px;
-  line-height: 60px;
-  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border: none;
 }
 
 .backButton:hover {
   transform: scale(90%);
   background-color: #f7a062;
+  cursor: pointer;
 }
 
 /* 一覧画面 */
@@ -293,29 +284,31 @@
   background-color: white;
 }
 
-.topPage {
-  font-size: 15px;
-  display: inline-block;
-  padding: 0.5em 1em 0.3em;
+.topPageButton {
+  font-size: 17px;
+  font-weight: bold;
+  display: flex;
   border: none;
-  width: 140px;
-  height: 25px;
+  width: 200px;
+  height: 40px;
   border-radius: 10px;
   background-color: #e4f5fb;
   background-size: 10px 10px;
   background-image: radial-gradient(#a6ebf7 15%, transparent 20%),
     radial-gradient(#85ddfa 15%, transparent 20%);
   background-position: 0 0, 15px 15px;
-  text-align: center;
   margin: 5px auto 30px;
+  justify-content: center;
+  align-items: center;
 }
 
-.topPage:hover {
+.topPageButton:hover {
   transform: scale(85%);
   opacity: 0.7;
+  cursor: pointer;
 }
 
-.topPageText {
+.topPageLink {
   text-decoration: none;
   color: black;
 }
@@ -422,6 +415,35 @@
   width: 98vw;
 }
 
+.childButton {
+  font-size: 17px;
+  font-weight: bold;
+  display: flex;
+  border: none;
+  width: 200px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #e4f5fb;
+  background-size: 10px 10px;
+  background-image: radial-gradient(#a6ebf7 15%, transparent 20%),
+    radial-gradient(#85ddfa 15%, transparent 20%);
+  background-position: 0 0, 15px 15px;
+  margin: 5px auto 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.childButton:hover {
+  transform: scale(85%);
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.childLink {
+  text-decoration: none;
+  color: black;
+}
+
 .childCenter {
   display: flex;
   justify-content: center;
@@ -434,32 +456,6 @@
 
 .childSubTitle {
   background-color: rgb(247, 247, 178);
-}
-
-/* スマホ用画面 */
-@media screen and (max-width: 600px) {
-  .childImg {
-    background-size: 150px;
-    background-position: left 25px;
-    height: 170px;
-    width: 98vw;
-  }
-
-  .childCenter {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-
-  .childListTitle {
-    font-size: 0.8em;
-    margin: auto;
-  }
-
-  .childSubTitle {
-    font-size: 0.8em;
-    background-color: rgb(247, 247, 178);
-  }
 }
 
 /* LINEログイン画面 */
@@ -715,6 +711,7 @@
 .managerEdit:hover {
   transform: scale(90%);
   opacity: 0.7;
+  cursor: pointer;
 }
 
 .managerSave {
@@ -725,6 +722,7 @@
 .managerSave:hover {
   transform: scale(90%);
   opacity: 0.7;
+  cursor: pointer;
 }
 
 .managerDelete {
@@ -735,6 +733,7 @@
 .managerDelete:hover {
   transform: scale(90%);
   opacity: 0.7;
+  cursor: pointer;
 }
 
 .managerCancel {
@@ -745,6 +744,7 @@
 .managerCancel:hover {
   transform: scale(90%);
   opacity: 0.7;
+  cursor: pointer;
 }
 
 .tableLine {
@@ -758,30 +758,31 @@
 }
 
 .managerPage {
-  font-size: 15px;
-  display: inline-block;
-  padding: 0.5em 1em 0.3em;
+  font-size: 17px;
+  font-weight: bold;
+  display: flex;
   border: none;
-  width: 140px;
-  height: 25px;
+  width: 200px;
+  height: 40px;
   border-radius: 10px;
   background-color: #c6eaf7;
   background-size: 10px 10px;
   background-image: radial-gradient(#7ee7fa 15%, transparent 20%),
     radial-gradient(#5cd3fa 15%, transparent 20%);
   background-position: 0 0, 15px 15px;
-  text-align: center;
   margin: 5px auto 30px;
+  justify-content: center;
+  align-items: center;
 }
 
 .managerPage:hover {
   transform: scale(85%);
   opacity: 0.7;
+  cursor: pointer;
 }
 
-.managerPageText {
+.managerLink {
   text-decoration: none;
-  color: black;
 }
 
 /* thanksページ */

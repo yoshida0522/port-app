@@ -73,6 +73,7 @@ function Page() {
       await updateDoc(userDocRef, {
         name: editedUser.name,
         pass: editedUser.pass,
+        manager: editedUser.manager,
       });
 
       setData((prevData) =>
@@ -107,11 +108,9 @@ function Page() {
 
   return (
     <div className={styles.managerImg}>
-      <h3 className={styles.managerPage}>
-        <Link href="/" className={styles.managerPageText}>
-          トップページに戻る
-        </Link>
-      </h3>
+      <Link href="/" className={styles.managerLink}>
+        <button className={styles.managerPage}>トップページに戻る</button>
+      </Link>
       <div className={styles.center}>
         <h1>ユーザー管理</h1>
       </div>

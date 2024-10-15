@@ -142,11 +142,9 @@ export default function Page() {
   return (
     <>
       <div className={styles.reservationImg}>
-        <h3 className={styles.topPage}>
-          <Link href="/" className={styles.topPageText}>
-            トップページに戻る
-          </Link>
-        </h3>
+        <Link href="/" className={styles.topPageLink}>
+          <button className={styles.topPageButton}>トップページに戻る</button>
+        </Link>
         <div className={styles.center}>
           <h1>予約一覧</h1>
         </div>

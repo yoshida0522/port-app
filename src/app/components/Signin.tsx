@@ -102,24 +102,18 @@ function Signin() {
       {isLoggedIn ? (
         <form className={styles.allButton} onSubmit={handleSubmit}>
           <div>
-            <button className={styles.reservationButton}>
-              <Link href="reservation/" className={styles.link}>
-                予約一覧
-              </Link>
-            </button>
+            <Link href="reservation/" className={styles.link}>
+              <button className={styles.reservationButton}> 予約一覧</button>
+            </Link>
           </div>
           {isManegerIn ? (
             <div className={styles.managerMenu}>
-              <button className={styles.newRegistration}>
-                <Link href="newRegistration/" className={styles.link}>
-                  新規登録
-                </Link>
-              </button>
-              <button className={styles.newRegistration}>
-                <Link href="managerMenu/" className={styles.link}>
-                  ID管理
-                </Link>
-              </button>
+              <Link href="newRegistration/" className={styles.link}>
+                <button className={styles.newRegistration}>新規登録</button>
+              </Link>
+              <Link href="managerMenu/" className={styles.link}>
+                <button className={styles.newRegistration}> ID管理</button>
+              </Link>
             </div>
           ) : null}
           <div>
