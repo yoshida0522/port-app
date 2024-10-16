@@ -243,7 +243,7 @@ export default function CreatePage() {
           onChange={(e) => setChildName(e.target.value)}
         />
         <div>
-          <p>クラス</p>
+          <p className={styles.classTitle}>クラス</p>
           <select
             className={styles.class}
             id="dropdown"

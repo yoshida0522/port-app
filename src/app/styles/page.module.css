@@ -567,9 +567,16 @@
   color: #333;
 }
 
+.classTitle {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
 .class {
   height: 30px;
+  width: 50%;
   margin-bottom: 15px;
+  background-color: white;
 }
 
 .submitButton {
