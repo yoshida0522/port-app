@@ -247,17 +247,20 @@ export default function CreatePage() {
             onChange={(e) => {
               // 選択された value を取得
               const selectedValue = e.target.value;
-              setChildClass(selectedValue);
+              console.log(selectedValue);
 
               // value に対応する label を options から検索
               const selectedOption = options.find(
                 (option) => option.value === selectedValue
               );
+              console.log(selectedOption);
 
               // label を childClass に格納
-              setChildClass(
-                selectedOption ? selectedOption.label : selectedValue
-              );
+              if (selectedOption) {
+                setChildClass(selectedOption.label);
+              } else {
+                setChildClass(selectedValue);
+              }
             }}
           >
             {options.map((option) => (
