@@ -26,7 +26,6 @@ export default function CreatePage() {
   const [user, setUser] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [childClass, setChildClass] = useState("");
-  const [selectedLabel, setSelectedLabel] = useState("");
 
   const [monday, setMonday] = useState({
     date: "",
@@ -236,7 +235,9 @@ export default function CreatePage() {
     const selectedOption = options.find(
       (option) => option.value === selectedValue
     );
-    setChildClass(selectedOption ? selectedOption.label : ""); // 選択されたlabelを取得
+    if (selectedOption) {
+      setChildClass(selectedOption.label); // 選択されたlabelをセット
+    }
   };
 
   return (
