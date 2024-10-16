@@ -228,10 +228,6 @@ export default function CreatePage() {
     router.push("/thanks");
   };
 
-  const handleClassChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setChildClass(event.target.value);
-  };
-
   return (
     <div className={styles.createCenter}>
       <form onSubmit={handleClick}>
@@ -248,7 +244,7 @@ export default function CreatePage() {
             className={styles.class}
             id="dropdown"
             value={childClass}
-            onChange={handleClassChange}
+            onChange={(e) => setChildClass(e.target.value)}
           >
             {options.map((option) => (
               <option key={option.value} value={option.value}>
