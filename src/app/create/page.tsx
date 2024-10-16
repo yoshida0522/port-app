@@ -242,9 +242,14 @@ export default function CreatePage() {
           placeholder="園児名を入力してください"
           onChange={(e) => setChildName(e.target.value)}
         />
-        <p>クラス</p>
         <div>
-          <select id="dropdown" value={childClass} onChange={handleClassChange}>
+          <p>クラス</p>
+          <select
+            className={styles.class}
+            id="dropdown"
+            value={childClass}
+            onChange={handleClassChange}
+          >
             {options.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}

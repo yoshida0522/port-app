@@ -567,6 +567,11 @@
   color: #333;
 }
 
+.class {
+  height: 30px;
+  margin-bottom: 15px;
+}
+
 .submitButton {
   width: 100%;
   font-size: 20px;
