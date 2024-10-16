@@ -13,7 +13,7 @@ import liff from "@line/liff";
 import axios from "axios";
 
 const options = [
-  { value: "", label: "選択してください" },
+  { value: "0", label: "選択してください" },
   { value: "1", label: "幼稚園" },
   { value: "2", label: "未就学" },
   { value: "3", label: "小学生" },
@@ -25,7 +25,7 @@ export default function CreatePage() {
   const [idToken, setIdToken] = useState<string | null>(null);
   const [user, setUser] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [childClass, setChildClass] = useState("");
+  const [childClass, setChildClass] = useState(options[0].value);
 
   const [monday, setMonday] = useState({
     date: "",
