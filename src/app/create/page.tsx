@@ -228,18 +228,6 @@ export default function CreatePage() {
     router.push("/thanks");
   };
 
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = e.target.value; // 選択されたvalueを取得
-
-    // labelを取得
-    const selectedOption = options.find(
-      (option) => option.value === selectedValue
-    );
-    if (selectedOption) {
-      setChildClass(selectedOption.label); // 選択されたlabelをセット
-    }
-  };
-
   return (
     <div className={styles.createCenter}>
       <form onSubmit={handleClick}>
@@ -256,7 +244,18 @@ export default function CreatePage() {
             className={styles.class}
             id="dropdown"
             value={childClass}
-            onChange={(e) => handleSelect(e)}
+            onChange={(e) => {
+              // 選択された value を取得
+              const selectedValue = e.target.value;
+
+              // value に対応する label を options から検索
+              const selectedOption = options.find(
+                (option) => option.value === selectedValue
+              );
+
+              // label を childClass に格納
+              setChildClass(selectedOption ? selectedOption.label : "");
+            }}
           >
             {options.map((option) => (
               <option key={option.value} value={option.value}>
