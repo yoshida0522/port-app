@@ -16,6 +16,7 @@ import {
 interface Day {
   date: string;
   name: string;
+  class: string;
   startTime: string;
   endTime: string;
   realStartTime?: string;
@@ -67,17 +68,39 @@ export default function Page() {
 
   const filteredPosts = posts
     .map((post) => {
-      const filteredDays = post.days.filter(
-        (day: { date: string }) => day.date === search
-      );
+      // 検索日が指定されているかどうかをチェック
+      if (search) {
+        const filteredDays = post.days.filter(
+          (day: { date: string }) => day.date === search
+        );
 
-      if (filteredDays.length > 0) {
-        return { ...post, days: filteredDays };
+        if (filteredDays.length > 0) {
+          return { ...post, days: filteredDays };
+        }
+
+        return null;
+      } else {
+        // 検索日が指定されていない場合は、すべての日を返す
+        return post;
       }
-
-      return null;
     })
     .filter((post) => post !== null) as Post[];
+
+  // 日付順に並べ替え
+  filteredPosts.sort((a, b) => {
+    const dateA = new Date(a.days[0]?.date);
+    const dateB = new Date(b.days[0]?.date);
+
+    // 日付の比較
+    if (dateA.getTime() !== dateB.getTime()) {
+      return dateA.getTime() - dateB.getTime(); // 昇順にソート
+    }
+
+    // 日付が同じ場合は名前で比較
+    const nameA = a.days[0]?.name.toLowerCase(); // 名前を小文字に変換
+    const nameB = b.days[0]?.name.toLowerCase(); // 名前を小文字に変換
+    return nameA.localeCompare(nameB); // 名前での比較
+  });
 
   const handleEdit = (postIndex: number, dayIndex: number) => {
     const postToEdit = filteredPosts[postIndex];
@@ -161,6 +184,7 @@ export default function Page() {
           <tbody>
             <tr className={styles.subTitle}>
               <th>園児名</th>
+              <th>クラス</th>
               <th>日にち</th>
               <th>延長開始時間</th>
               <th>お迎え時間</th>
@@ -182,6 +206,7 @@ export default function Page() {
                           {day.name}
                         </Link>
                       </td>
+                      <td>{day.class}</td>
                       <td>{day.date}</td>
                       <td>{day.startTime}</td>
                       <td>{day.endTime}</td>

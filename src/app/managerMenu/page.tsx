@@ -115,6 +115,11 @@ function Page() {
     }
   };
 
+  const handleCancel = () => {
+    setEditingUserId(null);
+    setErrorMessage("");
+  };
+
   return (
     <div className={styles.managerImg}>
       <Link href="/" className={styles.managerLink}>
@@ -180,7 +185,7 @@ function Page() {
                     </button>
                     <button
                       className={styles.managerCancel}
-                      onClick={() => setEditingUserId(null)}
+                      onClick={() => handleCancel()}
                     >
                       キャンセル
                     </button>

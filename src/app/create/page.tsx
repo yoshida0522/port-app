@@ -12,12 +12,20 @@ import styles from "../styles/page.module.css";
 import liff from "@line/liff";
 import axios from "axios";
 
+const options = [
+  { value: "", label: "選択してください" },
+  { value: "1", label: "幼稚園" },
+  { value: "2", label: "未就学" },
+  { value: "3", label: "小学生" },
+];
+
 export default function CreatePage() {
   const router = useRouter();
   const [childName, setChildName] = useState("");
   const [idToken, setIdToken] = useState<string | null>(null);
   const [user, setUser] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [childClass, setChildClass] = useState("");
 
   const [monday, setMonday] = useState({
     date: "",
@@ -116,6 +124,7 @@ export default function CreatePage() {
       {
         id: uuidv4(),
         name: childName,
+        class: childClass,
         realStartTime: "",
         realEndTime: "",
         userId: user,
@@ -124,6 +133,7 @@ export default function CreatePage() {
       {
         id: uuidv4(),
         name: childName,
+        class: childClass,
         realStartTime: "",
         realEndTime: "",
         userId: user,
@@ -132,6 +142,7 @@ export default function CreatePage() {
       {
         id: uuidv4(),
         name: childName,
+        class: childClass,
         realStartTime: "",
         realEndTime: "",
         userId: user,
@@ -140,6 +151,7 @@ export default function CreatePage() {
       {
         id: uuidv4(),
         name: childName,
+        class: childClass,
         realStartTime: "",
         realEndTime: "",
         userId: user,
@@ -148,6 +160,7 @@ export default function CreatePage() {
       {
         id: uuidv4(),
         name: childName,
+        class: childClass,
         realStartTime: "",
         realEndTime: "",
         userId: user,
@@ -215,6 +228,10 @@ export default function CreatePage() {
     router.push("/thanks");
   };
 
+  const handleClassChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setChildClass(event.target.value);
+  };
+
   return (
     <div className={styles.createCenter}>
       <form onSubmit={handleClick}>
@@ -224,7 +241,17 @@ export default function CreatePage() {
           className={styles.createChildInput}
           placeholder="園児名を入力してください"
           onChange={(e) => setChildName(e.target.value)}
-        ></input>
+        />
+        <p>クラス</p>
+        <div>
+          <select id="dropdown" value={childClass} onChange={handleClassChange}>
+            {options.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className={styles.applicationContainer}>
           {[
             { day: "monday", title: "申し込み1" },
