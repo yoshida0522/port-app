@@ -14,9 +14,9 @@ import axios from "axios";
 
 const options = [
   { value: "", label: "選択してください" },
-  { value: "幼稚園", label: "幼稚園" },
-  { value: "未就学", label: "未就学" },
-  { value: "小学生", label: "小学生" },
+  { value: "1", label: "幼稚園" },
+  { value: "2", label: "未就学" },
+  { value: "3", label: "小学生" },
 ];
 
 export default function CreatePage() {
@@ -26,6 +26,7 @@ export default function CreatePage() {
   const [user, setUser] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [childClass, setChildClass] = useState("");
+  const [selectedLabel, setSelectedLabel] = useState("");
 
   const [monday, setMonday] = useState({
     date: "",
@@ -228,6 +229,16 @@ export default function CreatePage() {
     router.push("/thanks");
   };
 
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = e.target.value; // 選択されたvalueを取得
+
+    // labelを取得
+    const selectedOption = options.find(
+      (option) => option.value === selectedValue
+    );
+    setChildClass(selectedOption ? selectedOption.label : ""); // 選択されたlabelを取得
+  };
+
   return (
     <div className={styles.createCenter}>
       <form onSubmit={handleClick}>
@@ -244,10 +255,12 @@ export default function CreatePage() {
             className={styles.class}
             id="dropdown"
             value={childClass}
-            onChange={(e) => setChildClass(e.target.value)}
+            onChange={(e) => handleSelect(e)}
           >
             {options.map((option) => (
-              <option key={option.value} value={option.value}></option>
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
             ))}
           </select>
         </div>
