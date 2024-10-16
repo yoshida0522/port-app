@@ -244,23 +244,7 @@ export default function CreatePage() {
             className={styles.class}
             id="dropdown"
             value={childClass}
-            onChange={(e) => {
-              // 選択された value を取得
-              const selectedValue = e.target.value;
-              console.log(selectedValue);
-
-              // value に対応する label を options から検索
-              const selectedOption = options.find(
-                (option) => option.value === selectedValue
-              );
-              console.log(selectedOption);
-              console.log(selectedOption?.label);
-
-              // label を childClass に格納
-              setChildClass(
-                selectedOption ? selectedOption.label : selectedValue
-              );
-            }}
+            onChange={(e) => e.target.value}
           >
             {options.map((option) => (
               <option key={option.value} value={option.value}>
