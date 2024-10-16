@@ -206,7 +206,7 @@ export default function CreatePage() {
         }
       });
 
-      const response = await axios.post("/app/linebot", {
+      const response = await axios.post("/api/linebot", {
         userId: user,
         message: message,
       });
