@@ -254,7 +254,9 @@ export default function CreatePage() {
               );
 
               // label を childClass に格納
-              setChildClass(selectedOption ? selectedOption.label : "");
+              setChildClass(
+                selectedOption ? selectedOption.label : selectedValue
+              );
             }}
           >
             {options.map((option) => (
