@@ -254,6 +254,7 @@ export default function CreatePage() {
                 (option) => option.value === selectedValue
               );
               console.log(selectedOption);
+              console.log(selectedOption?.label);
 
               // label を childClass に格納
               if (selectedOption) {
