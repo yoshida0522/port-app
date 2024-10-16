@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@mui/material";
 import React, { useState } from "react";
 import db from "../firebase";
 import { addDoc, collection } from "firebase/firestore";
@@ -12,19 +11,55 @@ function Page() {
   const router = useRouter();
   const [userName, setUserName] = useState("");
   const [passWord, setPassWord] = useState("");
+  const [errors, setErrors] = useState({
+    userName: "",
+    passWord: "",
+  });
+
+  const validateUserName = (name: string) => {
+    if (name.length < 1) {
+      return "※ユーザーIDを入力してください";
+    }
+    return "";
+  };
+
+  const validatePassWord = (pass: string) => {
+    if (pass.length < 1) {
+      return "※パスワードを入力してください";
+    }
+    return "";
+  };
 
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const userData = await addDoc(collection(db, "user"), {
-      name: userName,
-      pass: passWord,
-      manager: false,
-    });
-    console.log(userData);
-    setUserName("");
-    setPassWord("");
-    router.push("/");
+    const userNameError = validateUserName(userName);
+    const passWordError = validatePassWord(passWord);
+
+    if (userNameError || passWordError) {
+      setErrors({
+        userName: userNameError,
+        passWord: passWordError,
+      });
+      return; // エラーがある場合は保存しない
+    }
+
+    try {
+      const userData = await addDoc(collection(db, "user"), {
+        name: userName,
+        pass: passWord,
+        manager: false,
+      });
+      console.log(userData);
+
+      // 正常に保存された場合はフィールドをクリア
+      setUserName("");
+      setPassWord("");
+      setErrors({ userName: "", passWord: "" });
+      router.push("/");
+    } catch (error) {
+      console.error("エラーが発生しました: ", error);
+    }
   };
 
   return (
@@ -41,8 +76,17 @@ function Page() {
             className={styles.inputBox}
             value={userName}
             placeholder="ユーザーIDを入力してください"
-            onChange={(e) => setUserName(e.target.value)}
-          ></input>
+            onChange={(e) => {
+              setUserName(e.target.value);
+              setErrors((prev) => ({
+                ...prev,
+                userName: validateUserName(e.target.value),
+              }));
+            }}
+          />
+          {errors.userName && (
+            <p className={styles.errorText}>{errors.userName}</p>
+          )}
         </div>
         <div className={styles.passTitle}>
           <h3 className={styles.passWordtitle}>パスワード</h3>
@@ -59,8 +103,15 @@ function Page() {
               const inputValue = e.target.value;
               const validValue = inputValue.replace(/[^a-zA-Z0-9]/g, "");
               setPassWord(validValue);
+              setErrors((prev) => ({
+                ...prev,
+                passWord: validatePassWord(validValue),
+              }));
             }}
-          ></input>
+          />
+          {errors.passWord && (
+            <p className={styles.errorText}>{errors.passWord}</p>
+          )}
         </div>
         <button className={styles.buttonText} onClick={handleClick}>
           登録
