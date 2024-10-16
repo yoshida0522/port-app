@@ -13,10 +13,10 @@ import liff from "@line/liff";
 import axios from "axios";
 
 const options = [
-  { value: "選択してください" },
-  { value: "幼稚園" },
-  { value: "未就学" },
-  { value: "小学生" },
+  { value: "", label: "選択してください" },
+  { value: "幼稚園", label: "幼稚園" },
+  { value: "未就学", label: "未就学" },
+  { value: "小学生", label: "小学生" },
 ];
 
 export default function CreatePage() {
