@@ -247,6 +247,7 @@ export default function CreatePage() {
             onChange={(e) => {
               // 選択された value を取得
               const selectedValue = e.target.value;
+              setChildClass(selectedValue);
 
               // value に対応する label を options から検索
               const selectedOption = options.find(
