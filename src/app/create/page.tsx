@@ -257,11 +257,9 @@ export default function CreatePage() {
               console.log(selectedOption?.label);
 
               // label を childClass に格納
-              if (selectedOption) {
-                setChildClass(selectedOption.label);
-              } else {
-                setChildClass(selectedValue);
-              }
+              setChildClass(
+                selectedOption ? selectedOption.label : selectedValue
+              );
             }}
           >
             {options.map((option) => (
