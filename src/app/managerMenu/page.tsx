@@ -31,6 +31,8 @@ function Page() {
     pass: "",
     manager: false,
   });
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
   useEffect(() => {
     fetchAllData();
   }, []);
@@ -68,6 +70,11 @@ function Page() {
   };
 
   const handleSave = async (userId: string) => {
+    if (editedUser.name.trim() === "" || editedUser.pass.trim() === "") {
+      setErrorMessage("ユーザーIDとパスワードは必須です。");
+      return;
+    }
+
     try {
       const userDocRef = doc(db, "user", userId);
       await updateDoc(userDocRef, {
@@ -90,6 +97,7 @@ function Page() {
       );
 
       setEditingUserId(null);
+      setErrorMessage("");
     } catch (error) {
       console.error("更新中にエラーが発生しました: ", error);
     }
@@ -101,6 +109,7 @@ function Page() {
       await deleteDoc(userDocRef);
 
       setData((prevData) => prevData.filter((user) => user.id !== userId));
+      setErrorMessage("");
     } catch (error) {
       console.error("削除中にエラーが発生しました: ", error);
     }
@@ -114,6 +123,8 @@ function Page() {
       <div className={styles.center}>
         <h1>ユーザー管理</h1>
       </div>
+      {errorMessage && <p className={styles.managerError}>{errorMessage}</p>}
+
       <table border={1} className={styles.userList}>
         <tbody>
           <tr className={styles.subTitle}>

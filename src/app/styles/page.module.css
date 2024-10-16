@@ -791,6 +791,11 @@
   text-decoration: none;
 }
 
+.managerError {
+  color: red;
+  text-align: center;
+}
+
 /* thanksページ */
 .thanks {
   text-align: center;
