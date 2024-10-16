@@ -13,10 +13,10 @@ import liff from "@line/liff";
 import axios from "axios";
 
 const options = [
-  { value: "", label: "選択してください" },
-  { value: "1", label: "幼稚園" },
-  { value: "2", label: "未就学" },
-  { value: "3", label: "小学生" },
+  { value: "選択してください" },
+  { value: "幼稚園" },
+  { value: "未就学" },
+  { value: "小学生" },
 ];
 
 export default function CreatePage() {
@@ -206,7 +206,7 @@ export default function CreatePage() {
         }
       });
 
-      const response = await axios.post("/api/linebot", {
+      const response = await axios.post("/app/linebot", {
         userId: user,
         message: message,
       });
@@ -247,9 +247,7 @@ export default function CreatePage() {
             onChange={(e) => setChildClass(e.target.value)}
           >
             {options.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
+              <option key={option.value} value={option.value}></option>
             ))}
           </select>
         </div>
