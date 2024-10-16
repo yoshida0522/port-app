@@ -240,18 +240,11 @@ export default function CreatePage() {
         />
         <div>
           <p className={styles.classTitle}>クラス</p>
-          <select
+          <input
             className={styles.class}
-            id="dropdown"
-            value={childClass}
+            placeholder="クラス名を入力してください"
             onChange={(e) => e.target.value}
-          >
-            {options.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+          />
         </div>
         <div className={styles.applicationContainer}>
           {[
