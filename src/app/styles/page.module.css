@@ -26,146 +26,6 @@
   margin-bottom: 80px;
 }
 
-.allButton {
-  display: inline-flex;
-  text-align: center;
-  gap: 25px;
-}
-
-.reservationButton {
-  font-size: 40px;
-  display: flex;
-  width: 180px;
-  height: 70px;
-  border: none;
-  border-radius: 5px;
-  background-color: #ffcccc;
-  background-size: 10px 10px;
-  background-image: radial-gradient(#f8a7b1 15%, transparent 20%),
-    radial-gradient(#f8a7b1 15%, transparent 20%);
-  background-position: 0 0, 15px 15px;
-  justify-content: center;
-  align-items: center;
-}
-
-.reservationButton:hover {
-  transform: scale(90%);
-  cursor: pointer;
-}
-
-.link {
-  color: black;
-  text-decoration: none;
-}
-
-.managerMenu {
-  display: flex;
-  flex-direction: column;
-}
-
-.newRegistration {
-  font-size: 38px;
-  display: inline-block;
-  border: none;
-  width: 180px;
-  height: 70px;
-  border-radius: 5px;
-  background-color: #bbcbfa;
-  background-size: 10px 10px;
-  background-image: radial-gradient(#85a3fa 15%, transparent 20%),
-    radial-gradient(#85a3fa 15%, transparent 20%);
-  background-position: 0 0, 15px 15px;
-  margin-bottom: 20px;
-}
-
-.newRegistration:hover {
-  transform: scale(90%);
-  cursor: pointer;
-}
-
-.signout {
-  font-size: 30px;
-  display: inline-block;
-  width: 200px;
-  height: 70px;
-  border: none;
-  border-radius: 5px;
-  background-color: #91f9a6;
-  background-size: 10px 10px;
-  background-image: radial-gradient(#0fea3a 15%, transparent 20%),
-    radial-gradient(#0fea3a 15%, transparent 20%);
-  background-position: 0 0, 15px 15px;
-}
-
-.signout:hover {
-  transform: scale(90%);
-  cursor: pointer;
-}
-
-/* .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-  background-color: #f0f8ff;
-} */
-
-.loginBox {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(161, 240, 248, 0.1);
-  max-width: 400px;
-  width: 100%;
-}
-
-.rogButton {
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.formGroup {
-  margin-bottom: 15px;
-}
-
-.label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.input {
-  width: 90%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.errorMessage {
-  font-size: 15px;
-  color: red;
-}
-
-.signin {
-  background-color: #bdf6bf;
-  border: none;
-  border-radius: 5px;
-}
-
-.signinButton {
-  width: 100%;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.signinButton:hover {
-  background-color: #45a049;
-  color: white;
-}
-
 /* 新規登録画面 */
 
 .titleform {
@@ -286,11 +146,6 @@
   background-size: 60%;
 }
 
-.listTitle {
-  margin: auto;
-  background-color: white;
-}
-
 .topPageButton {
   font-size: 19px;
   font-weight: bold;
@@ -326,82 +181,6 @@
   margin-bottom: 20px;
 }
 
-.search {
-  font-size: 20px;
-  height: 30px;
-  width: 140px;
-  margin-left: 10px;
-}
-
-.searchform {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  margin-bottom: 5px;
-}
-
-.searchIcon {
-  position: relative;
-  top: 5px;
-}
-
-.subTitle {
-  background-color: rgb(247, 247, 178);
-}
-
-.childName {
-  color: black;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.childName:hover {
-  color: rgb(159, 4, 202);
-}
-
-.saveButton {
-  background-color: rgb(155, 217, 250);
-  border-radius: 5px;
-}
-
-.saveButton:hover {
-  background-color: rgb(181, 240, 252);
-  cursor: pointer;
-  transform: scale(90%);
-}
-
-.deleteButton {
-  background-color: rgb(250, 142, 142);
-  border-radius: 5px;
-}
-
-.deleteButton:hover {
-  background-color: rgb(250, 213, 213);
-  cursor: pointer;
-  transform: scale(90%);
-}
-
-.cancelButton {
-  background-color: yellow;
-  border-radius: 5px;
-}
-
-.cancelButton:hover {
-  background-color: rgb(251, 251, 186);
-  transform: scale(90%);
-}
-
-.editButton {
-  background-color: #83f88b;
-  border-radius: 5px;
-}
-
-.editButton:hover {
-  background-color: #ccf7c2;
-  cursor: pointer;
-  transform: scale(90%);
-}
-
 .button {
   display: flex;
   justify-content: space-between;
@@ -413,6 +192,11 @@
   cursor: pointer;
   transition: background-color 0.3s;
   font-size: 16px;
+}
+
+.listTitle {
+  margin: auto;
+  background-color: white;
 }
 
 /* 園児別一覧 */
@@ -466,10 +250,6 @@
 
 .childListTitle {
   margin: auto;
-}
-
-.childSubTitle {
-  background-color: rgb(247, 247, 178);
 }
 
 /* LINEログイン画面 */
@@ -556,7 +336,7 @@
   transition: border 0.3s;
 }
 
-.createInput {
+/* .createInput {
   font-size: 20px;
   width: 90%;
   padding: 10px;
@@ -569,13 +349,13 @@
 .createInput:focus {
   border: 1px solid #007bff;
   outline: none;
-}
+} */
 
-.createStrong {
+/* .createStrong {
   display: block;
   margin-bottom: 5px;
   color: #333;
-}
+} */
 
 .classTitle {
   font-weight: bold;
@@ -613,7 +393,7 @@
   margin: 10px 0;
 }
 
-.applicationSection {
+/* .applicationSection {
   display: flex;
   align-items: flex-start;
   background-color: #fff;
@@ -623,9 +403,9 @@
   margin-bottom: 20px;
   width: 100%;
   position: relative;
-}
+} */
 
-.applicationNumberContainer {
+/* .applicationNumberContainer {
   writing-mode: vertical-rl;
   position: absolute;
   left: -47px;
@@ -633,9 +413,9 @@
   text-align: center;
   display: flex;
   align-items: center;
-}
+} */
 
-.applicationNumber {
+/* .applicationNumber {
   font-weight: bold;
   background-color: #85ddfa;
   font-size: 18px;
@@ -644,9 +424,9 @@
   height: 330.5px;
   padding: 10px;
   border-radius: 8px 0 0 8px;
-}
+} */
 
-.applicationIndex {
+/* .applicationIndex {
   font-weight: bold;
   background-color: #85ddfa;
   font-size: 18px;
@@ -654,12 +434,12 @@
   transform: rotate(270deg);
   margin-top: -140px;
   margin-right: 4px;
-}
+} */
 
-.applicationContent {
+/* .applicationContent {
   flex-grow: 1;
   height: 320px;
-}
+} */
 
 /* スマホサイズ向けのスタイル */
 @media screen and (max-width: 600px) {
@@ -679,12 +459,12 @@
     padding: 8px;
   }
 
-  .createInput {
+  /* .createInput {
     width: 90%;
     padding: 8px;
-  }
+  } */
 
-  .applicationSection {
+  /* .applicationSection {
     flex-direction: column;
     align-items: stretch;
     padding: 10px;
@@ -699,7 +479,7 @@
   .applicationNumber {
     height: 321px;
     font-size: 16px;
-  }
+  } */
 
   .submitButton {
     width: 110%;
@@ -710,7 +490,7 @@
     margin: 5px 0;
   }
 
-  .applicationIndex {
+  /* .applicationIndex {
     font-size: 16px;
     margin-top: -130px;
     margin-left: 5px;
@@ -718,7 +498,7 @@
 
   .applicationContent {
     flex-grow: 1;
-  }
+  } */
 }
 
 /* 管理画面 */
@@ -733,53 +513,6 @@
   background-position: center;
   background-size: 60%;
   height: 100vh;
-}
-.managerEdit {
-  background-color: #91f9a6;
-  border-radius: 5px;
-}
-
-.managerEdit:hover {
-  transform: scale(90%);
-  opacity: 0.7;
-  cursor: pointer;
-}
-
-.managerSave {
-  background-color: #85ddfa;
-  border-radius: 5px;
-}
-
-.managerSave:hover {
-  transform: scale(90%);
-  opacity: 0.7;
-  cursor: pointer;
-}
-
-.managerDelete {
-  background-color: #f7a062;
-  border-radius: 5px;
-}
-
-.managerDelete:hover {
-  transform: scale(90%);
-  opacity: 0.7;
-  cursor: pointer;
-}
-
-.managerCancel {
-  background-color: rgb(247, 247, 122);
-  border-radius: 5px;
-}
-
-.managerCancel:hover {
-  transform: scale(90%);
-  opacity: 0.7;
-  cursor: pointer;
-}
-
-.tableLine {
-  border: none;
 }
 
 .userList {

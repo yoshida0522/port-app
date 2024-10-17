@@ -11,6 +11,7 @@ import React, { useState, useEffect } from "react";
 import db from "../firebase";
 import styles from "../styles/page.module.css";
 import Link from "next/link";
+import Manager from "../components/Manager/Manager";
 
 interface User {
   id: string;
@@ -138,76 +139,18 @@ function Page() {
             <th>管理者</th>
           </tr>
           {data.map((user) => (
-            <tr key={user.id}>
-              <td>
-                {editingUserId === user.id ? (
-                  <input
-                    type="text"
-                    name="name"
-                    value={editedUser.name}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  user.name
-                )}
-              </td>
-              <td>
-                {editingUserId === user.id ? (
-                  <input
-                    type="text"
-                    name="pass"
-                    value={editedUser.pass}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  user.pass
-                )}
-              </td>
-              <td>
-                {editingUserId === user.id ? (
-                  <input
-                    type="checkbox"
-                    checked={editedUser.manager}
-                    onChange={handleCheckboxChange}
-                  />
-                ) : (
-                  <input type="checkbox" checked={user.manager} readOnly />
-                )}
-              </td>
-              <td className={styles.tableLine}>
-                {editingUserId === user.id ? (
-                  <>
-                    <button
-                      className={styles.managerSave}
-                      onClick={() => handleSave(user.id)}
-                    >
-                      保存
-                    </button>
-                    <button
-                      className={styles.managerCancel}
-                      onClick={() => handleCancel()}
-                    >
-                      キャンセル
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      className={styles.managerEdit}
-                      onClick={() => handleEdit(user)}
-                    >
-                      変更
-                    </button>
-                    <button
-                      className={styles.managerDelete}
-                      onClick={() => handleDelete(user.id)}
-                    >
-                      削除
-                    </button>
-                  </>
-                )}
-              </td>
-            </tr>
+            <Manager
+              key={user.id}
+              user={user}
+              editingUserId={editingUserId}
+              editedUser={editedUser}
+              onEdit={handleEdit}
+              onSave={handleSave}
+              onCancel={handleCancel}
+              onDelete={handleDelete}
+              onInputChange={handleInputChange}
+              onCheckboxChange={handleCheckboxChange}
+            />
           ))}
         </tbody>
       </table>

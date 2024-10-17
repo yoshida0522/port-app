@@ -7,6 +7,7 @@ import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import Link from "next/link";
 import React from "react";
 import styles from "../../styles/page.module.css";
+import TableHeader from "@/app/components/TableHeader/TableHeader";
 
 interface Day {
   date: string;
@@ -78,18 +79,7 @@ const ChildReservationPage = () => {
         </h1>
       </div>
       <table border={1} className={styles.childListTitle}>
-        <thead>
-          <tr className={styles.childSubTitle}>
-            <th>園児名</th>
-            <th>クラス</th>
-            <th>日にち</th>
-            <th>延長開始時間</th>
-            <th>お迎え時間</th>
-            <th>開始時間</th>
-            <th>終了時間</th>
-            <th>備考</th>
-          </tr>
-        </thead>
+        <TableHeader />
         <tbody>
           {filteredPosts.map((post, postIndex) => {
             const days = post.days || [];

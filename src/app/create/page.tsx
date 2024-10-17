@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import styles from "../styles/page.module.css";
 import liff from "@line/liff";
 import axios from "axios";
+import CreateForm from "../components/CreateForm/CreateForm";
 
 export default function CreatePage() {
   const router = useRouter();
@@ -93,35 +94,30 @@ export default function CreatePage() {
           setMonday((prev) => ({
             ...prev,
             [field]: value,
-            ...(field === "startTime" && { endTime: value }),
           }));
           break;
         case "tuesday":
           setTuesday((prev) => ({
             ...prev,
             [field]: value,
-            ...(field === "startTime" && { endTime: value }),
           }));
           break;
         case "wednesday":
           setWednesday((prev) => ({
             ...prev,
             [field]: value,
-            ...(field === "startTime" && { endTime: value }),
           }));
           break;
         case "thursday":
           setThursday((prev) => ({
             ...prev,
             [field]: value,
-            ...(field === "startTime" && { endTime: value }),
           }));
           break;
         case "friday":
           setFriday((prev) => ({
             ...prev,
             [field]: value,
-            ...(field === "startTime" && { endTime: value }),
           }));
           break;
         default:
@@ -267,49 +263,46 @@ export default function CreatePage() {
             { day: "thursday", title: "希望日4" },
             { day: "friday", title: "希望日5" },
           ].map(({ day }, index) => (
-            <div key={index} className={styles.applicationSection}>
-              <div className={styles.applicationNumberContainer}>
-                <span className={styles.applicationNumber}>希望日</span>
-                <span className={styles.applicationIndex}>{index + 1}</span>
-              </div>
-              <div className={styles.applicationContent}>
-                <strong className={styles.createStrong}>日にち</strong>
-                <input
-                  className={styles.createInput}
-                  type="date"
-                  onChange={handleChange(day, "date")}
-                />
-                <strong className={styles.createStrong}>延長開始時間</strong>
-                <input
-                  className={styles.createInput}
-                  type="time"
-                  defaultValue={"14:00"}
-                  onChange={handleChange(day, "startTime")}
-                  // // onChange={(e) => {
-                  // //   handleChange(day, "startTime")(e);
-                  // //   const endTimeInput = document.querySelector(
-                  // //     `#${day}-endTime`
-                  // //   ) as HTMLInputElement;
-                  // //   if (endTimeInput) {
-                  // //     endTimeInput.min = e.target.value; // startTimeをendTimeの最小値に設定
-                  //   }
-                  // }}
-                />
-                <strong className={styles.createStrong}>お迎え時間</strong>
-                <input
-                  className={styles.createInput}
-                  type="time"
-                  min="14:00" // 延長開始時間より後に設定
-                  defaultValue={"14:00"}
-                  onChange={handleChange(day, "endTime")}
-                />
-                <strong className={styles.createStrong}>備考</strong>
-                <input
-                  className={styles.createInput}
-                  onChange={handleChange(day, "remark")}
-                />
-              </div>
-            </div>
+            // <div key={index} className={styles.applicationSection}>
+            //   <div className={styles.applicationNumberContainer}>
+            //     <span className={styles.applicationNumber}>希望日</span>
+            //     <span className={styles.applicationIndex}>{index + 1}</span>
+            //   </div>
+            //   <div className={styles.applicationContent}>
+            //     <strong className={styles.createStrong}>日にち</strong>
+            //     <input
+            //       className={styles.createInput}
+            //       type="date"
+            //       onChange={handleChange(day, "date")}
+            //     />
+            //     <strong className={styles.createStrong}>延長開始時間</strong>
+            //     <input
+            //       className={styles.createInput}
+            //       type="time"
+            //       defaultValue={"14:00"}
+            //       onChange={handleChange(day, "startTime")}
+            //     />
+            //     <strong className={styles.createStrong}>お迎え時間</strong>
+            //     <input
+            //       className={styles.createInput}
+            //       type="time"
+            //       min="14:00" // 延長開始時間より後に設定
+            //       defaultValue={"14:00"}
+            //       onChange={handleChange(day, "endTime")}
+            //     />
+            //     <strong className={styles.createStrong}>備考</strong>
+            //     <input
+            //       className={styles.createInput}
+            //       onChange={handleChange(day, "remark")}
+            //     />
+            //   </div>
+            // </div>
+            <CreateForm
+              key={index}
+              day={day}
+              index={index}
+              onChange={handleChange}
+            />
           ))}
         </div>
         <button type="submit" className={styles.submitButton}>
