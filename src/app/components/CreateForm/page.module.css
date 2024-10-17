@@ -26,7 +26,7 @@
   font-size: 18px;
   color: #333;
   line-height: 1.5;
-  height: 330.5px;
+  height: 355.5px;
   padding: 10px;
   border-radius: 8px 0 0 8px;
 }
@@ -43,7 +43,7 @@
 
 .applicationContent {
   flex-grow: 1;
-  height: 340px;
+  height: 345px;
 }
 
 .createStrong {
