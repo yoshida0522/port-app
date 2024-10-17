@@ -284,20 +284,28 @@ export default function CreatePage() {
                   className={styles.createInput}
                   type="time"
                   defaultValue={"14:00"}
-                  onChange={handleChange(day, "startTime")}
+                  // onChange={handleChange(day, "startTime")}
+                  onChange={(e) => {
+                    handleChange(day, "startTime")(e);
+                    const endTimeInput = document.querySelector(
+                      `#${day}-endTime`
+                    ) as HTMLInputElement;
+                    if (endTimeInput) {
+                      endTimeInput.min = e.target.value; // startTimeをendTimeの最小値に設定
+                    }
+                  }}
                 />
                 <strong className={styles.createStrong}>お迎え時間</strong>
                 <input
                   className={styles.createInput}
                   type="time"
-                  min={eval(day).startTime} // 延長開始時間より後に設定
+                  min="14:00" // 延長開始時間より後に設定
                   defaultValue={"14:00"}
                   onChange={handleChange(day, "endTime")}
                 />
                 <strong className={styles.createStrong}>備考</strong>
                 <input
                   className={styles.createInput}
-                  placeholder="連絡事項等あれば入力してください"
                   onChange={handleChange(day, "remark")}
                 />
               </div>
