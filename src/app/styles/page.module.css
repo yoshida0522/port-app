@@ -547,6 +547,7 @@
 }
 
 .createChildInput {
+  font-size: 20px;
   width: 103.5%;
   padding: 10px;
   margin-bottom: 10px;
@@ -582,9 +583,10 @@
 }
 
 .classInput {
+  font-size: 20px;
   height: 30px;
-  width: 80%;
-  outline: none;
+  width: 90%;
+  border: none;
   margin-bottom: 20px;
   border-radius: 5px;
   background-color: white;

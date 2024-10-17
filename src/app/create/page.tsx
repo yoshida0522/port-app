@@ -90,19 +90,39 @@ export default function CreatePage() {
       const value = e.target.value;
       switch (day) {
         case "monday":
-          setMonday((prev) => ({ ...prev, [field]: value }));
+          setMonday((prev) => ({
+            ...prev,
+            [field]: value,
+            ...(field === "startTime" && { endTime: value }),
+          }));
           break;
         case "tuesday":
-          setTuesday((prev) => ({ ...prev, [field]: value }));
+          setTuesday((prev) => ({
+            ...prev,
+            [field]: value,
+            ...(field === "startTime" && { endTime: value }),
+          }));
           break;
         case "wednesday":
-          setWednesday((prev) => ({ ...prev, [field]: value }));
+          setWednesday((prev) => ({
+            ...prev,
+            [field]: value,
+            ...(field === "startTime" && { endTime: value }),
+          }));
           break;
         case "thursday":
-          setThursday((prev) => ({ ...prev, [field]: value }));
+          setThursday((prev) => ({
+            ...prev,
+            [field]: value,
+            ...(field === "startTime" && { endTime: value }),
+          }));
           break;
         case "friday":
-          setFriday((prev) => ({ ...prev, [field]: value }));
+          setFriday((prev) => ({
+            ...prev,
+            [field]: value,
+            ...(field === "startTime" && { endTime: value }),
+          }));
           break;
         default:
           break;
@@ -241,15 +261,15 @@ export default function CreatePage() {
         </div>
         <div className={styles.applicationContainer}>
           {[
-            { day: "monday", title: "申し込み1" },
-            { day: "tuesday", title: "申し込み2" },
-            { day: "wednesday", title: "申し込み3" },
-            { day: "thursday", title: "申し込み4" },
-            { day: "friday", title: "申し込み5" },
+            { day: "monday", title: "希望日1" },
+            { day: "tuesday", title: "希望日2" },
+            { day: "wednesday", title: "希望日3" },
+            { day: "thursday", title: "希望日4" },
+            { day: "friday", title: "希望日5" },
           ].map(({ day }, index) => (
             <div key={index} className={styles.applicationSection}>
               <div className={styles.applicationNumberContainer}>
-                <span className={styles.applicationNumber}>申し込み</span>
+                <span className={styles.applicationNumber}>希望日</span>
                 <span className={styles.applicationIndex}>{index + 1}</span>
               </div>
               <div className={styles.applicationContent}>
@@ -270,12 +290,14 @@ export default function CreatePage() {
                 <input
                   className={styles.createInput}
                   type="time"
+                  min={eval(day).startTime} // 延長開始時間より後に設定
                   defaultValue={"14:00"}
                   onChange={handleChange(day, "endTime")}
                 />
                 <strong className={styles.createStrong}>備考</strong>
                 <input
                   className={styles.createInput}
+                  placeholder="連絡事項等あれば入力してください"
                   onChange={handleChange(day, "remark")}
                 />
               </div>
