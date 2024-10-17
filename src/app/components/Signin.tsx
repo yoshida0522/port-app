@@ -123,38 +123,38 @@ function Signin() {
           </div>
         </form>
       ) : (
-        <div className={styles.container}>
-          <div className={styles.loginBox}>
-            <h2 className={styles.rogButton}>ログイン画面</h2>
-            <form>
-              <div className={styles.formGroup}>
-                <label className={styles.label}>ユーザーID</label>
-                <input
-                  className={styles.input}
-                  value={user}
-                  placeholder="ユーザーIDを入力してください"
-                  onChange={(e) => setUser(e.target.value)}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label className={styles.label}>パスワード</label>
-                <input
-                  className={styles.input}
-                  value={pass}
-                  placeholder="パスワードを入力してください"
-                  onChange={(e) => setPass(e.target.value)}
-                  required
-                />
-              </div>
-              <div className={styles.signin}>
-                <Button className={styles.signinButton} onClick={handleClick}>
-                  サインイン
-                </Button>
-              </div>
-            </form>
-          </div>
+        // <div className={styles.container}>
+        <div className={styles.loginBox}>
+          <h2 className={styles.rogButton}>ログイン画面</h2>
+          <form>
+            <div className={styles.formGroup}>
+              <label className={styles.label}>ユーザーID</label>
+              <input
+                className={styles.input}
+                value={user}
+                placeholder="ユーザーIDを入力してください"
+                onChange={(e) => setUser(e.target.value)}
+                required
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label className={styles.label}>パスワード</label>
+              <input
+                className={styles.input}
+                value={pass}
+                placeholder="パスワードを入力してください"
+                onChange={(e) => setPass(e.target.value)}
+                required
+              />
+            </div>
+            <div className={styles.signin}>
+              <Button className={styles.signinButton} onClick={handleClick}>
+                サインイン
+              </Button>
+            </div>
+          </form>
         </div>
+        // </div>
       )}
     </>
   );

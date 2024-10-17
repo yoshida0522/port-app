@@ -33,9 +33,10 @@
 }
 
 .reservationButton {
-  font-size: 30px;
-  display: inline-block;
-  padding: 0.5em 1em 0.3em;
+  font-size: 40px;
+  display: flex;
+  width: 180px;
+  height: 70px;
   border: none;
   border-radius: 5px;
   background-color: #ffcccc;
@@ -43,7 +44,8 @@
   background-image: radial-gradient(#f8a7b1 15%, transparent 20%),
     radial-gradient(#f8a7b1 15%, transparent 20%);
   background-position: 0 0, 15px 15px;
-  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
 .reservationButton:hover {
@@ -62,11 +64,11 @@
 }
 
 .newRegistration {
-  font-size: 30px;
+  font-size: 38px;
   display: inline-block;
-  padding: 0.5em 1em 0.3em;
   border: none;
   width: 180px;
+  height: 70px;
   border-radius: 5px;
   background-color: #bbcbfa;
   background-size: 10px 10px;
@@ -84,8 +86,8 @@
 .signout {
   font-size: 30px;
   display: inline-block;
-  padding: 0.5em 1em 0.3em;
-  color: black;
+  width: 200px;
+  height: 70px;
   border: none;
   border-radius: 5px;
   background-color: #91f9a6;
@@ -93,7 +95,6 @@
   background-image: radial-gradient(#0fea3a 15%, transparent 20%),
     radial-gradient(#0fea3a 15%, transparent 20%);
   background-position: 0 0, 15px 15px;
-  margin-bottom: 20px;
 }
 
 .signout:hover {
@@ -101,13 +102,13 @@
   cursor: pointer;
 }
 
-.container {
+/* .container {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 300px;
   background-color: #f0f8ff;
-}
+} */
 
 .loginBox {
   background-color: white;
@@ -291,7 +292,7 @@
 }
 
 .topPageButton {
-  font-size: 17px;
+  font-size: 19px;
   font-weight: bold;
   display: flex;
   border: none;
@@ -316,7 +317,7 @@
 
 .topPageLink {
   text-decoration: none;
-  color: black;
+  /* color: black; */
 }
 
 .center {
@@ -326,8 +327,9 @@
 }
 
 .search {
-  height: 20px;
-  width: 120px;
+  font-size: 20px;
+  height: 30px;
+  width: 140px;
   margin-left: 10px;
 }
 
@@ -335,6 +337,12 @@
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.searchIcon {
+  position: relative;
+  top: 5px;
 }
 
 .subTitle {
@@ -422,7 +430,7 @@
 }
 
 .childButton {
-  font-size: 17px;
+  font-size: 20px;
   font-weight: bold;
   display: flex;
   border: none;
@@ -548,6 +556,7 @@
 }
 
 .createInput {
+  font-size: 20px;
   width: 90%;
   padding: 10px;
   margin-bottom: 15px;
@@ -572,10 +581,12 @@
   margin-bottom: 5px;
 }
 
-.class {
+.classInput {
   height: 30px;
-  width: 70%;
+  width: 80%;
+  outline: none;
   margin-bottom: 20px;
+  border-radius: 5px;
   background-color: white;
 }
 
@@ -776,7 +787,7 @@
 }
 
 .managerPage {
-  font-size: 17px;
+  font-size: 20px;
   font-weight: bold;
   display: flex;
   border: none;

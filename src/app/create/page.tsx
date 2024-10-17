@@ -12,20 +12,12 @@ import styles from "../styles/page.module.css";
 import liff from "@line/liff";
 import axios from "axios";
 
-const options = [
-  { value: "0", label: "選択してください" },
-  { value: "1", label: "幼稚園" },
-  { value: "2", label: "未就学" },
-  { value: "3", label: "小学生" },
-];
-
 export default function CreatePage() {
   const router = useRouter();
   const [childName, setChildName] = useState("");
   const [idToken, setIdToken] = useState<string | null>(null);
   const [user, setUser] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [childClass, setChildClass] = useState(options[0].value);
 
   const [monday, setMonday] = useState({
     date: "",
@@ -63,6 +55,7 @@ export default function CreatePage() {
       .init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID as string })
       .then(() => {
         console.log("LIFFの初期化に成功しました");
+
         if (liff.isLoggedIn()) {
           const token = liff.getIDToken();
           setIdToken(token);
@@ -124,7 +117,7 @@ export default function CreatePage() {
       {
         id: uuidv4(),
         name: childName,
-        class: childClass,
+        class: "",
         realStartTime: "",
         realEndTime: "",
         userId: user,
@@ -133,7 +126,7 @@ export default function CreatePage() {
       {
         id: uuidv4(),
         name: childName,
-        class: childClass,
+        class: "",
         realStartTime: "",
         realEndTime: "",
         userId: user,
@@ -142,7 +135,7 @@ export default function CreatePage() {
       {
         id: uuidv4(),
         name: childName,
-        class: childClass,
+        class: "",
         realStartTime: "",
         realEndTime: "",
         userId: user,
@@ -151,7 +144,7 @@ export default function CreatePage() {
       {
         id: uuidv4(),
         name: childName,
-        class: childClass,
+        class: "",
         realStartTime: "",
         realEndTime: "",
         userId: user,
@@ -160,7 +153,7 @@ export default function CreatePage() {
       {
         id: uuidv4(),
         name: childName,
-        class: childClass,
+        class: "",
         realStartTime: "",
         realEndTime: "",
         userId: user,
@@ -241,7 +234,7 @@ export default function CreatePage() {
         <div>
           <p className={styles.classTitle}>クラス</p>
           <input
-            className={styles.class}
+            className={styles.classInput}
             placeholder="クラス名を入力してください"
             onChange={(e) => e.target.value}
           />

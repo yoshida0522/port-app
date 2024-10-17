@@ -3,6 +3,7 @@
 import Link from "next/link";
 import styles from "../styles/page.module.css";
 import db from "../firebase";
+import SearchIcon from "@mui/icons-material/Search";
 import React, { useEffect, useState } from "react";
 import {
   collection,
@@ -172,7 +173,10 @@ export default function Page() {
           <h1>予約一覧</h1>
         </div>
         <div className={styles.searchform}>
-          <strong>検索</strong>
+          {/* <strong className={styles.seachText}>検索</strong> */}
+          <div className={styles.searchIcon}>
+            <SearchIcon />
+          </div>
           <input
             className={styles.search}
             type="date"

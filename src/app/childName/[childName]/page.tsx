@@ -11,7 +11,7 @@ import styles from "../../styles/page.module.css";
 interface Day {
   date: string;
   name: string;
-
+  class: string;
   startTime: string;
   endTime: string;
   realStartTime?: string;
@@ -81,6 +81,7 @@ const ChildReservationPage = () => {
         <thead>
           <tr className={styles.childSubTitle}>
             <th>園児名</th>
+            <th>クラス</th>
             <th>日にち</th>
             <th>延長開始時間</th>
             <th>お迎え時間</th>
@@ -98,6 +99,7 @@ const ChildReservationPage = () => {
                 {days.map((day, dayIndex) => (
                   <tr key={dayIndex}>
                     <td>{day.name}</td>
+                    <td>{day.class}</td>
                     <td>{day.date}</td>
                     <td>{day.startTime}</td>
                     <td>{day.endTime}</td>
