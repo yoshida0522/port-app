@@ -284,16 +284,16 @@ export default function CreatePage() {
                   className={styles.createInput}
                   type="time"
                   defaultValue={"14:00"}
-                  // onChange={handleChange(day, "startTime")}
-                  onChange={(e) => {
-                    handleChange(day, "startTime")(e);
-                    const endTimeInput = document.querySelector(
-                      `#${day}-endTime`
-                    ) as HTMLInputElement;
-                    if (endTimeInput) {
-                      endTimeInput.min = e.target.value; // startTimeをendTimeの最小値に設定
-                    }
-                  }}
+                  onChange={handleChange(day, "startTime")}
+                  // // onChange={(e) => {
+                  // //   handleChange(day, "startTime")(e);
+                  // //   const endTimeInput = document.querySelector(
+                  // //     `#${day}-endTime`
+                  // //   ) as HTMLInputElement;
+                  // //   if (endTimeInput) {
+                  // //     endTimeInput.min = e.target.value; // startTimeをendTimeの最小値に設定
+                  //   }
+                  // }}
                 />
                 <strong className={styles.createStrong}>お迎え時間</strong>
                 <input
