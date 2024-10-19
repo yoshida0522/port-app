@@ -87,7 +87,7 @@ const ChildReservationPage = () => {
             return (
               <React.Fragment key={postIndex}>
                 {days.map((day, dayIndex) => (
-                  <tr key={dayIndex}>
+                  <tr key={dayIndex} className={styles.childNameText}>
                     <td>{day.name}</td>
                     <td>{day.class}</td>
                     <td>{day.date}</td>

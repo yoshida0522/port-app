@@ -252,6 +252,10 @@
   margin: auto;
 }
 
+.childNameText {
+  font-size: 20px;
+}
+
 /* LINEログイン画面 */
 
 .lineContainer {
