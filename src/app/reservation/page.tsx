@@ -175,28 +175,29 @@ export default function Page() {
           <h1>予約一覧</h1>
         </div>
         <SearchForm search={search} setSearch={setSearch} />
-        <table border={1} className={styles.listTitle}>
-          <TableHeader />
-          <tbody>
-            {filteredPosts.map((post, postIndex) => (
-              <ReservationList
-                key={postIndex}
-                post={post}
-                postIndex={postIndex}
-                editingRow={editingRow}
-                editStartTime={editStartTime}
-                editEndTime={editEndTime}
-                setEditStartTime={setEditStartTime}
-                setEditEndTime={setEditEndTime}
-                handleEdit={handleEdit}
-                handleSave={handleSave}
-                handleDelete={handleDelete}
-                handleCancel={handleCancel}
-              />
-            ))}
-          </tbody>
-        </table>
       </div>
+      <table border={1} className={styles.listTitle}>
+        <TableHeader />
+        <tbody>
+          {filteredPosts.map((post, postIndex) => (
+            <ReservationList
+              key={postIndex}
+              post={post}
+              postIndex={postIndex}
+              editingRow={editingRow}
+              editStartTime={editStartTime}
+              editEndTime={editEndTime}
+              setEditStartTime={setEditStartTime}
+              setEditEndTime={setEditEndTime}
+              handleEdit={handleEdit}
+              handleSave={handleSave}
+              handleDelete={handleDelete}
+              handleCancel={handleCancel}
+            />
+          ))}
+        </tbody>
+      </table>
+      {/* </div> */}
     </>
   );
 }

@@ -2,6 +2,20 @@
   border: none;
 }
 
+.managerSave,
+.managerEdit,
+.managerDelete {
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+}
+
+.managerCancel {
+  font-size: 20px;
+  width: 120px;
+  height: 40px;
+}
+
 .managerEdit {
   background-color: #91f9a6;
   border-radius: 5px;
@@ -44,4 +58,13 @@
   transform: scale(90%);
   opacity: 0.7;
   cursor: pointer;
+}
+
+.text {
+  font-size: 20px;
+}
+
+.checkBox {
+  width: 20px;
+  height: 20px;
 }

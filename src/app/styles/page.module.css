@@ -142,8 +142,8 @@
       rgba(255, 255, 255, 0.4)
     ),
     url("/images/音符.png");
-  background-position: center -110px;
-  background-size: 60%;
+  background-position: center -90px;
+  background-size: 40%;
 }
 
 .topPageButton {
@@ -511,13 +511,18 @@
     ),
     url("/images/星.png");
   background-position: center;
-  background-size: 60%;
+  background-size: 40%;
   height: 100vh;
+}
+
+.subTitle {
+  background-color: #fceed7;
+  font-size: 25px;
 }
 
 .userList {
   background-color: white;
-  width: 550px;
+  width: 850px;
   margin: 0 auto;
 }
 

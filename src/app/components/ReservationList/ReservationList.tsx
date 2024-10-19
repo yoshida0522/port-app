@@ -43,7 +43,7 @@ const ReservationList: React.FC<ReservationRowProps> = ({
   return (
     <>
       {post.days.map((day, dayIndex) => (
-        <tr key={dayIndex} className={styles.childtr}>
+        <tr key={dayIndex} className={styles.reservationText}>
           <td>
             <Link className={styles.childName} href={`/childName/${day.name}`}>
               {day.name}
@@ -57,6 +57,7 @@ const ReservationList: React.FC<ReservationRowProps> = ({
             {editingRow?.postIndex === postIndex &&
             editingRow?.dayIndex === dayIndex ? (
               <input
+                className={styles.reservationInput}
                 type="time"
                 value={editStartTime}
                 onChange={(e) => setEditStartTime(e.target.value)}
@@ -69,6 +70,7 @@ const ReservationList: React.FC<ReservationRowProps> = ({
             {editingRow?.postIndex === postIndex &&
             editingRow?.dayIndex === dayIndex ? (
               <input
+                className={styles.reservationInput}
                 type="time"
                 value={editEndTime}
                 onChange={(e) => setEditEndTime(e.target.value)}

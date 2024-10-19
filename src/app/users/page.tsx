@@ -15,13 +15,13 @@ import {
 import React from "react";
 import styles from "../styles/page.module.css";
 import liff from "@line/liff";
+import TableHeader from "../components/TableHeader/TableHeader";
 
 interface Day {
   date: string;
   name: string;
   class: string;
   userId: string;
-
   startTime: string;
   endTime: string;
   realStartTime?: string;
@@ -203,14 +203,15 @@ const UsersPage = () => {
       </div>
       <table border={1} className={styles.childListTitle}>
         <thead>
-          <tr className={styles.childSubTitle}>
+          {/* <tr className={styles.childSubTitle}>
             <th>園児名</th>
             <th>クラス</th>
             <th>日にち</th>
             <th>延長開始時間</th>
             <th>お迎え時間</th>
             <th>備考</th>
-          </tr>
+          </tr> */}
+          <TableHeader />
         </thead>
         <tbody>
           {filteredPosts.map((post, postIndex) => {

@@ -2,6 +2,15 @@
   margin: auto;
   background-color: white;
 } */
+.reservationText {
+  font-size: 20px;
+}
+
+.reservationInput {
+  width: 90px;
+  height: 30px;
+  font-size: 20px;
+}
 
 .subTitle {
   background-color: rgb(247, 247, 178);
@@ -18,6 +27,9 @@
 }
 
 .saveButton {
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
   background-color: rgb(155, 217, 250);
   border-radius: 5px;
 }
@@ -29,6 +41,9 @@
 }
 
 .deleteButton {
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
   background-color: rgb(250, 142, 142);
   border-radius: 5px;
 }
@@ -40,6 +55,9 @@
 }
 
 .cancelButton {
+  font-size: 20px;
+  width: 120px;
+  height: 40px;
   background-color: yellow;
   border-radius: 5px;
 }
@@ -50,6 +68,9 @@
 }
 
 .editButton {
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
   background-color: #83f88b;
   border-radius: 5px;
 }
