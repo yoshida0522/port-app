@@ -126,6 +126,12 @@ export default function Page() {
       return;
     }
 
+    // realEndTimeがrealStartTimeよりも前の時間でないかを確認
+    if (editEndTime <= editStartTime) {
+      alert("開始時間以降の時間に設定してください");
+      return;
+    }
+
     const { postIndex, dayIndex } = editingRow;
     const postToUpdate = filteredPosts[postIndex];
 

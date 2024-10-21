@@ -74,6 +74,7 @@ const ReservationList: React.FC<ReservationRowProps> = ({
                 type="time"
                 value={editEndTime}
                 onChange={(e) => setEditEndTime(e.target.value)}
+                min={editStartTime}
               />
             ) : (
               day.realEndTime

@@ -203,6 +203,12 @@ const ChildReservationPage = () => {
       return;
     }
 
+    // endTimeがstartTimeよりも前の時間でないかを確認
+    if (editData.endTime <= editData.startTime) {
+      alert("開始時間以降の時間に設定してください");
+      return;
+    }
+
     const { postIndex, dayIndex } = editingRow;
     const postToUpdate = filteredPosts[postIndex];
 

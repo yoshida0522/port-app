@@ -188,6 +188,17 @@ export default function CreatePage() {
       return;
     }
 
+    // バリデーションチェック: endTimeがstartTimeよりも前の場合
+    for (const day of filteredDays) {
+      if (day.endTime <= day.startTime) {
+        alert(
+          `日にち ${day.date} のお迎え時間は延長開始時間以降に設定してください`
+        );
+        setIsSubmitting(false);
+        return;
+      }
+    }
+
     try {
       await Promise.all(
         filteredDays.map((day) => {
