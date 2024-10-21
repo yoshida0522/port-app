@@ -105,17 +105,22 @@ function Page() {
   };
 
   const handleDelete = async (userId: string) => {
-    try {
-      const userDocRef = doc(db, "user", userId);
-      await deleteDoc(userDocRef);
+    // 削除確認ダイアログを表示
+    const confirmed = window.confirm("本当に削除しますか？");
 
-      setData((prevData) => prevData.filter((user) => user.id !== userId));
-      setErrorMessage("");
-    } catch (error) {
-      console.error("削除中にエラーが発生しました: ", error);
+    if (confirmed) {
+      try {
+        const userDocRef = doc(db, "user", userId);
+        await deleteDoc(userDocRef);
+
+        // データを更新
+        setData((prevData) => prevData.filter((user) => user.id !== userId));
+        setErrorMessage("");
+      } catch (error) {
+        console.error("削除中にエラーが発生しました: ", error);
+      }
     }
   };
-
   const handleCancel = () => {
     setEditingUserId(null);
     setErrorMessage("");

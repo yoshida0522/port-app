@@ -203,15 +203,15 @@ const UsersPage = () => {
       </div>
       <table border={1} className={styles.childListTitle}>
         {/* <thead> */}
-        {/* <tr className={styles.childSubTitle}>
-            <th>園児名</th>
-            <th>クラス</th>
-            <th>日にち</th>
-            <th>延長開始時間</th>
-            <th>お迎え時間</th>
-            <th>備考</th>
-          </tr> */}
-        <TableHeader />
+        <tr className={styles.childSubTitle}>
+          <th>園児名</th>
+          <th>クラス</th>
+          <th>日にち</th>
+          <th>延長開始時間</th>
+          <th>お迎え時間</th>
+          <th>備考</th>
+        </tr>
+        {/* <TableHeader /> */}
         {/* </thead> */}
         <tbody>
           {filteredPosts.map((post, postIndex) => {

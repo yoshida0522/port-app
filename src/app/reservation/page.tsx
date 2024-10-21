@@ -160,9 +160,15 @@ export default function Page() {
 
   const handleDelete = async (postIndex: number) => {
     const postToDelete = filteredPosts[postIndex];
+
     if (postToDelete && postToDelete.id) {
-      await deleteDoc(doc(db, "posts", postToDelete.id));
-      setShouldFetch(true);
+      // 削除確認ダイアログを表示
+      const confirmed = window.confirm("本当に削除しますか？");
+
+      if (confirmed) {
+        await deleteDoc(doc(db, "posts", postToDelete.id));
+        setShouldFetch(true); // データを再取得するためのフラグを立てる
+      }
     }
   };
 
