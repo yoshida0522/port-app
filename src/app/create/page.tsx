@@ -19,6 +19,7 @@ export default function CreatePage() {
   const [idToken, setIdToken] = useState<string | null>(null);
   const [user, setUser] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [childClass, setChildClass] = useState("");
 
   const [monday, setMonday] = useState({
     date: "",
@@ -133,7 +134,7 @@ export default function CreatePage() {
       {
         id: uuidv4(),
         name: childName,
-        class: "",
+        class: childClass,
         realStartTime: "",
         realEndTime: "",
         userId: user,
@@ -142,7 +143,7 @@ export default function CreatePage() {
       {
         id: uuidv4(),
         name: childName,
-        class: "",
+        class: childClass,
         realStartTime: "",
         realEndTime: "",
         userId: user,
@@ -151,7 +152,7 @@ export default function CreatePage() {
       {
         id: uuidv4(),
         name: childName,
-        class: "",
+        class: childClass,
         realStartTime: "",
         realEndTime: "",
         userId: user,
@@ -160,7 +161,7 @@ export default function CreatePage() {
       {
         id: uuidv4(),
         name: childName,
-        class: "",
+        class: childClass,
         realStartTime: "",
         realEndTime: "",
         userId: user,
@@ -169,7 +170,7 @@ export default function CreatePage() {
       {
         id: uuidv4(),
         name: childName,
-        class: "",
+        class: childClass,
         realStartTime: "",
         realEndTime: "",
         userId: user,
@@ -209,7 +210,7 @@ export default function CreatePage() {
       days.forEach((day) => {
         if (day.date && day.date.trim() !== "") {
           message += `日にち ${day.date}:\n`;
-          message += `預かり開始時間 ${day.startTime}:\n`;
+          message += `延長開始時間 ${day.startTime}:\n`;
           message += `お迎え時間 ${day.endTime}:\n`;
           message += `備考 ${day.remark}:\n\n`;
         }
@@ -252,7 +253,7 @@ export default function CreatePage() {
           <input
             className={styles.classInput}
             placeholder="クラス名を入力してください"
-            onChange={(e) => e.target.value}
+            onChange={(e) => setChildClass(e.target.value)}
           />
         </div>
         <div className={styles.applicationContainer}>

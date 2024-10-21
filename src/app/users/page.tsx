@@ -202,8 +202,8 @@ const UsersPage = () => {
         <h1>{name ? `${name}さんの予約一覧` : "予約一覧"}</h1>
       </div>
       <table border={1} className={styles.childListTitle}>
-        <thead>
-          {/* <tr className={styles.childSubTitle}>
+        {/* <thead> */}
+        {/* <tr className={styles.childSubTitle}>
             <th>園児名</th>
             <th>クラス</th>
             <th>日にち</th>
@@ -211,8 +211,8 @@ const UsersPage = () => {
             <th>お迎え時間</th>
             <th>備考</th>
           </tr> */}
-          <TableHeader />
-        </thead>
+        <TableHeader />
+        {/* </thead> */}
         <tbody>
           {filteredPosts.map((post, postIndex) => {
             const days = post.days || [];

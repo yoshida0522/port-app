@@ -45,6 +45,7 @@ export default function Page() {
   const [search, setSearch] = useState(getTodayDate());
   const [editStartTime, setEditStartTime] = useState("");
   const [editEndTime, setEditEndTime] = useState("");
+  const [editData, setEditData] = useState<Day | null>(null);
   const [editingRow, setEditingRow] = useState<{
     postIndex: number;
     dayIndex: number;
