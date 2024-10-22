@@ -15,6 +15,7 @@ import {
 import SearchForm from "../components/SearchForm/SearchForm";
 import ReservationList from "../components/ReservationList/ReservationList";
 import TableHeader from "../components/TableHeader/TableHeader";
+import Pagination from "../components/Pagination/Pagination";
 
 interface Day {
   date: string;
@@ -32,6 +33,9 @@ interface Post {
   days: Day[];
 }
 
+// 1ページの表示件数
+const itemsPerPage = 10;
+
 export default function Page() {
   const getTodayDate = () => {
     const today = new Date();
@@ -45,12 +49,16 @@ export default function Page() {
   const [search, setSearch] = useState(getTodayDate());
   const [editStartTime, setEditStartTime] = useState("");
   const [editEndTime, setEditEndTime] = useState("");
-  const [editData, setEditData] = useState<Day | null>(null);
+  // const [editData, setEditData] = useState<Day | null>(null);
   const [editingRow, setEditingRow] = useState<{
     postIndex: number;
     dayIndex: number;
   } | null>(null);
   const [shouldFetch, setShouldFetch] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // 総ページ数の計算
+  const totalPages = Math.ceil(posts.length / itemsPerPage);
 
   const fetchData = async () => {
     const postData = collection(db, "posts");
@@ -178,6 +186,16 @@ export default function Page() {
     }
   };
 
+  // ページ切り替え
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const paginatedPosts = filteredPosts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   return (
     <>
       <div className={styles.reservationImg}>
@@ -192,7 +210,8 @@ export default function Page() {
       <table border={1} className={styles.listTitle}>
         <TableHeader />
         <tbody>
-          {filteredPosts.map((post, postIndex) => (
+          {/* {filteredPosts.map((post, postIndex) => ( */}
+          {paginatedPosts.map((post, postIndex) => (
             <ReservationList
               key={postIndex}
               post={post}
@@ -210,7 +229,13 @@ export default function Page() {
           ))}
         </tbody>
       </table>
-      {/* </div> */}
+      <div className={styles.reservationPagination}>
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </>
   );
 }
