@@ -157,6 +157,11 @@ const UsersPage = () => {
 
   const handleDelete = async (postIndex: number) => {
     const postToDelete = filteredPosts[postIndex];
+
+    // 確認ダイアログを表示
+    const confirmed = window.confirm("本当に削除しますか？");
+    if (!confirmed) return;
+
     if (postToDelete && postToDelete.id) {
       await deleteDoc(doc(db, "posts", postToDelete.id));
       setShouldFetch(true);
@@ -202,7 +207,6 @@ const UsersPage = () => {
         <h1>{name ? `${name}さんの予約一覧` : "予約一覧"}</h1>
       </div>
       <table border={1} className={styles.childListTitle}>
-        {/* <thead> */}
         <tr className={styles.childSubTitle}>
           <th>園児名</th>
           <th>クラス</th>
@@ -211,8 +215,6 @@ const UsersPage = () => {
           <th>お迎え時間</th>
           <th>備考</th>
         </tr>
-        {/* <TableHeader /> */}
-        {/* </thead> */}
         <tbody>
           {filteredPosts.map((post, postIndex) => {
             const days = post.days || [];
