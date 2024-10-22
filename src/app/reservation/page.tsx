@@ -10,7 +10,6 @@ import {
   doc,
   updateDoc,
   getDoc,
-  deleteDoc,
 } from "firebase/firestore";
 import SearchForm from "../components/SearchForm/SearchForm";
 import ReservationList from "../components/ReservationList/ReservationList";
@@ -105,9 +104,9 @@ export default function Page() {
     if (dateA.getTime() !== dateB.getTime()) {
       return dateA.getTime() - dateB.getTime(); // 昇順にソート
     }
-    const nameA = a.days[0]?.name.toLowerCase(); // 名前を小文字に変換
-    const nameB = b.days[0]?.name.toLowerCase(); // 名前を小文字に変換
-    return nameA.localeCompare(nameB); // 名前での比較
+    const nameA = a.days[0]?.name.toLowerCase();
+    const nameB = b.days[0]?.name.toLowerCase();
+    return nameA.localeCompare(nameB);
   });
 
   // ページ数の計算

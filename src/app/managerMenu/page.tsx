@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  updateDoc,
-} from "firebase/firestore";
+import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import db from "../firebase";
 import styles from "../styles/page.module.css";
@@ -36,6 +30,7 @@ function Page() {
     manager: false,
     delete: false,
   });
+
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
@@ -128,11 +123,7 @@ function Page() {
         await updateDoc(userDocRef, { delete: true });
 
         // データを更新
-        setData((prevData) =>
-          prevData.map((user) =>
-            user.id === userId ? { ...user, delete: true } : user
-          )
-        );
+        setData((prevData) => prevData.filter((user) => user.id !== userId));
 
         setErrorMessage("");
       } catch (error) {
