@@ -16,12 +16,12 @@ interface Day {
 interface ReservationRowProps {
   post: { id: string; days: Day[] };
   postIndex: number;
-  editingRow: { postIndex: number; dayIndex: number } | null;
+  editingRow: { postId: string; dayIndex: number } | null;
   editStartTime: string;
   editEndTime: string;
   setEditStartTime: (time: string) => void;
   setEditEndTime: (time: string) => void;
-  handleEdit: (postIndex: number, dayIndex: number) => void;
+  handleEdit: (postId: string, dayIndex: number) => void;
   handleSave: () => Promise<void>;
   handleDelete: (postIndex: number) => Promise<void>;
   handleCancel: () => void;
@@ -54,7 +54,7 @@ const ReservationList: React.FC<ReservationRowProps> = ({
           <td>{day.startTime}</td>
           <td>{day.endTime}</td>
           <td>
-            {editingRow?.postIndex === postIndex &&
+            {editingRow?.postId === post.id &&
             editingRow?.dayIndex === dayIndex ? (
               <input
                 className={styles.reservationInput}
@@ -67,7 +67,7 @@ const ReservationList: React.FC<ReservationRowProps> = ({
             )}
           </td>
           <td>
-            {editingRow?.postIndex === postIndex &&
+            {editingRow?.postId === post.id &&
             editingRow?.dayIndex === dayIndex ? (
               <input
                 className={styles.reservationInput}
@@ -81,31 +81,32 @@ const ReservationList: React.FC<ReservationRowProps> = ({
             )}
           </td>
           <td>{day.remark}</td>
-
-          {editingRow?.postIndex === postIndex &&
-          editingRow?.dayIndex === dayIndex ? (
-            <div className={styles.button}>
-              <button className={styles.saveButton} onClick={handleSave}>
-                保存
-              </button>
+          <td>
+            {editingRow?.postId === post.id &&
+            editingRow?.dayIndex === dayIndex ? (
+              <>
+                <button className={styles.saveButton} onClick={handleSave}>
+                  保存
+                </button>
+                <button
+                  className={styles.deleteButton}
+                  onClick={() => handleDelete(postIndex)}
+                >
+                  削除
+                </button>
+                <button className={styles.cancelButton} onClick={handleCancel}>
+                  キャンセル
+                </button>
+              </>
+            ) : (
               <button
-                className={styles.deleteButton}
-                onClick={() => handleDelete(postIndex)}
+                className={styles.editButton}
+                onClick={() => handleEdit(post.id, dayIndex)}
               >
-                削除
+                編集
               </button>
-              <button className={styles.cancelButton} onClick={handleCancel}>
-                キャンセル
-              </button>
-            </div>
-          ) : (
-            <button
-              className={styles.editButton}
-              onClick={() => handleEdit(postIndex, dayIndex)}
-            >
-              編集
-            </button>
-          )}
+            )}
+          </td>
         </tr>
       ))}
     </>

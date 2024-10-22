@@ -20,6 +20,7 @@ import Pagination from "../components/Pagination/Pagination";
 interface Day {
   date: string;
   name: string;
+  id: string;
   class: string;
   startTime: string;
   endTime: string;
@@ -34,7 +35,7 @@ interface Post {
 }
 
 // 1ページの表示件数
-const itemsPerPage = 10;
+const itemsPerPage = 5;
 
 export default function Page() {
   const getTodayDate = () => {
@@ -49,16 +50,12 @@ export default function Page() {
   const [search, setSearch] = useState(getTodayDate());
   const [editStartTime, setEditStartTime] = useState("");
   const [editEndTime, setEditEndTime] = useState("");
-  // const [editData, setEditData] = useState<Day | null>(null);
   const [editingRow, setEditingRow] = useState<{
-    postIndex: number;
+    postId: string;
     dayIndex: number;
   } | null>(null);
   const [shouldFetch, setShouldFetch] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-
-  // 総ページ数の計算
-  const totalPages = Math.ceil(posts.length / itemsPerPage);
 
   const fetchData = async () => {
     const postData = collection(db, "posts");
@@ -102,30 +99,39 @@ export default function Page() {
   filteredPosts.sort((a, b) => {
     const dateA = new Date(a.days[0]?.date);
     const dateB = new Date(b.days[0]?.date);
-
-    // 日付の比較
     if (dateA.getTime() !== dateB.getTime()) {
       return dateA.getTime() - dateB.getTime(); // 昇順にソート
     }
-
-    // 日付が同じ場合は名前で比較
     const nameA = a.days[0]?.name.toLowerCase(); // 名前を小文字に変換
     const nameB = b.days[0]?.name.toLowerCase(); // 名前を小文字に変換
     return nameA.localeCompare(nameB); // 名前での比較
   });
 
-  const handleEdit = (postIndex: number, dayIndex: number) => {
-    const postToEdit = filteredPosts[postIndex];
+  // ページ数の計算
+  const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
+
+  // ページ切り替え
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const paginatedPosts = filteredPosts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const handleEdit = (postId: string, dayIndex: number) => {
+    const postToEdit = posts.find((post) => post.id === postId);
+    if (!postToEdit) {
+      console.log("編集対象のIDが見つかりません");
+      return;
+    }
     const dayToEdit = postToEdit.days[dayIndex];
 
-    if (dayToEdit) {
-      console.log(`編集する日付: ${dayToEdit.date}`);
-      setEditStartTime(dayToEdit.realStartTime || "");
-      setEditEndTime(dayToEdit.realEndTime || "");
-      setEditingRow({ postIndex, dayIndex });
-    } else {
-      console.log("編集対象のIDが見つかりません");
-    }
+    console.log(`編集する日付: ${dayToEdit.date}`);
+    setEditStartTime(dayToEdit.realStartTime || "");
+    setEditEndTime(dayToEdit.realEndTime || "");
+    setEditingRow({ postId, dayIndex });
   };
 
   const handleSave = async () => {
@@ -140,28 +146,37 @@ export default function Page() {
       return;
     }
 
-    const { postIndex, dayIndex } = editingRow;
-    const postToUpdate = filteredPosts[postIndex];
+    const { postId, dayIndex } = editingRow;
+    console.log("編集対象の postIndex:", postId, "dayIndex:", dayIndex);
 
     try {
-      const postRef = doc(db, "posts", postToUpdate.id);
+      const postRef = doc(db, "posts", postId);
       const docSnap = await getDoc(postRef);
 
       if (docSnap.exists()) {
         const data = docSnap.data();
+        console.log("Firestore から取得したデータ:", data);
         const days = data.days || [];
 
-        days[dayIndex] = {
-          ...days[dayIndex],
-          realStartTime: editStartTime,
-          realEndTime: editEndTime,
-        };
+        // dayIndexが正しい範囲にあるか確認
+        if (dayIndex >= 0 && dayIndex < days.length) {
+          days[dayIndex] = {
+            ...days[dayIndex],
+            realStartTime: editStartTime,
+            realEndTime: editEndTime,
+          };
 
-        await updateDoc(postRef, { days });
-        console.log("データが更新されました");
+          await updateDoc(postRef, { days });
+          console.log("データが更新されました");
 
-        setEditingRow(null);
-        setShouldFetch(true);
+          // 状態をリセット
+          setEditingRow(null);
+          setShouldFetch(true);
+        } else {
+          console.error("dayIndex が無効です:", dayIndex);
+        }
+      } else {
+        console.error("Firestore に該当のドキュメントが存在しません");
       }
     } catch (error) {
       console.error("データの更新に失敗しました", error);
@@ -185,16 +200,6 @@ export default function Page() {
       }
     }
   };
-
-  // ページ切り替え
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const paginatedPosts = filteredPosts.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
 
   return (
     <>

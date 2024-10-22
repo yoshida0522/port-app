@@ -49,11 +49,11 @@
   margin: auto;
 }
 
-.childNameText {
+/* .childNameText {
   font-size: 20px;
-}
+} */
 
-.childCancelButton {
+/* .childCancelButton {
   font-size: 20px;
   width: 120px;
   height: 40px;
@@ -106,10 +106,10 @@
   background-color: #ccf7c2;
   cursor: pointer;
   transform: scale(90%);
-}
+} */
 
-.childInput {
+/* .childInput {
   width: 90px;
   height: 30px;
   font-size: 20px;
-}
+} */
