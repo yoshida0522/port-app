@@ -146,6 +146,28 @@
   background-size: 40%;
 }
 
+.searchDelete {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.deleteIcon {
+  margin-left: 60px;
+  font-size: 35px;
+}
+
+.deleteIcon:hover {
+  cursor: pointer;
+  transform: scale(85%);
+  color: red;
+}
+
+.deleteIconLink {
+  color: blue;
+  margin-top: 15px;
+}
+
 .topPageButton {
   font-size: 19px;
   font-weight: bold;
@@ -201,6 +223,42 @@
 .reservationPagination {
   margin-top: 20px;
   align-items: center;
+}
+
+/* 一覧ゴミ箱 */
+.childDeleteList {
+  font-size: 20px;
+}
+
+.buttonType {
+  display: flex;
+}
+
+.childDeleteButton {
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  background-color: rgb(250, 177, 250);
+  border-radius: 5px;
+}
+
+.childDeleteButton:hover {
+  cursor: pointer;
+  transform: scale(85%);
+}
+
+.childDelete {
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  background-color: red;
+  border-radius: 5px;
+  margin-left: 15px;
+}
+
+.childDelete:hover {
+  cursor: pointer;
+  transform: scale(85%);
 }
 
 /* 園児別一覧 */
@@ -414,6 +472,57 @@
 .managerError {
   color: red;
   text-align: center;
+}
+
+.managerDeleteIcon {
+  font-size: 35px;
+}
+
+.managerDeleteIcon:hover {
+  cursor: pointer;
+  transform: scale(85%);
+  color: red;
+}
+
+.managerDelete {
+  text-align: center;
+  margin-left: 400px;
+}
+
+/* managerゴミ箱 */
+.managerDeleteText {
+  font-size: 20px;
+}
+
+.restoreButton {
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  background-color: rgb(250, 177, 250);
+  border-radius: 5px;
+}
+
+.restoreButton:hover {
+  cursor: pointer;
+  transform: scale(85%);
+}
+
+.restore {
+  border: none;
+}
+
+.managerDeleteButton {
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  background-color: red;
+  border-radius: 5px;
+  margin-left: 15px;
+}
+
+.managerDeleteButton:hover {
+  cursor: pointer;
+  transform: scale(85%);
 }
 
 /* thanksページ */

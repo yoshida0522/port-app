@@ -12,12 +12,14 @@ import db from "../firebase";
 import styles from "../styles/page.module.css";
 import Link from "next/link";
 import Manager from "../components/Manager/Manager";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface User {
   id: string;
   name: string;
   pass: string;
   manager: boolean;
+  delete: boolean;
 }
 
 function Page() {
@@ -27,10 +29,12 @@ function Page() {
     name: string;
     pass: string;
     manager: boolean;
+    delete: boolean;
   }>({
     name: "",
     pass: "",
     manager: false,
+    delete: false,
   });
   const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -49,8 +53,11 @@ function Page() {
         name: data.name,
         pass: data.pass,
         manager: data.manager ?? false,
+        delete: data.delete ?? false,
       };
-      dataArray.push(userDataWithDefaults);
+      if (!userDataWithDefaults.delete) {
+        dataArray.push(userDataWithDefaults);
+      }
     });
 
     setData(dataArray);
@@ -58,7 +65,12 @@ function Page() {
 
   const handleEdit = (user: User) => {
     setEditingUserId(user.id);
-    setEditedUser({ name: user.name, pass: user.pass, manager: user.manager });
+    setEditedUser({
+      name: user.name,
+      pass: user.pass,
+      manager: user.manager,
+      delete: user.delete,
+    });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,16 +123,24 @@ function Page() {
     if (confirmed) {
       try {
         const userDocRef = doc(db, "user", userId);
-        await deleteDoc(userDocRef);
+
+        // deleteフィールドをtrueに更新
+        await updateDoc(userDocRef, { delete: true });
 
         // データを更新
-        setData((prevData) => prevData.filter((user) => user.id !== userId));
+        setData((prevData) =>
+          prevData.map((user) =>
+            user.id === userId ? { ...user, delete: true } : user
+          )
+        );
+
         setErrorMessage("");
       } catch (error) {
         console.error("削除中にエラーが発生しました: ", error);
       }
     }
   };
+
   const handleCancel = () => {
     setEditingUserId(null);
     setErrorMessage("");
@@ -133,6 +153,11 @@ function Page() {
       </Link>
       <div className={styles.center}>
         <h1>ユーザー管理</h1>
+      </div>
+      <div className={styles.managerDelete}>
+        <Link href="managerDelete/">
+          <DeleteIcon className={styles.managerDeleteIcon} />
+        </Link>
       </div>
       {errorMessage && <p className={styles.managerError}>{errorMessage}</p>}
 

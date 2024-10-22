@@ -16,6 +16,7 @@ import SearchForm from "../components/SearchForm/SearchForm";
 import ReservationList from "../components/ReservationList/ReservationList";
 import TableHeader from "../components/TableHeader/TableHeader";
 import Pagination from "../components/Pagination/Pagination";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface Day {
   date: string;
@@ -27,11 +28,13 @@ interface Day {
   realStartTime?: string;
   realEndTime?: string;
   remark?: string;
+  delete: false;
 }
 
 interface Post {
   id: string;
   days: Day[];
+  delete?: boolean;
 }
 
 // 1ページの表示件数
@@ -93,7 +96,7 @@ export default function Page() {
         return post;
       }
     })
-    .filter((post) => post !== null) as Post[];
+    .filter((post) => post !== null && !post.delete) as Post[];
 
   // 日付順に並べ替え
   filteredPosts.sort((a, b) => {
@@ -195,8 +198,17 @@ export default function Page() {
       const confirmed = window.confirm("本当に削除しますか？");
 
       if (confirmed) {
-        await deleteDoc(doc(db, "posts", postToDelete.id));
-        setShouldFetch(true); // データを再取得するためのフラグを立てる
+        try {
+          const postRef = doc(db, "posts", postToDelete.id);
+
+          // 'delete'フィールドをtrueに更新
+          await updateDoc(postRef, { delete: true });
+
+          setShouldFetch(true); // データを再取得するためのフラグを立てる
+          console.log("データが削除フラグで更新されました");
+        } catch (error) {
+          console.error("データの削除処理に失敗しました", error);
+        }
       }
     }
   };
@@ -210,12 +222,16 @@ export default function Page() {
         <div className={styles.center}>
           <h1>予約一覧</h1>
         </div>
-        <SearchForm search={search} setSearch={setSearch} />
+        <div className={styles.searchDelete}>
+          <SearchForm search={search} setSearch={setSearch} />
+          <Link className={styles.deleteIconLink} href="childDelete/">
+            <DeleteIcon className={styles.deleteIcon} />
+          </Link>
+        </div>
       </div>
       <table border={1} className={styles.listTitle}>
         <TableHeader />
         <tbody>
-          {/* {filteredPosts.map((post, postIndex) => ( */}
           {paginatedPosts.map((post, postIndex) => (
             <ReservationList
               key={postIndex}

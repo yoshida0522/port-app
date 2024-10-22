@@ -26,30 +26,35 @@ export default function CreatePage() {
     startTime: "14:00",
     endTime: "14:00",
     remark: "",
+    delete: false,
   });
   const [tuesday, setTuesday] = useState({
     date: "",
     startTime: "14:00",
     endTime: "14:00",
     remark: "",
+    delete: false,
   });
   const [wednesday, setWednesday] = useState({
     date: "",
     startTime: "14:00",
     endTime: "14:00",
     remark: "",
+    delete: false,
   });
   const [thursday, setThursday] = useState({
     date: "",
     startTime: "14:00",
     endTime: "14:00",
     remark: "",
+    delete: false,
   });
   const [friday, setFriday] = useState({
     date: "",
     startTime: "14:00",
     endTime: "14:00",
     remark: "",
+    delete: false,
   });
 
   useEffect(() => {

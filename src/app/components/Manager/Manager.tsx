@@ -6,6 +6,7 @@ interface User {
   name: string;
   pass: string;
   manager: boolean;
+  delete: boolean;
 }
 
 interface UserRowProps {
@@ -15,6 +16,7 @@ interface UserRowProps {
     name: string;
     pass: string;
     manager: boolean;
+    delete: boolean;
   };
   onEdit: (user: User) => void;
   onSave: (userId: string) => void;

@@ -15,7 +15,6 @@ import {
 import React from "react";
 import styles from "../styles/page.module.css";
 import liff from "@line/liff";
-import TableHeader from "../components/TableHeader/TableHeader";
 
 interface Day {
   date: string;
@@ -31,8 +30,8 @@ interface Day {
 
 interface Post {
   id: string;
-
   days: Day[];
+  delete?: boolean;
 }
 
 const UsersPage = () => {
@@ -118,7 +117,7 @@ const UsersPage = () => {
         : null;
     })
 
-    .filter((post) => post !== null) as Post[];
+    .filter((post) => post !== null && !post.delete) as Post[];
 
   const handleSave = async () => {
     if (editingRow === null) {
@@ -163,8 +162,16 @@ const UsersPage = () => {
     if (!confirmed) return;
 
     if (postToDelete && postToDelete.id) {
-      await deleteDoc(doc(db, "posts", postToDelete.id));
-      setShouldFetch(true);
+      try {
+        const postRef = doc(db, "posts", postToDelete.id);
+
+        // postのdeleteフィールドをtrueに設定
+        await updateDoc(postRef, { delete: true });
+        console.log("データが削除フラグを立てました");
+        setShouldFetch(true);
+      } catch (error) {
+        console.error("削除フラグの更新に失敗しました", error);
+      }
     }
   };
 

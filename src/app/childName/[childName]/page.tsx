@@ -33,6 +33,7 @@ interface Day {
 interface Post {
   id: string;
   days: Day[];
+  delete?: boolean;
 }
 
 const ChildReservationPage = () => {
@@ -74,7 +75,7 @@ const ChildReservationPage = () => {
   const filteredPosts = posts
     .map((post) => {
       const filteredDays = post.days.filter(
-        (day) => day.name === decodedChildName
+        (day) => day.name === decodedChildName && !post.delete
       );
       return filteredDays.length > 0 ? { ...post, days: filteredDays } : null;
     })
@@ -144,8 +145,16 @@ const ChildReservationPage = () => {
       const confirmed = window.confirm("本当に削除しますか？");
 
       if (confirmed) {
-        await deleteDoc(doc(db, "posts", postToDelete.id));
-        setShouldFetch(true); // データを再取得するためのフラグを立てる
+        try {
+          const postRef = doc(db, "posts", postToDelete.id);
+
+          // postのdeleteフィールドをtrueに設定
+          await updateDoc(postRef, { delete: true });
+          console.log("データが削除フラグを立てました");
+          setShouldFetch(true); // データを再取得するためのフラグを立てる
+        } catch (error) {
+          console.error("削除フラグの更新に失敗しました", error);
+        }
       }
     }
   };

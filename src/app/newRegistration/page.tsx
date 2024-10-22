@@ -49,6 +49,7 @@ function Page() {
         name: userName,
         pass: passWord,
         manager: false,
+        delete: false,
       });
       console.log(userData);
 
