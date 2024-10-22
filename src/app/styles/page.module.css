@@ -251,12 +251,31 @@
   font-size: 20px;
   width: 60px;
   height: 40px;
-  background-color: red;
+  background-color: rgb(249, 123, 123);
   border-radius: 5px;
   margin-left: 15px;
 }
 
 .childDelete:hover {
+  cursor: pointer;
+  transform: scale(85%);
+}
+
+.childAllDelete {
+  display: flex;
+  justify-content: center;
+  margin-left: 500px;
+  margin-bottom: 15px;
+}
+
+.allDelete {
+  font-size: 20px;
+  background-color: rgb(249, 123, 123);
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.allDelete:hover {
   cursor: pointer;
   transform: scale(85%);
 }
@@ -515,12 +534,24 @@
   font-size: 20px;
   width: 60px;
   height: 40px;
-  background-color: red;
+  background-color: rgb(249, 123, 123);
   border-radius: 5px;
   margin-left: 15px;
 }
 
 .managerDeleteButton:hover {
+  cursor: pointer;
+  transform: scale(85%);
+}
+
+.managerAllDelete {
+  display: flex;
+  justify-content: center;
+  margin-left: 500px;
+  margin-bottom: 15px;
+}
+
+.managerAllDelete:hover {
   cursor: pointer;
   transform: scale(85%);
 }

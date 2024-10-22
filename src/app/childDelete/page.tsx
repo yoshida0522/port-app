@@ -9,7 +9,6 @@ import {
   getDocs,
   doc,
   updateDoc,
-  getDoc,
   deleteDoc,
 } from "firebase/firestore";
 import TableHeader from "../components/TableHeader/TableHeader";
@@ -50,13 +49,30 @@ function ChildDelete() {
   const restorePost = async (postId: string) => {
     const postRef = doc(db, "posts", postId);
     await updateDoc(postRef, { delete: false }); // deleteをfalseに更新
-    fetchData(); // データを再取得して表示を更新
+    fetchData();
   };
 
   const deletePost = async (postId: string) => {
-    const postRef = doc(db, "posts", postId);
-    await deleteDoc(postRef); // ドキュメントを削除
-    fetchData(); // データを再取得して表示を更新
+    const confirmed = window.confirm("本当に削除しますか？");
+    if (confirmed) {
+      const postRef = doc(db, "posts", postId);
+      await deleteDoc(postRef);
+      fetchData();
+    }
+  };
+
+  // 全て削除
+  const allDelete = async () => {
+    const confirmed = window.confirm("本当に全て削除しますか？");
+    if (confirmed) {
+      const deletedPosts = posts.filter((post) => post.delete === true);
+      const deletePromises = deletedPosts.map(async (post) => {
+        const postRef = doc(db, "posts", post.id);
+        await deleteDoc(postRef);
+      });
+      await Promise.all(deletePromises);
+      fetchData();
+    }
   };
 
   useEffect(() => {
@@ -72,7 +88,12 @@ function ChildDelete() {
           <button className={styles.topPageButton}>戻る</button>
         </Link>
         <div className={styles.center}>
-          <h1>予約一覧</h1>
+          <h1>ゴミ箱一覧</h1>
+        </div>
+        <div className={styles.childAllDelete}>
+          <button className={styles.allDelete} onClick={allDelete}>
+            全て削除
+          </button>
         </div>
       </div>
       <table border={1} className={styles.listTitle}>

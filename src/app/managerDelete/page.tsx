@@ -52,7 +52,6 @@ function managerDelete() {
       const userDoc = doc(db, "user", userId); // ユーザーのドキュメントを取得
       await updateDoc(userDoc, { delete: false }); // deleteをfalseに更新
 
-      // ステートを更新して、UIに反映
       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== userId));
     } catch (error) {
       setErrorMessage("ユーザーの復元に失敗しました。");
@@ -62,14 +61,31 @@ function managerDelete() {
 
   const deleteUser = async (userId: string) => {
     try {
-      const userDoc = doc(db, "user", userId); // ユーザーのドキュメントを取得
-      await deleteDoc(userDoc); // ユーザーを削除
+      const userDoc = doc(db, "user", userId);
+      await deleteDoc(userDoc);
 
-      // ステートを更新して、UIに反映
       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== userId));
     } catch (error) {
       setErrorMessage("ユーザーの削除に失敗しました。");
       console.error("Error deleting user:", error);
+    }
+  };
+
+  // 全て削除
+  const allDelete = async () => {
+    if (confirm("本当に全て削除してもよろしいですか？")) {
+      // 確認ダイアログ
+      try {
+        const deletePromises = posts.map((post) =>
+          deleteDoc(doc(db, "user", post.id))
+        );
+        await Promise.all(deletePromises); // 全て削除
+
+        setPosts([]);
+      } catch (error) {
+        setErrorMessage("全てのユーザーの削除に失敗しました。");
+        console.error("Error deleting all users:", error);
+      }
     }
   };
 
@@ -79,9 +95,14 @@ function managerDelete() {
         <button className={styles.managerPage}>戻る</button>
       </Link>
       <div className={styles.center}>
-        <h1>ユーザー管理</h1>
+        <h1>ゴミ箱一覧</h1>
       </div>
       <div className={styles.managerDelete}></div>
+      <div className={styles.managerAllDelete}>
+        <button className={styles.allDelete} onClick={allDelete}>
+          全て削除
+        </button>
+      </div>
       {errorMessage && <p className={styles.managerError}>{errorMessage}</p>}
 
       <table border={1} className={styles.userList}>
