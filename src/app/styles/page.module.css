@@ -325,6 +325,11 @@
   margin: 10px 0;
 }
 
+.childSubTitle {
+  background-color: rgb(247, 247, 178);
+  font-size: 23px;
+}
+
 /* スマホサイズ向けのスタイル */
 @media screen and (max-width: 600px) {
   .createCenter {
