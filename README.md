@@ -33,7 +33,7 @@
 
 【 LINE 公式アカウント画面 】
 
-![LINEメニュー画面](https://gist.github.com/user-attachments/assets/2fa8a8db-89b6-4161-8492-3c801a21c06e)
+![LINEメニュー画面](https://github.com/user-attachments/assets/5279bcbe-2abc-4164-b811-f445586e53c2)
 <br>
 <br>
 
@@ -42,9 +42,9 @@
    自分の LINE に送信内容が送られてきます。
   <br>
   <br>
-  ![予約申込](https://gist.github.com/user-attachments/assets/8630834a-2daa-47ae-8277-9534f888cbda)
+  ![予約申込](https://github.com/user-attachments/assets/fe134644-fd6a-45fb-b28f-5b4164a3b562)
   <br>
-  ![LINE返信画面](https://gist.github.com/user-attachments/assets/905425c1-fa23-4df0-8596-26a3c3ae3347)
+  ![LINE返信画面](https://github.com/user-attachments/assets/032f20cc-3475-4c1a-b0c5-530a4703145b)
 
   <br>
   <br>
@@ -54,7 +54,7 @@
    ※当日の予約変更はできません。また、前日以前の予約は表示されません。
   <br>
   <br>
-  ![予約確認](https://gist.github.com/user-attachments/assets/3ac8b430-528b-4010-b6c6-6ce632125f75)
+  ![予約確認](https://github.com/user-attachments/assets/e0bffce2-c1b1-4cc2-83ff-1480ab1da933)
   <br>
   <br>
   <br>
@@ -84,9 +84,9 @@
 <br>
 
 【 ID 管理画面 】  
-![管理画面](https://gist.github.com/user-attachments/assets/c64e1b87-ba3c-4d0a-a0ac-f6629cf49d38)
+![管理画面](https://github.com/user-attachments/assets/d42ef8c2-95eb-4293-a93a-250e13e458bd)
 <br>
-![管理ページゴミ箱](https://gist.github.com/user-attachments/assets/9705af80-2f90-4f81-abc5-4d16b2380116)
+![管理ページゴミ箱](https://github.com/user-attachments/assets/fb1f3273-2c82-433e-a083-ec9a8dfe9694)
 <br>
 
 【 一般ユーザー用ホーム画面 】  
@@ -99,9 +99,9 @@
    カレンダーの日付を変えることで、指定した日の予約を確認でき、日付をリセットすると、全ての予約を確認できます。
   <br>
 
-![予約一覧](https://gist.github.com/user-attachments/assets/c1e34939-1d8c-4716-a692-7eb13a6b3457)
+![予約一覧](https://github.com/user-attachments/assets/dad443c3-5ada-473f-9924-f8a35b2a57af)
 <br>
-![予約一覧ゴミ箱](https://gist.github.com/user-attachments/assets/91ad822a-6ce1-43fe-b0b5-a961239eb25b)
+![予約一覧ゴミ箱](https://github.com/user-attachments/assets/41968d5d-1f44-4899-9e8d-95de2d55aca9)
 <br>
 <br>
 
@@ -109,7 +109,7 @@
    予約一覧で表示されている園児名をクリックすることで、選択した園児の予約一覧を全て確認することができます。
   <br>
 
-![園児別詳細](https://gist.github.com/user-attachments/assets/c70f4266-a60e-4723-9858-db84246959f9)
+![園児別詳細](https://github.com/user-attachments/assets/6d07d8cd-85e1-4387-b61a-d86f2e81329a)
 <br>  
 <br>
 
