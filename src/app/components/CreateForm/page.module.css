@@ -29,6 +29,8 @@
   height: 355.5px;
   padding: 10px;
   border-radius: 8px 0 0 8px;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
 }
 
 .applicationIndex {
