@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 
-function SigninManager() {
+const SigninManager = () => {
   return (
     <div className={styles.managerMenu}>
       <Link href="newRegistration/" className={styles.link}>
@@ -13,6 +13,6 @@ function SigninManager() {
       </Link>
     </div>
   );
-}
+};
 
 export default SigninManager;

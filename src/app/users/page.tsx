@@ -14,24 +14,7 @@ import {
 import React from "react";
 import styles from "../styles/page.module.css";
 import liff from "@line/liff";
-
-interface Day {
-  date: string;
-  name: string;
-  class: string;
-  userId: string;
-  startTime: string;
-  endTime: string;
-  realStartTime?: string;
-  realEndTime?: string;
-  remark?: string;
-}
-
-interface Post {
-  id: string;
-  days: Day[];
-  delete?: boolean;
-}
+import { Post } from "../type";
 
 const UsersPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);

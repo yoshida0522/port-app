@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import db from "../../firebase";
 import {
   collection,
-  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -18,24 +17,7 @@ import styles from "../[childName]/page.module.css";
 import TableHeader from "@/app/components/TableHeader/TableHeader";
 import ChildReservationRow from "@/app/components/ChildReservation/Childreservation";
 import Pagination from "@/app/components/Pagination/Pagination";
-
-interface Day {
-  date: string;
-  name: string;
-  id: string;
-  class: string;
-  startTime: string;
-  endTime: string;
-  realStartTime?: string;
-  realEndTime?: string;
-  remark?: string;
-}
-
-interface Post {
-  id: string;
-  days: Day[];
-  delete?: boolean;
-}
+import { Day, Post } from "./type";
 
 // 1ページの表示件数
 const itemsPerPage = 5;
@@ -196,7 +178,7 @@ const ChildReservationPage = () => {
       <table border={1} className={styles.childListTitle}>
         <TableHeader />
         <tbody>
-          {filteredPosts.map((post, postIndex) => {
+          {paginatedPosts.map((post, postIndex) => {
             const days = post.days || [];
             return (
               <React.Fragment key={post.id}>

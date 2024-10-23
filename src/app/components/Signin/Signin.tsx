@@ -7,15 +7,9 @@ import Link from "next/link";
 import { collection, getDocs } from "firebase/firestore";
 import SigninManager from "../SigninManager/SigninManager";
 import LoginForm from "../LoginForm/LoginForm";
+import { User } from "./type";
 
-interface User {
-  id: string;
-  name: string;
-  pass: string;
-  manager: boolean;
-}
-
-function Signin() {
+const Signin = () => {
   const [posts, setPosts] = useState<User[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isManagerIn, setIsManagerIn] = useState(false);
@@ -85,6 +79,6 @@ function Signin() {
       )}
     </>
   );
-}
+};
 
 export default Signin;

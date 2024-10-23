@@ -2,10 +2,10 @@ import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import styles from "../SearchForm/page.module.css";
 
-interface SearchDateProps {
+type SearchDateProps = {
   search: string;
   setSearch: (date: string) => void;
-}
+};
 
 const SearchForm: React.FC<SearchDateProps> = ({ search, setSearch }) => {
   const getTodayDate = () => {
@@ -24,7 +24,7 @@ const SearchForm: React.FC<SearchDateProps> = ({ search, setSearch }) => {
       <input
         className={styles.search}
         type="date"
-        defaultValue={getTodayDate()}
+        value={search || getTodayDate()}
         onChange={(e) => setSearch(e.target.value)}
       />
     </div>

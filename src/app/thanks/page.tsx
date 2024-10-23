@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "../styles/page.module.css";
 
-function Thanks() {
+const Thanks = () => {
   return (
     <div className={styles.thanks}>
       <h1>送信完了しました!</h1>
@@ -16,6 +16,6 @@ function Thanks() {
       </div>
     </div>
   );
-}
+};
 
 export default Thanks;

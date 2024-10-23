@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "../styles/page.module.css";
 
-function NewRegistration() {
+const NewRegistration = () => {
   const router = useRouter();
   const [userName, setUserName] = useState("");
   const [passWord, setPassWord] = useState("");
@@ -125,6 +125,6 @@ function NewRegistration() {
       </div>
     </>
   );
-}
+};
 
 export default NewRegistration;

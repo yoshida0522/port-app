@@ -12,27 +12,9 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import TableHeader from "../components/TableHeader/TableHeader";
+import { Post } from "../type";
 
-interface Day {
-  date: string;
-  name: string;
-  id: string;
-  class: string;
-  startTime: string;
-  endTime: string;
-  realStartTime?: string;
-  realEndTime?: string;
-  remark?: string;
-  delete: boolean;
-}
-
-interface Post {
-  id: string;
-  days: Day[];
-  delete?: boolean;
-}
-
-function ChildDelete() {
+const ChildDelete = () => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   const fetchData = async () => {
@@ -48,7 +30,7 @@ function ChildDelete() {
 
   const restorePost = async (postId: string) => {
     const postRef = doc(db, "posts", postId);
-    await updateDoc(postRef, { delete: false }); // deleteをfalseに更新
+    await updateDoc(postRef, { delete: false });
     fetchData();
   };
 
@@ -118,8 +100,8 @@ function ChildDelete() {
                     復元
                   </button>
                   <button
-                    className={styles.childDelete} // 削除ボタンのスタイル
-                    onClick={() => deletePost(post.id)} // 削除ボタン
+                    className={styles.childDelete}
+                    onClick={() => deletePost(post.id)}
                   >
                     削除
                   </button>
@@ -131,6 +113,6 @@ function ChildDelete() {
       </table>
     </>
   );
-}
+};
 
 export default ChildDelete;

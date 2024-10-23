@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import { Button } from "@mui/material";
 import styles from "./page.module.css";
+import { User } from "./type";
 
-interface LoginFormProps {
+type LoginFormProps = {
   posts: User[];
   onLoginSuccess: (isManager: boolean) => void;
-}
-
-interface User {
-  id: string;
-  name: string;
-  pass: string;
-  manager: boolean;
-}
+};
 
 const LoginForm: React.FC<LoginFormProps> = ({ posts, onLoginSuccess }) => {
   const [user, setUser] = useState<string>("");

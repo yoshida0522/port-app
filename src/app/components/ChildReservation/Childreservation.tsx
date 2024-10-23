@@ -1,19 +1,8 @@
 import React from "react";
 import styles from "../ChildReservation/page.module.css";
+import { Day } from "./type";
 
-interface Day {
-  name: string;
-  class: string;
-  id: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  realStartTime?: string;
-  realEndTime?: string;
-  remark?: string;
-}
-
-interface ChildReservationRowProps {
+type ChildReservationRowProps = {
   postId: string;
   day: Day;
   dayIndex: number;
@@ -25,7 +14,7 @@ interface ChildReservationRowProps {
   handleCancel: () => void;
   handleDelete: (postIndex: number) => void;
   postIndex: number;
-}
+};
 
 const ChildReservationRow: React.FC<ChildReservationRowProps> = ({
   postId,

@@ -1,15 +1,8 @@
 import React from "react";
 import styles from "../Manager/page.module.css";
+import { User } from "./type";
 
-interface User {
-  id: string;
-  name: string;
-  pass: string;
-  manager: boolean;
-  delete: boolean;
-}
-
-interface UserRowProps {
+type UserRowProps = {
   user: User;
   editingUserId: string | null;
   editedUser: {
@@ -24,7 +17,7 @@ interface UserRowProps {
   onDelete: (userId: string) => void;
   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCheckboxChange: () => void;
-}
+};
 
 const Manager: React.FC<UserRowProps> = ({
   user,

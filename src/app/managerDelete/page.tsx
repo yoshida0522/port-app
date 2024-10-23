@@ -11,16 +11,9 @@ import React, { useEffect, useState } from "react";
 import db from "../firebase";
 import Link from "next/link";
 import styles from "../styles/page.module.css";
+import { User } from "../type";
 
-interface User {
-  id: string;
-  name: string;
-  pass: string;
-  manager: boolean;
-  delete: boolean;
-}
-
-function ManagerDelete() {
+const ManagerDelete = () => {
   const [posts, setPosts] = useState<User[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -32,14 +25,14 @@ function ManagerDelete() {
 
         const postsArray = querySnapshot.docs.map((doc) => {
           const data = doc.data();
-          return { ...data, id: doc.id } as User; // 型を指定
+          return { ...data, id: doc.id } as User;
         });
 
         // deleteがtrueのユーザーのみをフィルタリング
         const filteredPosts = postsArray.filter((post) => post.delete);
         setPosts(filteredPosts);
       } catch (error) {
-        setErrorMessage("データの取得に失敗しました。"); // エラーメッセージの設定
+        setErrorMessage("データの取得に失敗しました。");
         console.error("Error fetching posts:", error);
       }
     };
@@ -49,8 +42,8 @@ function ManagerDelete() {
 
   const restoreUser = async (userId: string) => {
     try {
-      const userDoc = doc(db, "user", userId); // ユーザーのドキュメントを取得
-      await updateDoc(userDoc, { delete: false }); // deleteをfalseに更新
+      const userDoc = doc(db, "user", userId);
+      await updateDoc(userDoc, { delete: false });
 
       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== userId));
     } catch (error) {
@@ -79,7 +72,7 @@ function ManagerDelete() {
         const deletePromises = posts.map((post) =>
           deleteDoc(doc(db, "user", post.id))
         );
-        await Promise.all(deletePromises); // 全て削除
+        await Promise.all(deletePromises);
 
         setPosts([]);
       } catch (error) {
@@ -117,19 +110,17 @@ function ManagerDelete() {
           {posts.map((post) => (
             <tr key={post.id} className={styles.managerDeleteText}>
               <td>{post.name}</td>
-              <td>{post.pass}</td>{" "}
-              {/* パスワードを表示（必要に応じて表示方法を変更） */}
-              <td>{post.manager ? "はい" : "いいえ"}</td>{" "}
+              <td>{post.pass}</td> <td>{post.manager ? "はい" : "いいえ"}</td>{" "}
               <td className={styles.restore}>
                 <button
                   className={styles.restoreButton}
-                  onClick={() => restoreUser(post.id)} // ボタンクリックでrestoreUserを呼び出す
+                  onClick={() => restoreUser(post.id)}
                 >
                   復元
                 </button>
                 <button
-                  className={styles.managerDeleteButton} // スタイルを追加
-                  onClick={() => deleteUser(post.id)} // ボタンクリックでdeleteUserを呼び出す
+                  className={styles.managerDeleteButton}
+                  onClick={() => deleteUser(post.id)}
                 >
                   削除
                 </button>
@@ -140,6 +131,6 @@ function ManagerDelete() {
       </table>
     </div>
   );
-}
+};
 
 export default ManagerDelete;

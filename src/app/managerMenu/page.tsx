@@ -7,16 +7,9 @@ import styles from "../styles/page.module.css";
 import Link from "next/link";
 import Manager from "../components/Manager/Manager";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { User } from "../type";
 
-interface User {
-  id: string;
-  name: string;
-  pass: string;
-  manager: boolean;
-  delete: boolean;
-}
-
-function ManagerMenu() {
+const ManagerMenu = () => {
   const [data, setData] = useState<User[]>([]);
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
   const [editedUser, setEditedUser] = useState<{
@@ -177,6 +170,6 @@ function ManagerMenu() {
       </table>
     </div>
   );
-}
+};
 
 export default ManagerMenu;

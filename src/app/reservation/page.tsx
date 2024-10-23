@@ -16,25 +16,7 @@ import ReservationList from "../components/ReservationList/ReservationList";
 import TableHeader from "../components/TableHeader/TableHeader";
 import Pagination from "../components/Pagination/Pagination";
 import DeleteIcon from "@mui/icons-material/Delete";
-
-interface Day {
-  date: string;
-  name: string;
-  id: string;
-  class: string;
-  startTime: string;
-  endTime: string;
-  realStartTime?: string;
-  realEndTime?: string;
-  remark?: string;
-  delete: false;
-}
-
-interface Post {
-  id: string;
-  days: Day[];
-  delete?: boolean;
-}
+import { Post } from "../type";
 
 // 1ページの表示件数
 const itemsPerPage = 5;
