@@ -208,12 +208,12 @@ const UsersPage = () => {
   };
 
   return (
-    <div className={styles.childImg}>
-      <div className={styles.childCenter}>
+    <div className={styles.usersImg}>
+      <div className={styles.usersCenter}>
         <h1>{name ? `${name}さんの予約一覧` : "予約一覧"}</h1>
       </div>
-      <table border={1} className={styles.childListTitle}>
-        <tr className={styles.childSubTitle}>
+      <table border={1} className={styles.usersListTitle}>
+        <tr className={styles.usersSubTitle}>
           <th>園児名</th>
           <th>クラス</th>
           <th>日にち</th>
