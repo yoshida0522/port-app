@@ -265,11 +265,16 @@ export default function CreatePage() {
         />
         <div>
           <p className={styles.classTitle}>クラス</p>
-          <input
+          {/* <input
             className={styles.classInput}
             placeholder="クラス名を入力してください"
             onChange={(e) => setChildClass(e.target.value)}
-          />
+          /> */}
+          <select name="selectedClass" className={styles.classInput}>
+            <option value="園児">園児</option>
+            <option value="未就園児">未就園児</option>
+            <option value="小学生">小学生</option>
+          </select>
         </div>
         <div className={styles.applicationContainer}>
           {[
