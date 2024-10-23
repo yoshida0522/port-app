@@ -16,7 +16,7 @@ interface User {
   delete: boolean;
 }
 
-function Page() {
+function ManagerMenu() {
   const [data, setData] = useState<User[]>([]);
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
   const [editedUser, setEditedUser] = useState<{
@@ -179,4 +179,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default ManagerMenu;

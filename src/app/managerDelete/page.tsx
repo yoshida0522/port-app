@@ -20,7 +20,7 @@ interface User {
   delete: boolean;
 }
 
-function managerDelete() {
+function ManagerDelete() {
   const [posts, setPosts] = useState<User[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -142,4 +142,4 @@ function managerDelete() {
   );
 }
 
-export default managerDelete;
+export default ManagerDelete;

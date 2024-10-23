@@ -39,7 +39,7 @@ interface Post {
 // 1ページの表示件数
 const itemsPerPage = 5;
 
-export default function Page() {
+export default function Reservation() {
   const getTodayDate = () => {
     const today = new Date();
     const year = today.getFullYear();
