@@ -19,7 +19,6 @@ const CreateForm: React.FC<ReservationInputProps> = ({
     <div className={styles.applicationSection}>
       <div className={styles.applicationNumberContainer}>
         <span className={styles.applicationNumber}>第{index + 1}希望日</span>
-        {/* <span className={styles.applicationIndex}>{index + 1}</span> */}
       </div>
       <div className={styles.applicationContent}>
         <strong className={styles.createStrong}>日にち</strong>

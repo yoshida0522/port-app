@@ -33,16 +33,6 @@
   text-orientation: upright;
 }
 
-.applicationIndex {
-  font-weight: bold;
-  background-color: #85ddfa;
-  font-size: 18px;
-  color: #333;
-  transform: rotate(270deg);
-  margin-top: -150px;
-  margin-right: 2px;
-}
-
 .applicationContent {
   flex-grow: 1;
   height: 345px;
