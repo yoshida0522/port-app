@@ -1,7 +1,17 @@
 import React, { useState } from "react";
 import styles from "../Pagination/page.module.css";
 
-const Pagination = ({ totalPages, currentPage, onPageChange }: any) => {
+interface PaginationProps {
+  totalPages: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
+}
+
+const Pagination: React.FC<PaginationProps> = ({
+  totalPages,
+  currentPage,
+  onPageChange,
+}) => {
   const [page, setPage] = useState(currentPage);
 
   const handleNext = () => {

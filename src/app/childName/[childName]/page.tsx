@@ -17,6 +17,7 @@ import Link from "next/link";
 import styles from "../[childName]/page.module.css";
 import TableHeader from "@/app/components/TableHeader/TableHeader";
 import ChildReservationRow from "@/app/components/ChildReservation/Childreservation";
+import Pagination from "@/app/components/Pagination/Pagination";
 
 interface Day {
   date: string;
@@ -36,6 +37,9 @@ interface Post {
   delete?: boolean;
 }
 
+// 1ページの表示件数
+const itemsPerPage = 5;
+
 const ChildReservationPage = () => {
   const params = useParams();
   let childName = params?.childName;
@@ -52,6 +56,7 @@ const ChildReservationPage = () => {
     dayIndex: number;
   } | null>(null);
   const [shouldFetch, setShouldFetch] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,6 +85,19 @@ const ChildReservationPage = () => {
       return filteredDays.length > 0 ? { ...post, days: filteredDays } : null;
     })
     .filter((post) => post !== null) as Post[];
+
+  // ページ数の計算
+  const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
+
+  // ページ切り替え
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const paginatedPosts = filteredPosts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const handleEdit = (day: Day, postId: string, dayIndex: number): void => {
     setEditData(day);
@@ -203,6 +221,13 @@ const ChildReservationPage = () => {
           })}
         </tbody>
       </table>
+      <div className={styles.childPagination}>
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };
