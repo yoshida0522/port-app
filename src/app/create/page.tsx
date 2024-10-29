@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import { v4 as uuidv4 } from "uuid";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import styles from "../styles/page.module.css";
 // import axios from "axios";
 import CreateForm from "../components/CreateForm/CreateForm";
@@ -16,7 +16,7 @@ import { useSendMessage } from "../utills/useSendMessage";
 import { Day } from "../type";
 
 export default function CreatePage() {
-  // const router = useRouter();
+  const router = useRouter();
   const { sendMessage, isSubmitting } = useSendMessage();
   const [childName, setChildName] = useState("");
   // const [isSubmitting, setIsSubmitting] = useState(false);
@@ -163,6 +163,8 @@ export default function CreatePage() {
     // router.push("/thanks");
 
     await sendMessage(user, days as Day[]);
+
+    router.push("/thanks");
   };
 
   return (
@@ -211,7 +213,4 @@ export default function CreatePage() {
       </form>
     </div>
   );
-}
-function useMessageSender(): { sendMessage: any; isSubmitting: any } {
-  throw new Error("Function not implemented.");
 }

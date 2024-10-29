@@ -1,10 +1,8 @@
 import axios from "axios";
-import { useRouter } from "next/router";
 import { Day } from "@/app/type";
 import { useState } from "react";
 
 export const useSendMessage = () => {
-  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const sendMessage = async (user: string, days: Day[]) => {
@@ -43,7 +41,6 @@ export const useSendMessage = () => {
     }
 
     console.log("メッセージの送信が完了しました");
-    router.push("/thanks");
   };
   return { sendMessage, isSubmitting };
 };
