@@ -8,77 +8,82 @@ import "firebase/compat/firestore";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import styles from "../styles/page.module.css";
-import liff from "@line/liff";
+// import liff from "@line/liff";
 import axios from "axios";
 import CreateForm from "../components/CreateForm/CreateForm";
+import { useAuthentication } from "../utills/useAuthentication";
+import { useHandleChange } from "../utills/useHandleChange";
 
 export default function CreatePage() {
   const router = useRouter();
   const [childName, setChildName] = useState("");
-  const [idToken, setIdToken] = useState<string | null>(null);
-  const [user, setUser] = useState("");
+  // const [idToken, setIdToken] = useState<string | null>(null);
+  // const [user, setUser] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [childClass, setChildClass] = useState("");
+  const { user, name, idToken, loading } = useAuthentication();
+  const { handleChange, firstDay, secondDay, thirdDay, fourthDay, fifthDay } =
+    useHandleChange();
 
-  const [monday, setMonday] = useState({
-    date: "",
-    startTime: "14:00",
-    endTime: "14:00",
-    remark: "",
-    delete: false,
-  });
-  const [tuesday, setTuesday] = useState({
-    date: "",
-    startTime: "14:00",
-    endTime: "14:00",
-    remark: "",
-    delete: false,
-  });
-  const [wednesday, setWednesday] = useState({
-    date: "",
-    startTime: "14:00",
-    endTime: "14:00",
-    remark: "",
-    delete: false,
-  });
-  const [thursday, setThursday] = useState({
-    date: "",
-    startTime: "14:00",
-    endTime: "14:00",
-    remark: "",
-    delete: false,
-  });
-  const [friday, setFriday] = useState({
-    date: "",
-    startTime: "14:00",
-    endTime: "14:00",
-    remark: "",
-    delete: false,
-  });
+  // const [firstDay, setFirstDay] = useState({
+  //   date: "",
+  //   startTime: "14:00",
+  //   endTime: "14:00",
+  //   remark: "",
+  //   delete: false,
+  // });
+  // const [secondDay, setSecondDay] = useState({
+  //   date: "",
+  //   startTime: "14:00",
+  //   endTime: "14:00",
+  //   remark: "",
+  //   delete: false,
+  // });
+  // const [thirdDay, setThirdDay] = useState({
+  //   date: "",
+  //   startTime: "14:00",
+  //   endTime: "14:00",
+  //   remark: "",
+  //   delete: false,
+  // });
+  // const [fourthDay, setFourthDay] = useState({
+  //   date: "",
+  //   startTime: "14:00",
+  //   endTime: "14:00",
+  //   remark: "",
+  //   delete: false,
+  // });
+  // const [fifthDay, setFifthDay] = useState({
+  //   date: "",
+  //   startTime: "14:00",
+  //   endTime: "14:00",
+  //   remark: "",
+  //   delete: false,
+  // });
 
-  useEffect(() => {
-    liff
-      .init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID as string })
-      .then(() => {
-        console.log("LIFFの初期化に成功しました");
+  // useEffect(() => {
+  //   liff
+  //     .init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID as string })
+  //     .then(() => {
+  //       console.log("LIFFの初期化に成功しました");
 
-        if (liff.isLoggedIn()) {
-          const token = liff.getIDToken();
-          setIdToken(token);
-        } else {
-          liff.login();
-        }
-      })
-      .catch((e: Error) => {
-        console.error("LIFFの初期化に失敗しました", e);
-        setIdToken("");
-      });
+  //       if (liff.isLoggedIn()) {
+  //         const token = liff.getIDToken();
+  //         setIdToken(token);
+  //       } else {
+  //         liff.login();
+  //       }
+  //     })
+  //     .catch((e: Error) => {
+  //       console.error("LIFFの初期化に失敗しました", e);
+  //       setIdToken("");
+  //     });
 
-    liff.ready.then(async () => {
-      const userProfile = await liff.getProfile();
-      setUser(userProfile.userId);
-    });
-  }, []);
+  //   liff.ready.then(async () => {
+  //     const userProfile = await liff.getProfile();
+  //     setUser(userProfile.userId);
+  //   });
+  // }, []);
 
   useEffect(() => {
     if (user) {
@@ -90,45 +95,45 @@ export default function CreatePage() {
     return <div>Loading...</div>;
   }
 
-  const handleChange =
-    (day: string, field: string) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-      switch (day) {
-        case "monday":
-          setMonday((prev) => ({
-            ...prev,
-            [field]: value,
-          }));
-          break;
-        case "tuesday":
-          setTuesday((prev) => ({
-            ...prev,
-            [field]: value,
-          }));
-          break;
-        case "wednesday":
-          setWednesday((prev) => ({
-            ...prev,
-            [field]: value,
-          }));
-          break;
-        case "thursday":
-          setThursday((prev) => ({
-            ...prev,
-            [field]: value,
-          }));
-          break;
-        case "friday":
-          setFriday((prev) => ({
-            ...prev,
-            [field]: value,
-          }));
-          break;
-        default:
-          break;
-      }
-    };
+  // const handleChange =
+  //   (day: string, field: string) =>
+  //   (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     const value = e.target.value;
+  //     switch (day) {
+  //       case "firstDay":
+  //         setFirstDay((prev) => ({
+  //           ...prev,
+  //           [field]: value,
+  //         }));
+  //         break;
+  //       case "secondDay":
+  //         setSecondDay((prev) => ({
+  //           ...prev,
+  //           [field]: value,
+  //         }));
+  //         break;
+  //       case "thirdDay":
+  //         setThirdDay((prev) => ({
+  //           ...prev,
+  //           [field]: value,
+  //         }));
+  //         break;
+  //       case "fourthDay":
+  //         setFourthDay((prev) => ({
+  //           ...prev,
+  //           [field]: value,
+  //         }));
+  //         break;
+  //       case "fifthDay":
+  //         setFifthDay((prev) => ({
+  //           ...prev,
+  //           [field]: value,
+  //         }));
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   };
 
   const handleClick = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -142,7 +147,7 @@ export default function CreatePage() {
         realStartTime: "",
         realEndTime: "",
         userId: user,
-        ...monday,
+        ...firstDay,
       },
       {
         id: uuidv4(),
@@ -151,7 +156,7 @@ export default function CreatePage() {
         realStartTime: "",
         realEndTime: "",
         userId: user,
-        ...tuesday,
+        ...secondDay,
       },
       {
         id: uuidv4(),
@@ -160,7 +165,7 @@ export default function CreatePage() {
         realStartTime: "",
         realEndTime: "",
         userId: user,
-        ...wednesday,
+        ...thirdDay,
       },
       {
         id: uuidv4(),
@@ -169,7 +174,7 @@ export default function CreatePage() {
         realStartTime: "",
         realEndTime: "",
         userId: user,
-        ...thursday,
+        ...fourthDay,
       },
       {
         id: uuidv4(),
@@ -178,7 +183,7 @@ export default function CreatePage() {
         realStartTime: "",
         realEndTime: "",
         userId: user,
-        ...friday,
+        ...fifthDay,
       },
     ];
 
@@ -279,11 +284,11 @@ export default function CreatePage() {
         </div>
         <div className={styles.applicationContainer}>
           {[
-            { day: "monday", title: "希望日1" },
-            { day: "tuesday", title: "希望日2" },
-            { day: "wednesday", title: "希望日3" },
-            { day: "thursday", title: "希望日4" },
-            { day: "friday", title: "希望日5" },
+            { day: "firstDay", title: "希望日1" },
+            { day: "secondDay", title: "希望日2" },
+            { day: "thirdDay", title: "希望日3" },
+            { day: "fourthDay", title: "希望日4" },
+            { day: "fifthDay", title: "希望日5" },
           ].map(({ day }, index) => (
             <CreateForm
               key={index}

@@ -13,16 +13,11 @@ import {
 } from "firebase/firestore";
 import React from "react";
 import styles from "../styles/page.module.css";
-// import liff from "@line/liff";
 import { Post } from "../type";
 import { useAuthentication } from "../utills/useAuthentication";
 
 const UsersPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
-  // const [idToken, setIdToken] = useState<string | null>(null);
-  // const [user, setUser] = useState<string | null>(null);
-  // const [name, setName] = useState("");
-  // const [loading, setLoading] = useState(true);
   const [editingRow, setEditingRow] = useState<{
     postIndex: number;
     dayIndex: number;
@@ -32,34 +27,6 @@ const UsersPage = () => {
   const [editEndTime, setEditEndTime] = useState("");
   const [editRemark, setEditRemark] = useState("");
   const { user, name, idToken, loading } = useAuthentication();
-
-  // useEffect(() => {
-  //   const initializeLiff = async () => {
-  //     try {
-  //       await liff.init({
-  //         liffId: process.env.NEXT_PUBLIC_LIFF_USER_ID as string,
-  //       });
-  //       console.log("LIFFの初期化に成功しました");
-
-  //       if (liff.isLoggedIn()) {
-  //         const token = liff.getIDToken();
-  //         setIdToken(token);
-  //       } else {
-  //         liff.login();
-  //       }
-
-  //       const userProfile = await liff.getProfile();
-  //       setUser(userProfile.userId);
-  //       setName(userProfile.displayName);
-  //     } catch (e) {
-  //       console.error("LIFFの初期化に失敗しました", e);
-  //       setIdToken("");
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   initializeLiff();
-  // }, []);
 
   useEffect(() => {
     if (shouldFetch) {
