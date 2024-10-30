@@ -1,13 +1,19 @@
 import React from "react";
 import styles from "../CreateForm/page.module.css";
 
+// type ReservationInputProps = {
+//   day: string;
+//   index: number;
+//   onChange: (
+//     day: string,
+//     field: string
+//   ) => (e: React.ChangeEvent<HTMLInputElement>) => void;
+// };
+
 type ReservationInputProps = {
   day: string;
   index: number;
-  onChange: (
-    day: string,
-    field: string
-  ) => (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => void; // 引数の修正
 };
 
 const CreateForm: React.FC<ReservationInputProps> = ({
@@ -25,14 +31,16 @@ const CreateForm: React.FC<ReservationInputProps> = ({
         <input
           className={styles.createInput}
           type="date"
-          onChange={onChange(day, "date")}
+          // onChange={onChange(day, "date")}
+          onChange={onChange("date")}
         />
         <strong className={styles.createStrong}>延長開始時間</strong>
         <input
           className={styles.createInput}
           type="time"
           defaultValue={"14:00"}
-          onChange={onChange(day, "startTime")}
+          // onChange={onChange(day, "startTime")}
+          onChange={onChange("startTime")}
         />
         <strong className={styles.createStrong}>お迎え時間</strong>
         <input
@@ -40,12 +48,14 @@ const CreateForm: React.FC<ReservationInputProps> = ({
           type="time"
           min="14:00"
           defaultValue={"14:00"}
-          onChange={onChange(day, "endTime")}
+          // onChange={onChange(day, "endTime")}
+          onChange={onChange("endTime")}
         />
         <strong className={styles.createStrong}>備考</strong>
         <input
           className={styles.createInput}
-          onChange={onChange(day, "remark")}
+          // onChange={onChange(day, "remark")}
+          onChange={onChange("remark")}
         />
       </div>
     </div>

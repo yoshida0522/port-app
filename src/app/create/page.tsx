@@ -4,7 +4,7 @@ import { collection, addDoc } from "firebase/firestore";
 import db from "../firebase";
 import React, { useEffect, useState } from "react";
 import firebase from "firebase/compat/app";
-import "firebase/compat/firestore";
+// import "firebase/compat/firestore";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import styles from "../styles/page.module.css";
@@ -12,25 +12,16 @@ import CreateForm from "../components/CreateForm/CreateForm";
 import { useCreateAuthentication } from "../utills/useCreateAuthentication";
 import { useHandleChange } from "../utills/useHandleChange";
 import { useSendMessage } from "../utills/useSendMessage";
-import { Day } from "../type";
-import { useHandleClick } from "../utills/useHandleClick";
 
 export default function CreatePage() {
   const router = useRouter();
   const [childName, setChildName] = useState("");
   const [childClass, setChildClass] = useState("");
   const { user, idToken } = useCreateAuthentication();
-  const { handleChange, firstDay, secondDay, thirdDay, fourthDay, fifthDay } =
-    useHandleChange();
+  // const { handleChange, firstDay, secondDay, thirdDay, fourthDay, fifthDay } =
+  //   useHandleChange();
+  const { handleChange, ...days } = useHandleChange();
   const { sendMessage, isSubmitting } = useSendMessage();
-  // const {
-  //   handleClick,
-  //   childName,
-  //   setChildName,
-  //   childClass,
-  //   setChildClass,
-  //   days,
-  // } = useHandleClick(user, idToken);
 
   useEffect(() => {
     if (user) {
@@ -45,78 +36,74 @@ export default function CreatePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    //   if (!user || !idToken) {
-    //     console.error("ユーザー情報が見つかりません");
-    //     return;
-    //   }
-
-    //   await handleClick(e);
-
-    //   // await sendMessage(user, days as Day[]);
-    //   await sendMessage();
-
-    //   router.push("/thanks");
-    // };
-
-    // const handleClick = async (e: { preventDefault: () => void }) => {
-    //   e.preventDefault();
-
     if (!user || !idToken) {
       console.error("ユーザー情報が見つかりません");
       return;
     }
 
-    const days = [
-      {
-        id: uuidv4(),
-        name: childName,
-        class: childClass,
-        realStartTime: "",
-        realEndTime: "",
-        userId: user,
-        ...firstDay,
-      },
-      {
-        id: uuidv4(),
-        name: childName,
-        class: childClass,
-        realStartTime: "",
-        realEndTime: "",
-        userId: user,
-        ...secondDay,
-      },
-      {
-        id: uuidv4(),
-        name: childName,
-        class: childClass,
-        realStartTime: "",
-        realEndTime: "",
-        userId: user,
-        ...thirdDay,
-      },
-      {
-        id: uuidv4(),
-        name: childName,
-        class: childClass,
-        realStartTime: "",
-        realEndTime: "",
-        userId: user,
-        ...fourthDay,
-      },
-      {
-        id: uuidv4(),
-        name: childName,
-        class: childClass,
-        realStartTime: "",
-        realEndTime: "",
-        userId: user,
-        ...fifthDay,
-      },
-    ];
+    // const days = [
+    //   {
+    //     id: uuidv4(),
+    //     name: childName,
+    //     class: childClass,
+    //     realStartTime: "",
+    //     realEndTime: "",
+    //     userId: user,
+    //     ...firstDay,
+    //   },
+    //   {
+    //     id: uuidv4(),
+    //     name: childName,
+    //     class: childClass,
+    //     realStartTime: "",
+    //     realEndTime: "",
+    //     userId: user,
+    //     ...secondDay,
+    //   },
+    //   {
+    //     id: uuidv4(),
+    //     name: childName,
+    //     class: childClass,
+    //     realStartTime: "",
+    //     realEndTime: "",
+    //     userId: user,
+    //     ...thirdDay,
+    //   },
+    //   {
+    //     id: uuidv4(),
+    //     name: childName,
+    //     class: childClass,
+    //     realStartTime: "",
+    //     realEndTime: "",
+    //     userId: user,
+    //     ...fourthDay,
+    //   },
+    //   {
+    //     id: uuidv4(),
+    //     name: childName,
+    //     class: childClass,
+    //     realStartTime: "",
+    //     realEndTime: "",
+    //     userId: user,
+    //     ...fifthDay,
+    //   },
+    // ];
 
-    const filteredDays = days.filter(
-      (day) => day.date && day.date.trim() !== ""
-    );
+    // const filteredDays = days.filter(
+    //   (day) => day.date && day.date.trim() !== ""
+    // );
+
+    const filteredDays = Object.values(days)
+      .map((day) => ({
+        id: uuidv4(),
+        name: childName,
+        class: childClass,
+        realStartTime: "",
+        realEndTime: "",
+        userId: user,
+        ...day,
+      }))
+      .filter((day) => day.date?.trim());
 
     if (filteredDays.length === 0) {
       console.log("保存するデータがありません");
@@ -149,7 +136,8 @@ export default function CreatePage() {
       console.error("エラーが発生しました:", error);
     }
 
-    await sendMessage(user, days);
+    // await sendMessage(user, days);
+    await sendMessage(user, filteredDays);
 
     router.push("/thanks");
   };
@@ -179,7 +167,7 @@ export default function CreatePage() {
           </select>
         </div>
         <div className={styles.applicationContainer}>
-          {[
+          {/* {[
             { day: "firstDay", title: "希望日1" },
             { day: "secondDay", title: "希望日2" },
             { day: "thirdDay", title: "希望日3" },
@@ -192,7 +180,17 @@ export default function CreatePage() {
               index={index}
               onChange={handleChange}
             />
-          ))}
+          ))} */}
+          {["firstDay", "secondDay", "thirdDay", "fourthDay", "fifthDay"].map(
+            (day, index) => (
+              <CreateForm
+                key={index}
+                day={day}
+                index={index}
+                onChange={(field) => handleChange(index, field)}
+              />
+            )
+          )}
         </div>
         <button type="submit" className={styles.submitButton}>
           {isSubmitting ? "送信中..." : "送信"}
