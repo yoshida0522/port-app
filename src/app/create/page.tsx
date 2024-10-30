@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import styles from "../styles/page.module.css";
 import CreateForm from "../components/CreateForm/CreateForm";
-import { useAuthentication } from "../utills/useAuthentication";
+import { useCreateAuthentication } from "../utills/useCreateAuthentication";
 import { useHandleChange } from "../utills/useHandleChange";
 import { useSendMessage } from "../utills/useSendMessage";
 import { Day } from "../type";
@@ -19,7 +19,7 @@ export default function CreatePage() {
   const router = useRouter();
   const [childName, setChildName] = useState("");
   const [childClass, setChildClass] = useState("");
-  const { user, idToken } = useAuthentication();
+  const { user, idToken } = useCreateAuthentication();
   const { handleChange, firstDay, secondDay, thirdDay, fourthDay, fifthDay } =
     useHandleChange();
   const { sendMessage, isSubmitting } = useSendMessage();
