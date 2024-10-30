@@ -12,16 +12,19 @@ import CreateForm from "../components/CreateForm/CreateForm";
 import { useAuthentication } from "../utills/useAuthentication";
 import { useHandleChange } from "../utills/useHandleChange";
 import { useSendMessage } from "../utills/useSendMessage";
-import { Day } from "../type";
+// import { Day } from "../type";
 import { useHandleClick } from "../utills/useHandleClick";
 
 export default function CreatePage() {
   const router = useRouter();
-  const { sendMessage, isSubmitting } = useSendMessage();
   // const [childName, setChildName] = useState("");
   // const [childClass, setChildClass] = useState("");
   const { user, idToken } = useAuthentication();
   const { handleChange } = useHandleChange();
+  const { sendMessage, isSubmitting } =
+    user && idToken
+      ? useSendMessage(user, idToken)
+      : { sendMessage: async () => {}, isSubmitting: false };
   const {
     handleClick,
     childName,
@@ -51,7 +54,8 @@ export default function CreatePage() {
 
     await handleClick(e);
 
-    await sendMessage(user, days as Day[]);
+    // await sendMessage(user, days as Day[]);
+    await sendMessage();
 
     router.push("/thanks");
   };

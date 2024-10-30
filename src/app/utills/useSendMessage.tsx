@@ -1,11 +1,16 @@
 import axios from "axios";
 import { Day } from "@/app/type";
 import { useState } from "react";
+import { useHandleClick } from "./useHandleClick";
 
-export const useSendMessage = () => {
+export const useSendMessage = (user: string, idToken: string) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { days } = useHandleClick(user, idToken);
 
-  const sendMessage = async (user: string, days: Day[]) => {
+  // const sendMessage = async (user: string, days: Day[]) => {
+  //   setIsSubmitting(true);
+
+  const sendMessage = async () => {
     setIsSubmitting(true);
 
     try {
