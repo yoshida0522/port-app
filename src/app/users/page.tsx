@@ -52,26 +52,6 @@ const UsersPage = () => {
     }
   }, [shouldFetch]);
 
-  // useEffect(() => {
-  //   if (shouldFetch) {
-  //     const fetchData = async () => {
-  //       const querySnapshot = await getDocs(
-  //         query(collection(db, "posts"), orderBy("firstDate", "asc"))
-  //       );
-  //       const postsArray = querySnapshot.docs.map((doc) => ({
-  //         ...doc.data(),
-  //         id: doc.id,
-  //       })) as Post[];
-  //       setPosts(postsArray);
-  //     };
-
-  //     if (shouldFetch && !loading) {
-  //       fetchData();
-  //       setShouldFetch(false);
-  //     }
-  //   }
-  // }, [shouldFetch, loading]);
-
   // const filteredPosts = posts
   //   .map((post) => {
   //     const filteredDays = post.days.filter((day) => {
@@ -174,7 +154,10 @@ const UsersPage = () => {
     const postToDelete = filteredPosts[postIndex];
 
     // 確認ダイアログを表示
-    const confirmed = window.confirm("本当に削除しますか？");
+    const confirmed = await new Promise((resolve) => {
+      resolve(window.confirm("本当に削除しますか？"));
+    });
+
     if (!confirmed) return;
 
     if (postToDelete && postToDelete.id) {
@@ -184,7 +167,9 @@ const UsersPage = () => {
         // postのdeleteフィールドをtrueに設定
         await updateDoc(postRef, { delete: true });
         console.log("データが削除フラグを立てました");
-        setShouldFetch(true);
+
+        // 状態更新を非同期で実行
+        setShouldFetch((prev) => !prev);
       } catch (error) {
         console.error("削除フラグの更新に失敗しました", error);
       }
