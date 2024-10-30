@@ -27,7 +27,7 @@ const UsersPage = () => {
     endTime: "",
     remark: "",
   });
-  // const [shouldFetch, setShouldFetch] = useState(true);
+  const [shouldFetch, setShouldFetch] = useState(true);
   // const [editStartTime, setEditStartTime] = useState("");
   // const [editEndTime, setEditEndTime] = useState("");
   // const [editRemark, setEditRemark] = useState("");
@@ -63,8 +63,11 @@ const UsersPage = () => {
       setPosts(postsArray);
     };
 
-    if (loading === false) fetchData();
-  }, [loading]);
+    if (shouldFetch && !loading) {
+      fetchData();
+      setShouldFetch(false);
+    }
+  }, [shouldFetch, loading]);
 
   // const filteredPosts = posts
   //   .map((post) => {
@@ -135,16 +138,31 @@ const UsersPage = () => {
     if (editingRow) {
       const postToUpdate = filteredPosts[editingRow.postIndex];
       const postRef = doc(db, "posts", postToUpdate.id);
-      const docSnap = await getDoc(postRef);
 
-      if (docSnap.exists()) {
-        const days = docSnap.data().days || [];
-        days[editingRow.dayIndex] = {
-          ...days[editingRow.dayIndex],
-          ...editData,
-        };
-        await updateDoc(postRef, { days });
-        setEditingRow(null);
+      try {
+        const docSnap = await getDoc(postRef);
+
+        if (docSnap.exists()) {
+          const days = docSnap.data().days || [];
+
+          days[editingRow.dayIndex] = {
+            ...days[editingRow.dayIndex],
+            startTime: editData.startTime,
+            endTime: editData.endTime,
+            remark: editData.remark,
+          };
+
+          // Firestoreのドキュメントを更新
+          await updateDoc(postRef, { days });
+          console.log("データが正常に更新されました");
+
+          setEditingRow(null);
+          setShouldFetch(true);
+        } else {
+          console.error("ドキュメントが存在しません");
+        }
+      } catch (error) {
+        console.error("データの更新に失敗しました", error);
       }
     }
   };
@@ -172,7 +190,14 @@ const UsersPage = () => {
   const handleDelete = async (postIndex: number) => {
     const postToDelete = filteredPosts[postIndex];
     if (window.confirm("本当に削除しますか？") && postToDelete?.id) {
-      await updateDoc(doc(db, "posts", postToDelete.id), { delete: true });
+      try {
+        const postRef = doc(db, "posts", postToDelete.id);
+        await updateDoc(postRef, { delete: true });
+        console.log("データが削除フラグを立てました");
+        setShouldFetch(true);
+      } catch (error) {
+        console.error("削除フラグの更新に失敗しました", error);
+      }
     }
   };
 
