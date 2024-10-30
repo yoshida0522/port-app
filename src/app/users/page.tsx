@@ -33,43 +33,44 @@ const UsersPage = () => {
   // const [editRemark, setEditRemark] = useState("");
   const { user, name, idToken, loading } = useAuthentication();
 
-  // useEffect(() => {
-  //   if (shouldFetch) {
-  //     const fetchData = async () => {
-  //       const postData = collection(db, "posts");
-  //       const q = query(postData, orderBy("firstDate", "asc"));
-  //       const querySnapshot = await getDocs(q);
-
-  //       const postsArray = querySnapshot.docs.map((doc) => {
-  //         const data = doc.data();
-  //         return { ...data, id: doc.id };
-  //       });
-  //       setPosts(postsArray as Post[]);
-  //     };
-
-  //     fetchData();
-  //     setShouldFetch(false);
-  //   }
-  // }, [shouldFetch]);
   useEffect(() => {
     if (shouldFetch) {
       const fetchData = async () => {
-        const querySnapshot = await getDocs(
-          query(collection(db, "posts"), orderBy("firstDate", "asc"))
-        );
-        const postsArray = querySnapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        })) as Post[];
-        setPosts(postsArray);
+        const postData = collection(db, "posts");
+        const q = query(postData, orderBy("firstDate", "asc"));
+        const querySnapshot = await getDocs(q);
+
+        const postsArray = querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          return { ...data, id: doc.id };
+        });
+        setPosts(postsArray as Post[]);
       };
 
-      if (shouldFetch && !loading) {
-        fetchData();
-        setShouldFetch(false);
-      }
+      fetchData();
+      setShouldFetch(false);
     }
-  }, [shouldFetch, loading]);
+  }, [shouldFetch]);
+
+  // useEffect(() => {
+  //   if (shouldFetch) {
+  //     const fetchData = async () => {
+  //       const querySnapshot = await getDocs(
+  //         query(collection(db, "posts"), orderBy("firstDate", "asc"))
+  //       );
+  //       const postsArray = querySnapshot.docs.map((doc) => ({
+  //         ...doc.data(),
+  //         id: doc.id,
+  //       })) as Post[];
+  //       setPosts(postsArray);
+  //     };
+
+  //     if (shouldFetch && !loading) {
+  //       fetchData();
+  //       setShouldFetch(false);
+  //     }
+  //   }
+  // }, [shouldFetch, loading]);
 
   // const filteredPosts = posts
   //   .map((post) => {
