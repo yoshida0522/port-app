@@ -52,20 +52,22 @@ const UsersPage = () => {
   //   }
   // }, [shouldFetch]);
   useEffect(() => {
-    const fetchData = async () => {
-      const querySnapshot = await getDocs(
-        query(collection(db, "posts"), orderBy("firstDate", "asc"))
-      );
-      const postsArray = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      })) as Post[];
-      setPosts(postsArray);
-    };
+    if (shouldFetch) {
+      const fetchData = async () => {
+        const querySnapshot = await getDocs(
+          query(collection(db, "posts"), orderBy("firstDate", "asc"))
+        );
+        const postsArray = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        })) as Post[];
+        setPosts(postsArray);
+      };
 
-    if (shouldFetch && !loading) {
-      fetchData();
-      setShouldFetch(false);
+      if (shouldFetch && !loading) {
+        fetchData();
+        setShouldFetch(false);
+      }
     }
   }, [shouldFetch, loading]);
 
