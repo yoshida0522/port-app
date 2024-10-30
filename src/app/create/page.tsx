@@ -21,10 +21,10 @@ export default function CreatePage() {
   // const [childClass, setChildClass] = useState("");
   const { user, idToken } = useAuthentication();
   const { handleChange } = useHandleChange();
-  const { sendMessage, isSubmitting } =
-    user && idToken
-      ? useSendMessage(user, idToken)
-      : { sendMessage: async () => {}, isSubmitting: false };
+  const { sendMessage, isSubmitting } = useSendMessage(
+    user || "",
+    idToken || ""
+  );
   const {
     handleClick,
     childName,
