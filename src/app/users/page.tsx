@@ -339,8 +339,8 @@ const UsersPage = () => {
                       <td>{day.endTime}</td>
                       <td>{day.remark}</td>
                       <td>
-                        {/* {dayDate > todayDate ? ( */}
                         {new Date(day.date) > new Date() && (
+                          /* {dayDate > todayDate ? ( */
                           <>
                             <button
                               className={styles.usersEdit}
