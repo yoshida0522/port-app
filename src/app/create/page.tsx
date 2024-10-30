@@ -4,7 +4,6 @@ import { collection, addDoc } from "firebase/firestore";
 import db from "../firebase";
 import React, { useEffect, useState } from "react";
 import firebase from "firebase/compat/app";
-// import "firebase/compat/firestore";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import styles from "../styles/page.module.css";
@@ -18,8 +17,6 @@ export default function CreatePage() {
   const [childName, setChildName] = useState("");
   const [childClass, setChildClass] = useState("");
   const { user, idToken } = useCreateAuthentication();
-  // const { handleChange, firstDay, secondDay, thirdDay, fourthDay, fifthDay } =
-  //   useHandleChange();
   const { handleChange, ...days } = useHandleChange();
   const { sendMessage, isSubmitting } = useSendMessage();
 
@@ -36,62 +33,7 @@ export default function CreatePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!user || !idToken) {
-      console.error("ユーザー情報が見つかりません");
-      return;
-    }
-
-    // const days = [
-    //   {
-    //     id: uuidv4(),
-    //     name: childName,
-    //     class: childClass,
-    //     realStartTime: "",
-    //     realEndTime: "",
-    //     userId: user,
-    //     ...firstDay,
-    //   },
-    //   {
-    //     id: uuidv4(),
-    //     name: childName,
-    //     class: childClass,
-    //     realStartTime: "",
-    //     realEndTime: "",
-    //     userId: user,
-    //     ...secondDay,
-    //   },
-    //   {
-    //     id: uuidv4(),
-    //     name: childName,
-    //     class: childClass,
-    //     realStartTime: "",
-    //     realEndTime: "",
-    //     userId: user,
-    //     ...thirdDay,
-    //   },
-    //   {
-    //     id: uuidv4(),
-    //     name: childName,
-    //     class: childClass,
-    //     realStartTime: "",
-    //     realEndTime: "",
-    //     userId: user,
-    //     ...fourthDay,
-    //   },
-    //   {
-    //     id: uuidv4(),
-    //     name: childName,
-    //     class: childClass,
-    //     realStartTime: "",
-    //     realEndTime: "",
-    //     userId: user,
-    //     ...fifthDay,
-    //   },
-    // ];
-
-    // const filteredDays = days.filter(
-    //   (day) => day.date && day.date.trim() !== ""
-    // );
+    if (!user || !idToken) return console.error("ユーザー情報が見つかりません");
 
     const filteredDays = Object.values(days)
       .map((day) => ({
@@ -105,10 +47,7 @@ export default function CreatePage() {
       }))
       .filter((day) => day.date?.trim());
 
-    if (filteredDays.length === 0) {
-      console.log("保存するデータがありません");
-      return;
-    }
+    if (!filteredDays.length) return console.log("保存するデータがありません");
 
     // バリデーションチェック: endTimeがstartTimeよりも前の場合
     for (const day of filteredDays) {
@@ -132,14 +71,11 @@ export default function CreatePage() {
       );
 
       console.log("すべてのデータがFirestoreに保存されました");
+      await sendMessage(user, filteredDays);
+      router.push("/thanks");
     } catch (error) {
       console.error("エラーが発生しました:", error);
     }
-
-    // await sendMessage(user, days);
-    await sendMessage(user, filteredDays);
-
-    router.push("/thanks");
   };
 
   return (
@@ -159,28 +95,15 @@ export default function CreatePage() {
             className={styles.classInput}
             onChange={(e) => setChildClass(e.target.value)}
           >
-            <option value="ばら">ばら</option>
-            <option value="すみれ">すみれ</option>
-            <option value="ひまわり">ひまわり</option>
-            <option value="未就園児">未就園児</option>
-            <option value="小学生">小学生</option>
+            <option value="">クラスを選択してください</option>
+            {["ばら", "すみれ", "ひまわり", "未就園児", "小学生"].map((cls) => (
+              <option key={cls} value={cls}>
+                {cls}
+              </option>
+            ))}
           </select>
         </div>
         <div className={styles.applicationContainer}>
-          {/* {[
-            { day: "firstDay", title: "希望日1" },
-            { day: "secondDay", title: "希望日2" },
-            { day: "thirdDay", title: "希望日3" },
-            { day: "fourthDay", title: "希望日4" },
-            { day: "fifthDay", title: "希望日5" },
-          ].map(({ day }, index) => (
-            <CreateForm
-              key={index}
-              day={day}
-              index={index}
-              onChange={handleChange}
-            />
-          ))} */}
           {["firstDay", "secondDay", "thirdDay", "fourthDay", "fifthDay"].map(
             (day, index) => (
               <CreateForm

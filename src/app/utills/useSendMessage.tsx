@@ -1,17 +1,12 @@
 import axios from "axios";
 import { Day } from "@/app/type";
 import { useState } from "react";
-import { useHandleClick } from "./useHandleClick";
 
 export const useSendMessage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // const { days } = useHandleClick(user, idToken);
 
   const sendMessage = async (user: string, days: Day[]) => {
     setIsSubmitting(true);
-
-    // const sendMessage = async () => {
-    //   setIsSubmitting(true);
 
     try {
       let message = `${days[0].name}さんの予約を\n以下の内容で受け付けました:\n\n`;
