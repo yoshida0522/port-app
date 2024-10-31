@@ -96,7 +96,7 @@ const UserTableRows: React.FC<UserTableRowsProps> = ({
                         className={styles.usersDelete}
                         onClick={() => handleDelete(post)}
                       >
-                        削除
+                        取り消し
                       </button>
                     </>
                   )}
