@@ -15,65 +15,43 @@ import React from "react";
 import styles from "../styles/page.module.css";
 import { Post } from "../type";
 import { useAuthentication } from "../utills/useAuthentication";
+import { useFetchPosts } from "../utills/useFetchPosts";
+import { useUsersEditPost } from "../utills/useUsersEditPost";
+import { useUsersDeletePost } from "../utills/useUsersDeletePost";
 
 const UsersPage = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [editingRow, setEditingRow] = useState<{
-    postIndex: number;
-    dayIndex: number;
-  } | null>(null);
-  const [editData, setEditData] = useState({
-    startTime: "",
-    endTime: "",
-    remark: "",
-  });
-  const [shouldFetch, setShouldFetch] = useState(true);
-  // const [editStartTime, setEditStartTime] = useState("");
-  // const [editEndTime, setEditEndTime] = useState("");
-  // const [editRemark, setEditRemark] = useState("");
+  // const [posts, setPosts] = useState<Post[]>([]);
+  // const [editingRow, setEditingRow] = useState<{
+  //   postIndex: number;
+  //   dayIndex: number;
+  // } | null>(null);
+  // const [editData, setEditData] = useState({
+  //   startTime: "",
+  //   endTime: "",
+  //   remark: "",
+  // });
+  // const [shouldFetch, setShouldFetch] = useState(true);
   const { user, name, idToken, loading } = useAuthentication();
+  const { posts, setShouldFetch } = useFetchPosts();
+  const { handleDelete } = useUsersDeletePost(setShouldFetch);
+  // useEffect(() => {
+  //   if (shouldFetch) {
+  //     const fetchData = async () => {
+  //       const postData = collection(db, "posts");
+  //       const q = query(postData, orderBy("firstDate", "asc"));
+  //       const querySnapshot = await getDocs(q);
+  //       const postsArray = querySnapshot.docs.map((doc) => {
+  //         const data = doc.data();
+  //         return { ...data, id: doc.id };
+  //       });
+  //       setPosts(postsArray as Post[]);
+  //     };
 
-  useEffect(() => {
-    if (shouldFetch) {
-      const fetchData = async () => {
-        const postData = collection(db, "posts");
-        const q = query(postData, orderBy("firstDate", "asc"));
-        const querySnapshot = await getDocs(q);
+  //     fetchData();
+  //     setShouldFetch(false);
+  //   }
+  // }, [shouldFetch]);
 
-        const postsArray = querySnapshot.docs.map((doc) => {
-          const data = doc.data();
-          return { ...data, id: doc.id };
-        });
-        setPosts(postsArray as Post[]);
-      };
-
-      fetchData();
-      setShouldFetch(false);
-    }
-  }, [shouldFetch]);
-
-  // const filteredPosts = posts
-  //   .map((post) => {
-  //     const filteredDays = post.days.filter((day) => {
-  //       const dayDate = new Date(day.date);
-  //       const now = new Date();
-
-  //       const today = new Date(now);
-  //       today.setHours(0, 0, 0, 0);
-
-  //       return dayDate >= today;
-  //     });
-
-  //     const userFilteredDays = filteredDays.filter(
-  //       (day) => day.userId === user
-  //     );
-
-  //     return userFilteredDays.length > 0
-  //       ? { ...post, days: userFilteredDays }
-  //       : null;
-  //   })
-
-  //   .filter((post) => post !== null && !post.delete) as Post[];
   const filteredPosts = posts
     .filter((post) => !post.delete)
     .flatMap((post) => {
@@ -84,136 +62,82 @@ const UsersPage = () => {
     })
     .filter(Boolean) as Post[];
 
+  const {
+    editingRow,
+    editData,
+    setEditData,
+    handleEdit,
+    handleSave,
+    setEditingRow,
+  } = useUsersEditPost(filteredPosts, setShouldFetch);
   // const handleSave = async () => {
-  //   if (editingRow === null) {
-  //     console.log("編集対象が選択されていません");
-  //     return;
-  //   }
-
-  //   const { postIndex, dayIndex } = editingRow;
-  //   const postToUpdate = filteredPosts[postIndex];
-
-  //   try {
+  //   if (editingRow) {
+  //     const postToUpdate = filteredPosts[editingRow.postIndex];
   //     const postRef = doc(db, "posts", postToUpdate.id);
-  //     const docSnap = await getDoc(postRef);
 
-  //     if (docSnap.exists()) {
-  //       const data = docSnap.data();
-  //       const days = data.days || [];
+  //     try {
+  //       const docSnap = await getDoc(postRef);
 
-  //       days[dayIndex] = {
-  //         ...days[dayIndex],
-  //         startTime: editStartTime,
-  //         endTime: editEndTime,
-  //         remark: editRemark,
-  //       };
+  //       if (docSnap.exists()) {
+  //         const days = docSnap.data().days || [];
 
-  //       await updateDoc(postRef, { days });
-  //       console.log("データが更新されました");
+  //         days[editingRow.dayIndex] = {
+  //           ...days[editingRow.dayIndex],
+  //           startTime: editData.startTime,
+  //           endTime: editData.endTime,
+  //           remark: editData.remark,
+  //         };
 
-  //       setEditingRow(null);
-  //       setShouldFetch(true);
+  //         // Firestoreのドキュメントを更新
+  //         await updateDoc(postRef, { days });
+  //         console.log("データが正常に更新されました");
+
+  //         setEditingRow(null);
+  //         setShouldFetch(true);
+  //       } else {
+  //         console.error("ドキュメントが存在しません");
+  //       }
+  //     } catch (error) {
+  //       console.error("データの更新に失敗しました", error);
   //     }
-  //   } catch (error) {
-  //     console.error("データの更新に失敗しました", error);
   //   }
   // };
-  const handleSave = async () => {
-    if (editingRow) {
-      const postToUpdate = filteredPosts[editingRow.postIndex];
-      const postRef = doc(db, "posts", postToUpdate.id);
 
-      try {
-        const docSnap = await getDoc(postRef);
+  // const handleDelete = async (postIndex: number) => {
+  //   const postToDelete = filteredPosts[postIndex];
 
-        if (docSnap.exists()) {
-          const days = docSnap.data().days || [];
+  //   // 確認ダイアログを表示
+  //   const confirmed = window.confirm("本当に削除しますか？");
+  //   if (!confirmed) return;
 
-          days[editingRow.dayIndex] = {
-            ...days[editingRow.dayIndex],
-            startTime: editData.startTime,
-            endTime: editData.endTime,
-            remark: editData.remark,
-          };
+  //   if (postToDelete && postToDelete.id) {
+  //     try {
+  //       const postRef = doc(db, "posts", postToDelete.id);
 
-          // Firestoreのドキュメントを更新
-          await updateDoc(postRef, { days });
-          console.log("データが正常に更新されました");
-
-          setEditingRow(null);
-          setShouldFetch(true);
-        } else {
-          console.error("ドキュメントが存在しません");
-        }
-      } catch (error) {
-        console.error("データの更新に失敗しました", error);
-      }
-    }
-  };
-
-  const handleDelete = async (postIndex: number) => {
-    const postToDelete = filteredPosts[postIndex];
-
-    // 確認ダイアログを表示
-    const confirmed = window.confirm("本当に削除しますか？");
-    if (!confirmed) return;
-
-    if (postToDelete && postToDelete.id) {
-      try {
-        const postRef = doc(db, "posts", postToDelete.id);
-
-        // postのdeleteフィールドをtrueに設定
-        await updateDoc(postRef, { delete: true });
-        console.log("データが削除フラグを立てました");
-        setShouldFetch(true);
-      } catch (error) {
-        console.error("削除フラグの更新に失敗しました", error);
-      }
-    }
-  };
-
-  // const handleCancel = () => {
-  //   setEditingRow(null);
+  //       // postのdeleteフィールドをtrueに設定
+  //       await updateDoc(postRef, { delete: true });
+  //       console.log("データが削除フラグを立てました");
+  //       setShouldFetch(true);
+  //     } catch (error) {
+  //       console.error("削除フラグの更新に失敗しました", error);
+  //     }
+  //   }
   // };
 
   // const handleEdit = (postIndex: number, dayIndex: number) => {
-  //   const postToEdit = filteredPosts[postIndex];
-  //   const dayToEdit = postToEdit.days[dayIndex];
-
-  //   if (dayToEdit) {
-  //     console.log(`編集する日付: ${dayToEdit.date}`);
-  //     setEditStartTime(dayToEdit.startTime || "");
-  //     setEditEndTime(dayToEdit.endTime || "");
-  //     setEditRemark(dayToEdit.remark || "");
-  //     setEditingRow({ postIndex, dayIndex });
-  //   } else {
-  //     console.log("編集対象のIDが見つかりません");
-  //   }
+  //   const dayToEdit = filteredPosts[postIndex].days[dayIndex];
+  //   if (dayToEdit)
+  //     setEditData({
+  //       startTime: dayToEdit.startTime || "",
+  //       endTime: dayToEdit.endTime || "",
+  //       remark: dayToEdit.remark || "",
+  //     });
+  //   setEditingRow({ postIndex, dayIndex });
   // };
-  const handleEdit = (postIndex: number, dayIndex: number) => {
-    const dayToEdit = filteredPosts[postIndex].days[dayIndex];
-    if (dayToEdit)
-      setEditData({
-        startTime: dayToEdit.startTime || "",
-        endTime: dayToEdit.endTime || "",
-        remark: dayToEdit.remark || "",
-      });
-    setEditingRow({ postIndex, dayIndex });
-  };
 
   if (idToken === null || loading) {
     return <div>Loading...</div>;
   }
-
-  // const getTodayDate = () => {
-  //   const now = new Date();
-  //   return new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  // };
-
-  // const parseDate = (dateString: string) => {
-  //   const [year, month, day] = dateString.split("-").map(Number);
-  //   return new Date(year, month - 1, day);
-  // };
 
   return (
     <div className={styles.usersImg}>
@@ -230,15 +154,6 @@ const UsersPage = () => {
           <th>備考</th>
         </tr>
         <tbody>
-          {/* {filteredPosts.map((post, postIndex) => {
-            const days = post.days || [];
-            const todayDate = getTodayDate();
-
-            return (
-              <React.Fragment key={postIndex}>
-                {days.map((day, dayIndex) => {
-                  const dayDate = parseDate(day.date);
-                  return ( */}
           {filteredPosts.map((post, postIndex) => (
             <React.Fragment key={postIndex}>
               {post.days.map((day, dayIndex) => (
@@ -252,8 +167,6 @@ const UsersPage = () => {
                       <td>
                         <input
                           type="time"
-                          // value={editStartTime}
-                          // onChange={(e) => setEditStartTime(e.target.value)}
                           value={editData.startTime}
                           onChange={(e) =>
                             setEditData({
@@ -266,8 +179,6 @@ const UsersPage = () => {
                       <td>
                         <input
                           type="time"
-                          // value={editEndTime}
-                          // onChange={(e) => setEditEndTime(e.target.value)}
                           value={editData.endTime}
                           onChange={(e) =>
                             setEditData({
@@ -280,8 +191,6 @@ const UsersPage = () => {
                       <td>
                         <input
                           type="text"
-                          // value={editRemark}
-                          // onChange={(e) => setEditRemark(e.target.value)}
                           value={editData.remark}
                           onChange={(e) =>
                             setEditData({ ...editData, remark: e.target.value })
@@ -310,7 +219,6 @@ const UsersPage = () => {
                       <td>{day.remark}</td>
                       <td>
                         {new Date(day.date) > new Date() && (
-                          /* {dayDate > todayDate ? ( */
                           <>
                             <button
                               className={styles.usersEdit}
@@ -320,23 +228,20 @@ const UsersPage = () => {
                             </button>
                             <button
                               className={styles.usersDelete}
-                              onClick={() => handleDelete(postIndex)}
+                              onClick={() =>
+                                handleDelete(filteredPosts[postIndex])
+                              }
                             >
                               削除
                             </button>
                           </>
-                          // ) : null}
                         )}
                       </td>
                     </>
                   )}
                 </tr>
-                //   );
-                // })}
               ))}
             </React.Fragment>
-            //   );
-            // })}
           ))}
         </tbody>
       </table>
