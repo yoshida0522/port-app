@@ -4,11 +4,11 @@ import styles from "../CreateForm/page.module.css";
 type ReservationInputProps = {
   day: string;
   index: number;
-  onChange: (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => void; // 引数の修正
+  onChange: (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const CreateForm: React.FC<ReservationInputProps> = ({
-  day,
+  // day,
   index,
   onChange,
 }) => {

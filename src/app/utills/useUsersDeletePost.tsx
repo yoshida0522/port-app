@@ -3,8 +3,6 @@ import db from "../firebase";
 import { Post } from "../type";
 
 export const useUsersDeletePost = (setShouldFetch: (val: boolean) => void) => {
-  // const handleDelete = async (postIndex: number) => {
-  //     const postToDelete = filteredPosts[postIndex];
   const handleDelete = async (postToDelete: Post) => {
     // 確認ダイアログを表示
     const confirmed = window.confirm("本当に削除しますか？");

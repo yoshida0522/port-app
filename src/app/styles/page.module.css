@@ -280,8 +280,6 @@
   transform: scale(85%);
 }
 
-/* 園児別一覧 */
-
 /* LINEログイン画面 */
 
 .lineContainer {
@@ -591,18 +589,18 @@
   font-size: 23px;
 }
 
-.usersCancel {
+/* .usersCancel {
   background-color: rgb(247, 247, 122);
-}
+} */
 
-.usersSave {
+/* .usersSave {
   background-color: #85ddfa;
-}
+} */
 
-.usersDelete {
+/* .usersDelete {
   background-color: #f7a062;
-}
+} */
 
-.usersEdit {
+/* .usersEdit {
   background-color: #91f9a6;
-}
+} */
