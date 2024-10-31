@@ -75,6 +75,7 @@ const UsersPage = () => {
 
   //   .filter((post) => post !== null && !post.delete) as Post[];
   const filteredPosts = posts
+    .filter((post) => !post.delete)
     .flatMap((post) => {
       const userDays = post.days.filter(
         (day) => day.userId === user && new Date(day.date) >= new Date()
@@ -154,10 +155,7 @@ const UsersPage = () => {
     const postToDelete = filteredPosts[postIndex];
 
     // 確認ダイアログを表示
-    const confirmed = await new Promise((resolve) => {
-      resolve(window.confirm("本当に削除しますか？"));
-    });
-
+    const confirmed = window.confirm("本当に削除しますか？");
     if (!confirmed) return;
 
     if (postToDelete && postToDelete.id) {
@@ -167,28 +165,12 @@ const UsersPage = () => {
         // postのdeleteフィールドをtrueに設定
         await updateDoc(postRef, { delete: true });
         console.log("データが削除フラグを立てました");
-
-        // 状態更新を非同期で実行
-        setShouldFetch((prev) => !prev);
+        setShouldFetch(true);
       } catch (error) {
         console.error("削除フラグの更新に失敗しました", error);
       }
     }
   };
-
-  // const handleDelete = async (postIndex: number) => {
-  //   const postToDelete = filteredPosts[postIndex];
-  //   if (window.confirm("本当に削除しますか？") && postToDelete?.id) {
-  //     try {
-  //       const postRef = doc(db, "posts", postToDelete.id);
-  //       await updateDoc(postRef, { delete: true });
-  //       console.log("データが削除フラグを立てました");
-  //       setShouldFetch(true);
-  //     } catch (error) {
-  //       console.error("削除フラグの更新に失敗しました", error);
-  //     }
-  //   }
-  // };
 
   // const handleCancel = () => {
   //   setEditingRow(null);
