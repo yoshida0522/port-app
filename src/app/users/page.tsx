@@ -51,8 +51,8 @@ const UsersPage = () => {
           <th>お迎え時間</th>
           <th>備考</th>
         </tr>
-        <tbody>
-          {/* {filteredPosts.map((post, postIndex) => (
+        {/* <tbody> */}
+        {/* {filteredPosts.map((post, postIndex) => (
             <React.Fragment key={postIndex}>
               {post.days.map((day, dayIndex) => (
                 <tr key={dayIndex}>
@@ -141,17 +141,17 @@ const UsersPage = () => {
               ))}
             </React.Fragment>
           ))} */}
-          <UserTableRows
-            filteredPosts={filteredPosts}
-            editingRow={editingRow}
-            editData={editData}
-            setEditData={setEditData}
-            handleEdit={handleEdit}
-            handleSave={handleSave}
-            handleDelete={handleDelete}
-            setEditingRow={setEditingRow}
-          />
-        </tbody>
+        <UserTableRows
+          filteredPosts={filteredPosts}
+          editingRow={editingRow}
+          editData={editData}
+          setEditData={setEditData}
+          handleEdit={handleEdit}
+          handleSave={handleSave}
+          handleDelete={handleDelete}
+          setEditingRow={setEditingRow}
+        />
+        {/* </tbody> */}
       </table>
     </div>
   );
