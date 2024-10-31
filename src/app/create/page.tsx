@@ -1,33 +1,24 @@
 "use client";
 
-// import { collection, addDoc } from "firebase/firestore";
-// import db from "../firebase";
-
+import { collection, addDoc } from "firebase/firestore";
+import db from "../firebase";
 import React, { useEffect, useState } from "react";
-// import firebase from "firebase/compat/app";
-// import { v4 as uuidv4 } from "uuid";
-// import { useRouter } from "next/navigation";
+import firebase from "firebase/compat/app";
+import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
 import styles from "../styles/page.module.css";
 import CreateForm from "../components/CreateForm/CreateForm";
 import { useCreateAuthentication } from "../utills/useCreateAuthentication";
 import { useHandleChange } from "../utills/useHandleChange";
-// import { useSendMessage } from "../utills/useSendMessage";
-import { useSubmitForm } from "../utills/useSubmitForm";
+import { useSendMessage } from "../utills/useSendMessage";
 
 export default function CreatePage() {
-  // const router = useRouter();
+  const router = useRouter();
   const [childName, setChildName] = useState("");
   const [childClass, setChildClass] = useState("");
   const { user, idToken } = useCreateAuthentication();
   const { handleChange, ...days } = useHandleChange();
-  // const { sendMessage, isSubmitting } = useSendMessage();
-  const { handleSubmit, isSubmitting } = useSubmitForm(
-    user,
-    idToken,
-    childName,
-    childClass,
-    days
-  );
+  const { sendMessage, isSubmitting } = useSendMessage();
 
   useEffect(() => {
     if (user) {
@@ -39,53 +30,53 @@ export default function CreatePage() {
     return <div>Loading...</div>;
   }
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  //   if (!user || !idToken) return console.error("ユーザー情報が見つかりません");
+    if (!user || !idToken) return console.error("ユーザー情報が見つかりません");
 
-  //   const filteredDays = Object.values(days)
-  //     .map((day) => ({
-  //       id: uuidv4(),
-  //       name: childName,
-  //       class: childClass,
-  //       realStartTime: "",
-  //       realEndTime: "",
-  //       userId: user,
-  //       ...day,
-  //     }))
-  //     .filter((day) => day.date?.trim());
+    const filteredDays = Object.values(days)
+      .map((day) => ({
+        id: uuidv4(),
+        name: childName,
+        class: childClass,
+        realStartTime: "",
+        realEndTime: "",
+        userId: user,
+        ...day,
+      }))
+      .filter((day) => day.date?.trim());
 
-  //   if (!filteredDays.length) return console.log("保存するデータがありません");
+    if (!filteredDays.length) return console.log("保存するデータがありません");
 
-  //   // バリデーションチェック: endTimeがstartTimeよりも前の場合
-  //   for (const day of filteredDays) {
-  //     if (day.endTime <= day.startTime) {
-  //       alert(
-  //         `日にち ${day.date} のお迎え時間は延長開始時間以降に設定してください`
-  //       );
-  //       return;
-  //     }
-  //   }
+    // バリデーションチェック: endTimeがstartTimeよりも前の場合
+    for (const day of filteredDays) {
+      if (day.endTime <= day.startTime) {
+        alert(
+          `日にち ${day.date} のお迎え時間は延長開始時間以降に設定してください`
+        );
+        return;
+      }
+    }
 
-  //   try {
-  //     await Promise.all(
-  //       filteredDays.map((day) => {
-  //         return addDoc(collection(db, "posts"), {
-  //           days: [day],
-  //           firstDate: day.date,
-  //           timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //         });
-  //       })
-  //     );
+    try {
+      await Promise.all(
+        filteredDays.map((day) => {
+          return addDoc(collection(db, "posts"), {
+            days: [day],
+            firstDate: day.date,
+            timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+          });
+        })
+      );
 
-  //     console.log("すべてのデータがFirestoreに保存されました");
-  //     await sendMessage(user, filteredDays);
-  //     router.push("/thanks");
-  //   } catch (error) {
-  //     console.error("エラーが発生しました:", error);
-  //   }
-  // };
+      console.log("すべてのデータがFirestoreに保存されました");
+      await sendMessage(user, filteredDays);
+      router.push("/thanks");
+    } catch (error) {
+      console.error("エラーが発生しました:", error);
+    }
+  };
 
   return (
     <div className={styles.createCenter}>
