@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../ChildReservation/page.module.css";
-import { Day } from "./type";
+import { Day } from "../../type";
 
 type ChildReservationRowProps = {
   postId: string;
@@ -29,60 +29,32 @@ const ChildReservationRow: React.FC<ChildReservationRowProps> = ({
   handleDelete,
   postIndex,
 }) => {
+  const isEditing =
+    editingRow?.postId === postId && editingRow?.dayIndex === dayIndex;
+  const editableFields = ["class", "date", "startTime", "endTime"] as const;
+
   return (
     <tr key={dayIndex} className={styles.childNameText}>
       <td>{day.name}</td>
-      <td>
-        {editingRow?.postId === postId && editingRow?.dayIndex === dayIndex ? (
-          <input
-            className={styles.childInput}
-            value={editData?.class}
-            onChange={(e) => handleChange("class", e.target.value)}
-          />
-        ) : (
-          day.class
-        )}
-      </td>
-      <td>
-        {editingRow?.postId === postId && editingRow?.dayIndex === dayIndex ? (
-          <input
-            className={styles.childInput}
-            value={editData?.date}
-            onChange={(e) => handleChange("date", e.target.value)}
-          />
-        ) : (
-          day.date
-        )}
-      </td>
-      <td>
-        {editingRow?.postId === postId && editingRow?.dayIndex === dayIndex ? (
-          <input
-            className={styles.childInput}
-            type="time"
-            value={editData?.startTime}
-            onChange={(e) => handleChange("startTime", e.target.value)}
-          />
-        ) : (
-          day.startTime
-        )}
-      </td>
-      <td>
-        {editingRow?.postId === postId && editingRow?.dayIndex === dayIndex ? (
-          <input
-            className={styles.childInput}
-            type="time"
-            value={editData?.endTime}
-            onChange={(e) => handleChange("endTime", e.target.value)}
-          />
-        ) : (
-          day.endTime
-        )}
-      </td>
+      {editableFields.map((field) => (
+        <td key={field}>
+          {isEditing ? (
+            <input
+              className={styles.childInput}
+              type={field.includes("Time") ? "time" : "text"}
+              value={editData?.[field] ?? ""}
+              onChange={(e) => handleChange(field, e.target.value)}
+            />
+          ) : (
+            day[field]
+          )}
+        </td>
+      ))}
       <td>{day.realStartTime}</td>
       <td>{day.realEndTime}</td>
       <td>{day.remark}</td>
       <td>
-        {editingRow?.postId === postId && editingRow?.dayIndex === dayIndex ? (
+        {isEditing ? (
           <>
             <button className={styles.childSaveButton} onClick={handleSave}>
               保存
@@ -98,14 +70,12 @@ const ChildReservationRow: React.FC<ChildReservationRowProps> = ({
             </button>
           </>
         ) : (
-          <>
-            <button
-              className={styles.childEditButton}
-              onClick={() => handleEdit(day, postId, dayIndex)}
-            >
-              編集
-            </button>
-          </>
+          <button
+            className={styles.childEditButton}
+            onClick={() => handleEdit(day, postId, dayIndex)}
+          >
+            編集
+          </button>
         )}
       </td>
     </tr>

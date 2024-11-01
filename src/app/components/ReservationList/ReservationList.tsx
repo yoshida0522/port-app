@@ -30,6 +30,23 @@ const ReservationList: React.FC<ReservationRowProps> = ({
   handleDelete,
   handleCancel,
 }) => {
+  const isEditing = (dayIndex: number) =>
+    editingRow?.postId === post.id && editingRow?.dayIndex === dayIndex;
+
+  const renderTimeInput = (
+    value: string,
+    onChange: (value: string) => void,
+    min?: string
+  ) => (
+    <input
+      className={styles.reservationInput}
+      type="time"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      min={min}
+    />
+  );
+
   return (
     <>
       {post.days.map((day, dayIndex) => (
@@ -44,36 +61,18 @@ const ReservationList: React.FC<ReservationRowProps> = ({
           <td>{day.startTime}</td>
           <td>{day.endTime}</td>
           <td>
-            {editingRow?.postId === post.id &&
-            editingRow?.dayIndex === dayIndex ? (
-              <input
-                className={styles.reservationInput}
-                type="time"
-                value={editStartTime}
-                onChange={(e) => setEditStartTime(e.target.value)}
-              />
-            ) : (
-              day.realStartTime
-            )}
+            {isEditing(dayIndex)
+              ? renderTimeInput(editStartTime, setEditStartTime)
+              : day.realStartTime}
           </td>
           <td>
-            {editingRow?.postId === post.id &&
-            editingRow?.dayIndex === dayIndex ? (
-              <input
-                className={styles.reservationInput}
-                type="time"
-                value={editEndTime}
-                onChange={(e) => setEditEndTime(e.target.value)}
-                min={editStartTime}
-              />
-            ) : (
-              day.realEndTime
-            )}
+            {isEditing(dayIndex)
+              ? renderTimeInput(editEndTime, setEditEndTime, editStartTime)
+              : day.realEndTime}
           </td>
           <td>{day.remark}</td>
           <td>
-            {editingRow?.postId === post.id &&
-            editingRow?.dayIndex === dayIndex ? (
+            {isEditing(dayIndex) ? (
               <>
                 <button className={styles.saveButton} onClick={handleSave}>
                   保存

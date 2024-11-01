@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import styles from "../styles/page.module.css";
-import db from "../firebase";
+import db from "../../../lib/firebase";
 import React, { useEffect, useState } from "react";
 import {
   collection,
@@ -18,41 +18,27 @@ const ChildDelete = () => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   const fetchData = async () => {
-    const postData = collection(db, "posts");
-    const querySnapshot = await getDocs(postData);
-
-    const postsArray = querySnapshot.docs.map((doc) => {
-      const data = doc.data();
-      return { ...data, id: doc.id };
-    });
-    setPosts(postsArray as Post[]);
+    const querySnapshot = await getDocs(collection(db, "posts"));
+    setPosts(
+      querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as Post[]
+    );
   };
 
-  const restorePost = async (postId: string) => {
+  const handleAction = async (postId: string, action: "restore" | "delete") => {
     const postRef = doc(db, "posts", postId);
-    await updateDoc(postRef, { delete: false });
+    if (action === "restore") await updateDoc(postRef, { delete: false });
+    else if (window.confirm("本当に削除しますか？")) await deleteDoc(postRef);
     fetchData();
-  };
-
-  const deletePost = async (postId: string) => {
-    const confirmed = window.confirm("本当に削除しますか？");
-    if (confirmed) {
-      const postRef = doc(db, "posts", postId);
-      await deleteDoc(postRef);
-      fetchData();
-    }
   };
 
   // 全て削除
   const allDelete = async () => {
-    const confirmed = window.confirm("本当に全て削除しますか？");
-    if (confirmed) {
-      const deletedPosts = posts.filter((post) => post.delete === true);
-      const deletePromises = deletedPosts.map(async (post) => {
-        const postRef = doc(db, "posts", post.id);
-        await deleteDoc(postRef);
-      });
-      await Promise.all(deletePromises);
+    if (window.confirm("本当に全て削除しますか？")) {
+      await Promise.all(
+        posts
+          .filter((post) => post.delete)
+          .map((post) => deleteDoc(doc(db, "posts", post.id)))
+      );
       fetchData();
     }
   };
@@ -95,13 +81,13 @@ const ChildDelete = () => {
                 <td className={styles.buttonType}>
                   <button
                     className={styles.childDeleteButton}
-                    onClick={() => restorePost(post.id)}
+                    onClick={() => handleAction(post.id, "restore")}
                   >
                     復元
                   </button>
                   <button
                     className={styles.childDelete}
-                    onClick={() => deletePost(post.id)}
+                    onClick={() => handleAction(post.id, "delete")}
                   >
                     削除
                   </button>

@@ -6,13 +6,13 @@ import { Post } from "../type";
 import { useAuthentication } from "../utills/useAuthentication";
 import { useFetchPosts } from "../utills/useFetchPosts";
 import { useUsersEditPost } from "../utills/useUsersEditPost";
-import { useUsersDeletePost } from "../utills/useUsersDeletePost";
+import { useDelete } from "../utills/useDelete";
 import UserTableRows from "../components/UserTableRows/UserTableRows";
 
 const UsersPage = () => {
   const { user, name, idToken, loading } = useAuthentication();
   const { posts, setShouldFetch } = useFetchPosts();
-  const { handleDelete } = useUsersDeletePost(setShouldFetch);
+  const { handleDelete } = useDelete(setShouldFetch);
 
   const filteredPosts = posts
     .filter((post) => !post.delete)

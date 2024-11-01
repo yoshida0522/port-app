@@ -8,7 +8,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import db from "../firebase";
+import db from "../../../lib/firebase";
 import Link from "next/link";
 import styles from "../styles/page.module.css";
 import { User } from "../type";

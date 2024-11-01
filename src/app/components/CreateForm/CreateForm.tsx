@@ -7,11 +7,7 @@ type ReservationInputProps = {
   onChange: (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const CreateForm: React.FC<ReservationInputProps> = ({
-  // day,
-  index,
-  onChange,
-}) => {
+const CreateForm: React.FC<ReservationInputProps> = ({ index, onChange }) => {
   return (
     <div className={styles.applicationSection}>
       <div className={styles.applicationNumberContainer}>

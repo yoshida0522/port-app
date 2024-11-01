@@ -30,10 +30,12 @@ const Manager: React.FC<UserRowProps> = ({
   onInputChange,
   onCheckboxChange,
 }) => {
+  const isEditing = editingUserId === user.id;
+
   return (
     <tr key={user.id}>
       <td className={styles.text}>
-        {editingUserId === user.id ? (
+        {isEditing ? (
           <input
             className={styles.text}
             type="text"
@@ -46,7 +48,7 @@ const Manager: React.FC<UserRowProps> = ({
         )}
       </td>
       <td className={styles.text}>
-        {editingUserId === user.id ? (
+        {isEditing ? (
           <input
             className={styles.text}
             type="text"
@@ -59,24 +61,16 @@ const Manager: React.FC<UserRowProps> = ({
         )}
       </td>
       <td>
-        {editingUserId === user.id ? (
-          <input
-            className={styles.checkBox}
-            type="checkbox"
-            checked={editedUser.manager}
-            onChange={onCheckboxChange}
-          />
-        ) : (
-          <input
-            className={styles.checkBox}
-            type="checkbox"
-            checked={user.manager}
-            readOnly
-          />
-        )}
+        <input
+          className={styles.checkBox}
+          type="checkbox"
+          checked={isEditing ? editedUser.manager : user.manager}
+          onChange={isEditing ? onCheckboxChange : undefined}
+          readOnly={!isEditing}
+        />
       </td>
       <td className={styles.tableLine}>
-        {editingUserId === user.id ? (
+        {isEditing ? (
           <>
             <button
               className={styles.managerSave}

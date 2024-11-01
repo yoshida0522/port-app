@@ -28,83 +28,159 @@ const UserTableRows: React.FC<UserTableRowsProps> = ({
   handleDelete,
   setEditingRow,
 }) => (
+  //   <tbody>
+  //     {filteredPosts.map((post, postIndex) => (
+  //       <React.Fragment key={postIndex}>
+  //         {post.days.map((day, dayIndex) => (
+  //           <tr key={dayIndex}>
+  //             <td>{day.name}</td>
+  //             <td>{day.class}</td>
+  //             <td>{day.date}</td>
+  //             {editingRow?.postIndex === postIndex &&
+  //             editingRow?.dayIndex === dayIndex ? (
+  //               <>
+  //                 <td>
+  //                   <input
+  //                     type="time"
+  //                     value={editData.startTime}
+  //                     onChange={(e) =>
+  //                       setEditData({ ...editData, startTime: e.target.value })
+  //                     }
+  //                   />
+  //                 </td>
+  //                 <td>
+  //                   <input
+  //                     type="time"
+  //                     value={editData.endTime}
+  //                     onChange={(e) =>
+  //                       setEditData({ ...editData, endTime: e.target.value })
+  //                     }
+  //                   />
+  //                 </td>
+  //                 <td>
+  //                   <input
+  //                     type="text"
+  //                     value={editData.remark}
+  //                     onChange={(e) =>
+  //                       setEditData({ ...editData, remark: e.target.value })
+  //                     }
+  //                   />
+  //                 </td>
+  //                 <td>
+  //                   <button className={styles.usersSave} onClick={handleSave}>
+  //                     保存
+  //                   </button>
+  //                   <button
+  //                     className={styles.usersCancel}
+  //                     onClick={() => setEditingRow(null)}
+  //                   >
+  //                     キャンセル
+  //                   </button>
+  //                 </td>
+  //               </>
+  //             ) : (
+  //               <>
+  //                 <td>{day.startTime}</td>
+  //                 <td>{day.endTime}</td>
+  //                 <td>{day.remark}</td>
+  //                 <td>
+  //                   {new Date(day.date) > new Date() && (
+  //                     <>
+  //                       <button
+  //                         className={styles.usersEdit}
+  //                         onClick={() => handleEdit(postIndex, dayIndex)}
+  //                       >
+  //                         編集
+  //                       </button>
+  //                       <button
+  //                         className={styles.usersDelete}
+  //                         onClick={() => handleDelete(post)}
+  //                       >
+  //                         取り消し
+  //                       </button>
+  //                     </>
+  //                   )}
+  //                 </td>
+  //               </>
+  //             )}
+  //           </tr>
+  //         ))}
+  //       </React.Fragment>
+  //     ))}
+  //   </tbody>
+  // );
+
+  // export default UserTableRows;
+
   <tbody>
     {filteredPosts.map((post, postIndex) => (
       <React.Fragment key={postIndex}>
-        {post.days.map((day, dayIndex) => (
-          <tr key={dayIndex}>
-            <td>{day.name}</td>
-            <td>{day.class}</td>
-            <td>{day.date}</td>
-            {editingRow?.postIndex === postIndex &&
-            editingRow?.dayIndex === dayIndex ? (
-              <>
-                <td>
-                  <input
-                    type="time"
-                    value={editData.startTime}
-                    onChange={(e) =>
-                      setEditData({ ...editData, startTime: e.target.value })
-                    }
-                  />
-                </td>
-                <td>
-                  <input
-                    type="time"
-                    value={editData.endTime}
-                    onChange={(e) =>
-                      setEditData({ ...editData, endTime: e.target.value })
-                    }
-                  />
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    value={editData.remark}
-                    onChange={(e) =>
-                      setEditData({ ...editData, remark: e.target.value })
-                    }
-                  />
-                </td>
-                <td>
-                  <button className={styles.usersSave} onClick={handleSave}>
-                    保存
-                  </button>
-                  <button
-                    className={styles.usersCancel}
-                    onClick={() => setEditingRow(null)}
-                  >
-                    キャンセル
-                  </button>
-                </td>
-              </>
-            ) : (
-              <>
-                <td>{day.startTime}</td>
-                <td>{day.endTime}</td>
-                <td>{day.remark}</td>
-                <td>
-                  {new Date(day.date) > new Date() && (
-                    <>
-                      <button
-                        className={styles.usersEdit}
-                        onClick={() => handleEdit(postIndex, dayIndex)}
-                      >
-                        編集
-                      </button>
-                      <button
-                        className={styles.usersDelete}
-                        onClick={() => handleDelete(post)}
-                      >
-                        取り消し
-                      </button>
-                    </>
-                  )}
-                </td>
-              </>
-            )}
-          </tr>
-        ))}
+        {post.days.map((day, dayIndex) => {
+          const isEditing =
+            editingRow?.postIndex === postIndex &&
+            editingRow?.dayIndex === dayIndex;
+
+          return (
+            <tr key={dayIndex}>
+              <td>{day.name}</td>
+              <td>{day.class}</td>
+              <td>{day.date}</td>
+              {isEditing ? (
+                <>
+                  {["startTime", "endTime", "remark"].map((field, idx) => (
+                    <td key={idx}>
+                      <input
+                        type={field === "remark" ? "text" : "time"}
+                        value={editData[field as keyof EditData]}
+                        onChange={(e) =>
+                          setEditData({
+                            ...editData,
+                            [field]: e.target.value,
+                          })
+                        }
+                      />
+                    </td>
+                  ))}
+                  <td>
+                    <button className={styles.usersSave} onClick={handleSave}>
+                      保存
+                    </button>
+                    <button
+                      className={styles.usersCancel}
+                      onClick={() => setEditingRow(null)}
+                    >
+                      キャンセル
+                    </button>
+                  </td>
+                </>
+              ) : (
+                <>
+                  <td>{day.startTime}</td>
+                  <td>{day.endTime}</td>
+                  <td>{day.remark}</td>
+                  <td>
+                    {new Date(day.date) > new Date() && (
+                      <>
+                        <button
+                          className={styles.usersEdit}
+                          onClick={() => handleEdit(postIndex, dayIndex)}
+                        >
+                          編集
+                        </button>
+                        <button
+                          className={styles.usersDelete}
+                          onClick={() => handleDelete(post)}
+                        >
+                          取り消し
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </>
+              )}
+            </tr>
+          );
+        })}
       </React.Fragment>
     ))}
   </tbody>

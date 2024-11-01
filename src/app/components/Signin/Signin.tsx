@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import db, { auth } from "../../firebase";
+import db, { auth } from "../../../../lib/firebase";
 import styles from "./page.module.css";
 import Link from "next/link";
 import { collection, getDocs } from "firebase/firestore";

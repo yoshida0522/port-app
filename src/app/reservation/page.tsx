@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import styles from "../styles/page.module.css";
-import db from "../firebase";
+import db from "../../../lib/firebase";
 import React, { useEffect, useState } from "react";
 import {
   collection,

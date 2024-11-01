@@ -1,8 +1,8 @@
 import { doc, updateDoc } from "firebase/firestore";
-import db from "../firebase";
+import db from "../../../lib/firebase";
 import { Post } from "../type";
 
-export const useUsersDeletePost = (setShouldFetch: (val: boolean) => void) => {
+export const useDelete = (setShouldFetch: (val: boolean) => void) => {
   const handleDelete = async (postToDelete: Post) => {
     // 確認ダイアログを表示
     const confirmed = window.confirm("本当に取り消しますか？");

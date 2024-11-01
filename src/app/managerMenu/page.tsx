@@ -2,7 +2,7 @@
 
 import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
-import db from "../firebase";
+import db from "../../../lib/firebase";
 import styles from "../styles/page.module.css";
 import Link from "next/link";
 import Manager from "../components/Manager/Manager";
