@@ -1,5 +1,5 @@
 import { addDoc, collection } from "firebase/firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import db from "../../../lib/firebase";
 
 export const useNewRegistration = () => {
@@ -58,6 +58,7 @@ export const useNewRegistration = () => {
       console.error("エラーが発生しました: ", error);
     }
   };
+
   return {
     handleClick,
     handleInputChange,
