@@ -1,10 +1,8 @@
 import { addDoc, collection } from "firebase/firestore";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import db from "../../../lib/firebase";
 
 export const useNewRegistration = () => {
-  const router = useRouter();
   const [userName, setUserName] = useState("");
   const [passWord, setPassWord] = useState("");
   const [errors, setErrors] = useState({
@@ -56,7 +54,6 @@ export const useNewRegistration = () => {
       setUserName("");
       setPassWord("");
       setErrors({ userName: "", passWord: "" });
-      router.push("/");
     } catch (error) {
       console.error("エラーが発生しました: ", error);
     }

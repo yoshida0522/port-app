@@ -26,7 +26,7 @@ export const useChildFetchPosts = (
     if (shouldFetch) {
       fetchData();
     }
-  }, [shouldFetch]);
+  }, [shouldFetch, setShouldFetch]);
 
   return { posts };
 };
