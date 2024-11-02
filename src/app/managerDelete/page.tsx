@@ -1,28 +1,29 @@
 "use client";
 
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  updateDoc,
-} from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import db from "../../../lib/firebase";
 import Link from "next/link";
 import styles from "../styles/page.module.css";
 import { User } from "../type";
+import { useAllDelete } from "../utills/useAllDelete";
+import { useHandleUserAction } from "../utills/useHandleUserAction";
 
 const ManagerDelete = () => {
   const [posts, setPosts] = useState<User[]>([]);
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [shouldFetch, setShouldFetch] = useState(true);
+  const { handleUserAction, errorMessage: actionErrorMessage } =
+    useHandleUserAction(setShouldFetch);
+  const { allDelete, errorMessage: allDeleteErrorMessage } = useAllDelete(
+    posts,
+    setShouldFetch
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const postData = collection(db, "user");
         const querySnapshot = await getDocs(postData);
-
         const postsArray = querySnapshot.docs.map((doc) => {
           const data = doc.data();
           return { ...data, id: doc.id } as User;
@@ -32,55 +33,14 @@ const ManagerDelete = () => {
         const filteredPosts = postsArray.filter((post) => post.delete);
         setPosts(filteredPosts);
       } catch (error) {
-        setErrorMessage("データの取得に失敗しました。");
         console.error("Error fetching posts:", error);
       }
     };
-
-    fetchData();
-  }, []);
-
-  const restoreUser = async (userId: string) => {
-    try {
-      const userDoc = doc(db, "user", userId);
-      await updateDoc(userDoc, { delete: false });
-
-      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== userId));
-    } catch (error) {
-      setErrorMessage("ユーザーの復元に失敗しました。");
-      console.error("Error restoring user:", error);
+    if (shouldFetch) {
+      fetchData();
+      setShouldFetch(false);
     }
-  };
-
-  const deleteUser = async (userId: string) => {
-    try {
-      const userDoc = doc(db, "user", userId);
-      await deleteDoc(userDoc);
-
-      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== userId));
-    } catch (error) {
-      setErrorMessage("ユーザーの削除に失敗しました。");
-      console.error("Error deleting user:", error);
-    }
-  };
-
-  // 全て削除
-  const allDelete = async () => {
-    if (confirm("本当に全て削除してもよろしいですか？")) {
-      // 確認ダイアログ
-      try {
-        const deletePromises = posts.map((post) =>
-          deleteDoc(doc(db, "user", post.id))
-        );
-        await Promise.all(deletePromises);
-
-        setPosts([]);
-      } catch (error) {
-        setErrorMessage("全てのユーザーの削除に失敗しました。");
-        console.error("Error deleting all users:", error);
-      }
-    }
-  };
+  }, [shouldFetch]);
 
   return (
     <div className={styles.managerImg}>
@@ -96,8 +56,12 @@ const ManagerDelete = () => {
           全て削除
         </button>
       </div>
-      {errorMessage && <p className={styles.managerError}>{errorMessage}</p>}
-
+      {actionErrorMessage && (
+        <p className={styles.managerError}>{actionErrorMessage}</p>
+      )}
+      {allDeleteErrorMessage && (
+        <p className={styles.managerError}>{allDeleteErrorMessage}</p>
+      )}
       <table border={1} className={styles.userList}>
         <thead>
           <tr className={styles.subTitle}>
@@ -114,13 +78,13 @@ const ManagerDelete = () => {
               <td className={styles.restore}>
                 <button
                   className={styles.restoreButton}
-                  onClick={() => restoreUser(post.id)}
+                  onClick={() => handleUserAction(post.id, "restore")}
                 >
                   復元
                 </button>
                 <button
                   className={styles.managerDeleteButton}
-                  onClick={() => deleteUser(post.id)}
+                  onClick={() => handleUserAction(post.id, "delete")}
                 >
                   削除
                 </button>

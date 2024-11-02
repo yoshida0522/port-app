@@ -1,64 +1,27 @@
 "use client";
 
-import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
-import React, { useState, useEffect } from "react";
-import db from "../../../lib/firebase";
+import React, { useState } from "react";
 import styles from "../styles/page.module.css";
 import Link from "next/link";
 import Manager from "../components/Manager/Manager";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { User } from "../type";
+import { useManager } from "../utills/useManager";
 
 const ManagerMenu = () => {
-  const [data, setData] = useState<User[]>([]);
+  const { data, errorMessage, updateUser, deleteUser } = useManager();
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
-  const [editedUser, setEditedUser] = useState<{
-    name: string;
-    pass: string;
-    manager: boolean;
-    delete: boolean;
-  }>({
+  const [editedUser, setEditedUser] = useState<Omit<User, "id">>({
     name: "",
     pass: "",
     manager: false,
     delete: false,
   });
 
-  const [errorMessage, setErrorMessage] = useState<string>("");
-
-  useEffect(() => {
-    fetchAllData();
-  }, []);
-
-  const fetchAllData = async () => {
-    const querySnapshot = await getDocs(collection(db, "user"));
-    const dataArray: User[] = [];
-
-    querySnapshot.forEach((doc) => {
-      const data = doc.data() as Omit<User, "id">;
-      const userDataWithDefaults = {
-        id: doc.id,
-        name: data.name,
-        pass: data.pass,
-        manager: data.manager ?? false,
-        delete: data.delete ?? false,
-      };
-      if (!userDataWithDefaults.delete) {
-        dataArray.push(userDataWithDefaults);
-      }
-    });
-
-    setData(dataArray);
-  };
-
   const handleEdit = (user: User) => {
     setEditingUserId(user.id);
-    setEditedUser({
-      name: user.name,
-      pass: user.pass,
-      manager: user.manager,
-      delete: user.delete,
-    });
+    const { id, ...userData } = user;
+    setEditedUser(userData);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,68 +29,11 @@ const ManagerMenu = () => {
     setEditedUser((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCheckboxChange = () => {
-    setEditedUser((prev) => ({ ...prev, manager: !prev.manager }));
-  };
-
   const handleSave = async (userId: string) => {
-    if (editedUser.name.trim() === "" || editedUser.pass.trim() === "") {
-      setErrorMessage("ユーザーIDとパスワードは必須です。");
-      return;
-    }
-
-    try {
-      const userDocRef = doc(db, "user", userId);
-      await updateDoc(userDocRef, {
-        name: editedUser.name,
-        pass: editedUser.pass,
-        manager: editedUser.manager,
-      });
-
-      setData((prevData) =>
-        prevData.map((user) =>
-          user.id === userId
-            ? {
-                ...user,
-                name: editedUser.name,
-                pass: editedUser.pass,
-                manager: editedUser.manager,
-              }
-            : user
-        )
-      );
-
+    const success = await updateUser(userId, editedUser);
+    if (success) {
       setEditingUserId(null);
-      setErrorMessage("");
-    } catch (error) {
-      console.error("更新中にエラーが発生しました: ", error);
     }
-  };
-
-  const handleDelete = async (userId: string) => {
-    // 削除確認ダイアログを表示
-    const confirmed = window.confirm("本当に削除しますか？");
-
-    if (confirmed) {
-      try {
-        const userDocRef = doc(db, "user", userId);
-
-        // deleteフィールドをtrueに更新
-        await updateDoc(userDocRef, { delete: true });
-
-        // データを更新
-        setData((prevData) => prevData.filter((user) => user.id !== userId));
-
-        setErrorMessage("");
-      } catch (error) {
-        console.error("削除中にエラーが発生しました: ", error);
-      }
-    }
-  };
-
-  const handleCancel = () => {
-    setEditingUserId(null);
-    setErrorMessage("");
   };
 
   return (
@@ -160,10 +66,12 @@ const ManagerMenu = () => {
               editedUser={editedUser}
               onEdit={handleEdit}
               onSave={handleSave}
-              onCancel={handleCancel}
-              onDelete={handleDelete}
+              onCancel={() => setEditingUserId(null)}
+              onDelete={() => deleteUser(user.id)}
               onInputChange={handleInputChange}
-              onCheckboxChange={handleCheckboxChange}
+              onCheckboxChange={() =>
+                setEditedUser((prev) => ({ ...prev, manager: !prev.manager }))
+              }
             />
           ))}
         </tbody>
