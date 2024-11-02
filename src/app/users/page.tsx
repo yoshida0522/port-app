@@ -18,7 +18,10 @@ const UsersPage = () => {
     .filter((post) => !post.delete)
     .flatMap((post) => {
       const userDays = post.days.filter(
-        (day) => day.userId === user && new Date(day.date) >= new Date()
+        (day) =>
+          day.userId === user &&
+          new Date(day.date).setHours(0, 0, 0, 0) >=
+            new Date().setHours(0, 0, 0, 0)
       );
       return userDays.length > 0 ? { ...post, days: userDays } : null;
     })
@@ -51,96 +54,6 @@ const UsersPage = () => {
           <th>お迎え時間</th>
           <th>備考</th>
         </tr>
-        {/* <tbody> */}
-        {/* {filteredPosts.map((post, postIndex) => (
-            <React.Fragment key={postIndex}>
-              {post.days.map((day, dayIndex) => (
-                <tr key={dayIndex}>
-                  <td>{day.name}</td>
-                  <td>{day.class}</td>
-                  <td>{day.date}</td>
-                  {editingRow?.postIndex === postIndex &&
-                  editingRow?.dayIndex === dayIndex ? (
-                    <>
-                      <td>
-                        <input
-                          type="time"
-                          value={editData.startTime}
-                          onChange={(e) =>
-                            setEditData({
-                              ...editData,
-                              startTime: e.target.value,
-                            })
-                          }
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="time"
-                          value={editData.endTime}
-                          onChange={(e) =>
-                            setEditData({
-                              ...editData,
-                              endTime: e.target.value,
-                            })
-                          }
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          value={editData.remark}
-                          onChange={(e) =>
-                            setEditData({ ...editData, remark: e.target.value })
-                          }
-                        />
-                      </td>
-                      <td>
-                        <button
-                          className={styles.usersSave}
-                          onClick={handleSave}
-                        >
-                          保存
-                        </button>
-                        <button
-                          className={styles.usersCancel}
-                          onClick={() => setEditingRow(null)}
-                        >
-                          キャンセル
-                        </button>
-                      </td>
-                    </>
-                  ) : (
-                    <>
-                      <td>{day.startTime}</td>
-                      <td>{day.endTime}</td>
-                      <td>{day.remark}</td>
-                      <td>
-                        {new Date(day.date) > new Date() && (
-                          <>
-                            <button
-                              className={styles.usersEdit}
-                              onClick={() => handleEdit(postIndex, dayIndex)}
-                            >
-                              編集
-                            </button>
-                            <button
-                              className={styles.usersDelete}
-                              onClick={() =>
-                                handleDelete(filteredPosts[postIndex])
-                              }
-                            >
-                              削除
-                            </button>
-                          </>
-                        )}
-                      </td>
-                    </>
-                  )}
-                </tr>
-              ))}
-            </React.Fragment>
-          ))} */}
         <UserTableRows
           filteredPosts={filteredPosts}
           editingRow={editingRow}
@@ -151,7 +64,6 @@ const UsersPage = () => {
           handleDelete={handleDelete}
           setEditingRow={setEditingRow}
         />
-        {/* </tbody> */}
       </table>
     </div>
   );
