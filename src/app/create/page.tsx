@@ -12,7 +12,7 @@ import { useCreateAuthentication } from "../utills/useCreateAuthentication";
 import { useHandleChange } from "../utills/useHandleChange";
 import { useSendMessage } from "../utills/useSendMessage";
 
-export default function CreatePage() {
+const CreatePage = () => {
   const router = useRouter();
   const [childName, setChildName] = useState("");
   const [childClass, setChildClass] = useState("");
@@ -70,7 +70,6 @@ export default function CreatePage() {
         })
       );
 
-      console.log("すべてのデータがFirestoreに保存されました");
       await sendMessage(user, filteredDays);
       router.push("/thanks");
     } catch (error) {
@@ -121,4 +120,6 @@ export default function CreatePage() {
       </form>
     </div>
   );
-}
+};
+
+export default CreatePage;

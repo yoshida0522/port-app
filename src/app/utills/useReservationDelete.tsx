@@ -3,12 +3,6 @@ import db from "../../../lib/firebase";
 import { Post } from "../type";
 import { Dispatch, SetStateAction } from "react";
 
-// type Post = {
-//     id?: string;
-//     delete?: boolean;
-//     days: Array<{ date: string; name: string }>;
-//   };
-
 export const useReservationDelete = (
   setShouldFetch: Dispatch<SetStateAction<boolean>>
 ) => {
