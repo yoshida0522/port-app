@@ -46,7 +46,6 @@ export const useUsersEditPost = (
             remark: editData.remark,
           };
 
-          // Firestoreのドキュメントを更新
           await updateDoc(postRef, { days });
           console.log("データが正常に更新されました");
 

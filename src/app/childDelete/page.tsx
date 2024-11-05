@@ -31,7 +31,6 @@ const ChildDelete = () => {
     fetchData();
   };
 
-  // 全て削除
   const allDelete = async () => {
     if (window.confirm("本当に全て削除しますか？")) {
       await Promise.all(

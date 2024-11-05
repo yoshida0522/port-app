@@ -4,7 +4,6 @@ import { Post } from "../type";
 
 export const useDelete = (setShouldFetch: (val: boolean) => void) => {
   const handleDelete = async (postToDelete: Post) => {
-    // 確認ダイアログを表示
     const confirmed = window.confirm("本当に取り消しますか？");
     if (!confirmed) return;
 
@@ -12,7 +11,6 @@ export const useDelete = (setShouldFetch: (val: boolean) => void) => {
       try {
         const postRef = doc(db, "posts", postToDelete.id);
 
-        // postのdeleteフィールドをtrueに設定
         await updateDoc(postRef, { delete: true });
         console.log("データが削除フラグを立てました");
         setShouldFetch(true);

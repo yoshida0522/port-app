@@ -24,8 +24,6 @@ export const useChildSave = ({
     }
 
     const { postId, dayIndex } = editingRow;
-    // const postToUpdate = filteredPosts.find((post) => post.id === postId);
-    // if (!postToUpdate) return;
 
     try {
       const postRef = doc(db, "posts", postId);
