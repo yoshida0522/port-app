@@ -43,7 +43,7 @@ const ChildReservationPage = () => {
       return days.length > 0 ? { ...post, days } : null;
     })
     .filter(Boolean) as Post[];
-  // ページ数の計算
+
   const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
 
   const handleEdit = (day: Day, postId: string, dayIndex: number): void => {
@@ -93,7 +93,8 @@ const ChildReservationPage = () => {
       </table>
       <div className={styles.childPagination}>
         <Pagination
-          totalPages={totalPages}
+          totalItems={filteredPosts.length}
+          itemsPerPage={itemsPerPage}
           currentPage={currentPage}
           onPageChange={setCurrentPage}
         />
