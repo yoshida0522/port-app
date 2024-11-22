@@ -13,8 +13,8 @@ import { useTodayDate } from "../utills/useTodayDate";
 import { useReservationEdit } from "../utills/useReservationEdit";
 import { usePagination } from "../utills/usePagination";
 import { useReservationDelete } from "../utills/useReservationDelete";
-// 1ページの表示件数
-const itemsPerPage = 5;
+
+const itemsPerPage = 7;
 
 const Reservation = () => {
   const { posts, setShouldFetch } = useFetchPosts();
@@ -31,11 +31,10 @@ const Reservation = () => {
   } = useReservationEdit(posts, setShouldFetch);
 
   const filteredPosts = posts
-    .map(
-      (post) =>
-        search
-          ? { ...post, days: post.days.filter((day) => day.date === search) }
-          : post // search が空ならフィルタリングせず全件表示
+    .map((post) =>
+      search
+        ? { ...post, days: post.days.filter((day) => day.date === search) }
+        : post
     )
     .filter((post) => post && !post.delete && post.days.length > 0)
     .sort(
@@ -68,11 +67,11 @@ const Reservation = () => {
       <table border={1} className={styles.listTitle}>
         <TableHeader />
         <tbody>
-          {paginatedPosts.map((post, postIndex) => (
+          {paginatedPosts.map((post, index) => (
             <ReservationList
-              key={postIndex}
+              key={index}
               post={post}
-              postIndex={postIndex}
+              postIndex={(currentPage - 1) * itemsPerPage + index}
               editingRow={editingRow}
               editStartTime={editStartTime}
               editEndTime={editEndTime}
@@ -80,7 +79,12 @@ const Reservation = () => {
               setEditEndTime={setEditEndTime}
               handleEdit={handleEdit}
               handleSave={handleSave}
-              handleDelete={() => handleDelete(postIndex, filteredPosts)}
+              handleDelete={() =>
+                handleDelete(
+                  (currentPage - 1) * itemsPerPage + index,
+                  filteredPosts
+                )
+              }
               handleCancel={handleCancel}
             />
           ))}
@@ -88,7 +92,8 @@ const Reservation = () => {
       </table>
       <div className={styles.reservationPagination}>
         <Pagination
-          totalPages={totalPages}
+          totalItems={filteredPosts.length}
+          itemsPerPage={itemsPerPage}
           currentPage={currentPage}
           onPageChange={setCurrentPage}
         />

@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import styles from "../Pagination/page.module.css";
 
 type PaginationProps = {
-  totalPages: number;
+  totalItems: number;
+  itemsPerPage: number;
   currentPage: number;
   onPageChange: (page: number) => void;
 };
 
 const Pagination: React.FC<PaginationProps> = ({
-  totalPages,
+  totalItems,
+  itemsPerPage,
   currentPage,
   onPageChange,
 }) => {
   const [page, setPage] = useState(currentPage);
+
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const handleNext = () => {
     if (page < totalPages) {

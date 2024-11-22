@@ -14,6 +14,7 @@ export const usePagination = (
 ): UsePaginationReturn => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(items.length / itemsPerPage);
+
   const paginatedItems = items.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
