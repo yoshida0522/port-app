@@ -8,6 +8,7 @@ export const useUsersEditPost = (
   setShouldFetch: (val: boolean) => void
 ) => {
   const [editData, setEditData] = useState({
+    date: "",
     startTime: "",
     endTime: "",
     remark: "",
@@ -21,6 +22,7 @@ export const useUsersEditPost = (
     const dayToEdit = filteredPosts[postIndex].days[dayIndex];
     if (dayToEdit)
       setEditData({
+        date: dayToEdit.date || "",
         startTime: dayToEdit.startTime || "",
         endTime: dayToEdit.endTime || "",
         remark: dayToEdit.remark || "",
@@ -41,6 +43,7 @@ export const useUsersEditPost = (
 
           days[editingRow.dayIndex] = {
             ...days[editingRow.dayIndex],
+            date: editData.date,
             startTime: editData.startTime,
             endTime: editData.endTime,
             remark: editData.remark,
