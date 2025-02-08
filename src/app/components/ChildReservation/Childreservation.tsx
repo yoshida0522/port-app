@@ -1,20 +1,6 @@
 import React from "react";
-import styles from "../ChildReservation/page.module.css";
-import { Day } from "../../type";
-
-type ChildReservationRowProps = {
-  postId: string;
-  day: Day;
-  dayIndex: number;
-  editingRow: { postId: string; dayIndex: number } | null;
-  editData: Day | null;
-  handleChange: (field: keyof Day, value: string) => void;
-  handleEdit: (day: Day, postId: string, dayIndex: number) => void;
-  handleSave: () => void;
-  handleCancel: () => void;
-  handleDelete: (postIndex: number) => void;
-  postIndex: number;
-};
+import styles from "./page.module.css";
+import { ChildReservationRowProps } from "@/app/type";
 
 const ChildReservationRow: React.FC<ChildReservationRowProps> = ({
   postId,

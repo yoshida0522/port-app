@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import styles from "../styles/page.module.css";
+import styles from "./page.module.css";
 import { useNewRegistration } from "../utills/useNewRegistration";
 
 const NewRegistration = () => {

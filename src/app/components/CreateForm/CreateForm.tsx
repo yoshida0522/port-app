@@ -1,11 +1,6 @@
 import React from "react";
-import styles from "../CreateForm/page.module.css";
-
-type ReservationInputProps = {
-  day: string;
-  index: number;
-  onChange: (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+import styles from "./page.module.css";
+import { ReservationInputProps } from "@/app/type";
 
 const CreateForm: React.FC<ReservationInputProps> = ({ index, onChange }) => {
   return (

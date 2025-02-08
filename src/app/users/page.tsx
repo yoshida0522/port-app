@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import styles from "../styles/page.module.css";
+import styles from "./page.module.css";
 import { Post } from "../type";
 import { useAuthentication } from "../utills/useAuthentication";
 import { useFetchPosts } from "../utills/useFetchPosts";

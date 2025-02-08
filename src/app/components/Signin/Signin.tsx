@@ -7,7 +7,7 @@ import Link from "next/link";
 import { collection, getDocs } from "firebase/firestore";
 import SigninManager from "../SigninManager/SigninManager";
 import LoginForm from "../LoginForm/LoginForm";
-import { User } from "./type";
+import { User } from "@/app/type";
 
 const Signin = () => {
   const [posts, setPosts] = useState<User[]>([]);

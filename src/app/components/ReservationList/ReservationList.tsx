@@ -1,21 +1,7 @@
 import React from "react";
-import styles from "../ReservationList/page.module.css";
+import styles from "./page.module.css";
 import Link from "next/link";
-import { Day } from "./type";
-
-type ReservationRowProps = {
-  post: { id: string; days: Day[] };
-  postIndex: number;
-  editingRow: { postId: string; dayIndex: number } | null;
-  editStartTime: string;
-  editEndTime: string;
-  setEditStartTime: (time: string) => void;
-  setEditEndTime: (time: string) => void;
-  handleEdit: (postId: string, dayIndex: number) => void;
-  handleSave: () => Promise<void>;
-  handleDelete: (postIndex: number) => Promise<void>;
-  handleCancel: () => void;
-};
+import { Day, ReservationRowProps } from "@/app/type";
 
 const ReservationList: React.FC<ReservationRowProps> = ({
   post,

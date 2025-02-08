@@ -1,23 +1,6 @@
 import React from "react";
-import styles from "../Manager/page.module.css";
-import { User } from "./type";
-
-type UserRowProps = {
-  user: User;
-  editingUserId: string | null;
-  editedUser: {
-    name: string;
-    pass: string;
-    manager: boolean;
-    delete: boolean;
-  };
-  onEdit: (user: User) => void;
-  onSave: (userId: string) => void;
-  onCancel: () => void;
-  onDelete: (userId: string) => void;
-  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onCheckboxChange: () => void;
-};
+import styles from "./page.module.css";
+import { UserRowProps } from "@/app/type";
 
 const Manager: React.FC<UserRowProps> = ({
   user,

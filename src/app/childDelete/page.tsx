@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import styles from "../styles/page.module.css";
+import styles from "./page.module.css";
 import db from "../../../lib/firebase";
 import React, { useEffect, useState } from "react";
 import {
@@ -12,7 +12,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import TableHeader from "../components/TableHeader/TableHeader";
-import { Post } from "../type";
+import { Post } from "@/app/type";
 
 const ChildDelete = () => {
   const [posts, setPosts] = useState<Post[]>([]);

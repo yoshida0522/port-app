@@ -3,16 +3,16 @@
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import styles from "../[childName]/page.module.css";
+import styles from "./page.module.css";
 import TableHeader from "@/app/components/TableHeader/TableHeader";
 import ChildReservationRow from "@/app/components/ChildReservation/Childreservation";
 import Pagination from "@/app/components/Pagination/Pagination";
-import { Day, Post } from "../../type";
 import { useChildFetchPosts } from "@/app/utills/useChildFetchPosts";
 import { useChildSave } from "@/app/utills/useChildSave";
 import { useDelete } from "@/app/utills/useDelete";
+import { Day, Post } from "@/app/type";
 
-const itemsPerPage = 5; // 1ページの表示件数
+const itemsPerPage = 5;
 
 const ChildReservationPage = () => {
   const params = useParams();

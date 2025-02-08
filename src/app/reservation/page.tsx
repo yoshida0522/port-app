@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import styles from "../styles/page.module.css";
+import styles from "./page.module.css";
 import React from "react";
 import SearchForm from "../components/SearchForm/SearchForm";
 import ReservationList from "../components/ReservationList/ReservationList";

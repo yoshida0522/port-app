@@ -1,11 +1,7 @@
 import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import styles from "../SearchForm/page.module.css";
-
-type SearchDateProps = {
-  search: string;
-  setSearch: (date: string) => void;
-};
+import styles from "./page.module.css";
+import { SearchDateProps } from "@/app/type";
 
 const SearchForm: React.FC<SearchDateProps> = ({ search, setSearch }) => {
   const getTodayDate = () => {

@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import styles from "../Pagination/page.module.css";
-
-type PaginationProps = {
-  totalItems: number;
-  itemsPerPage: number;
-  currentPage: number;
-  onPageChange: (page: number) => void;
-};
+import styles from "./page.module.css";
+import { PaginationProps } from "@/app/type";
 
 const Pagination: React.FC<PaginationProps> = ({
   totalItems,

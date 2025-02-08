@@ -4,7 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import db from "../../../lib/firebase";
 import Link from "next/link";
-import styles from "../styles/page.module.css";
+import styles from "./page.module.css";
 import { User } from "../type";
 import { useAllDelete } from "../utills/useAllDelete";
 import { useHandleUserAction } from "../utills/useHandleUserAction";
@@ -29,7 +29,6 @@ const ManagerDelete = () => {
           return { ...data, id: doc.id } as User;
         });
 
-        // deleteがtrueのユーザーのみをフィルタリング
         const filteredPosts = postsArray.filter((post) => post.delete);
         setPosts(filteredPosts);
       } catch (error) {

@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import firebase from "firebase/compat/app";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
-import styles from "../styles/page.module.css";
+import styles from "./page.module.css";
 import CreateForm from "../components/CreateForm/CreateForm";
 import { useCreateAuthentication } from "../utills/useCreateAuthentication";
 import { useHandleChange } from "../utills/useHandleChange";
@@ -49,7 +49,6 @@ const CreatePage = () => {
 
     if (!filteredDays.length) return console.log("保存するデータがありません");
 
-    // バリデーションチェック: endTimeがstartTimeよりも前の場合
     for (const day of filteredDays) {
       if (day.endTime <= day.startTime) {
         alert(
@@ -102,7 +101,7 @@ const CreatePage = () => {
             ))}
           </select>
         </div>
-        <div className={styles.applicationContainer}>
+        <div>
           {["firstDay", "secondDay", "thirdDay", "fourthDay", "fifthDay"].map(
             (day, index) => (
               <CreateForm

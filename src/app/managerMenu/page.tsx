@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import styles from "../styles/page.module.css";
+import styles from "./page.module.css";
 import Link from "next/link";
 import Manager from "../components/Manager/Manager";
 import DeleteIcon from "@mui/icons-material/Delete";

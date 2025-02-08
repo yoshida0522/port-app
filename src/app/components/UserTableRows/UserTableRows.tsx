@@ -1,23 +1,6 @@
 import React from "react";
 import styles from "./page.module.css";
-import { Post } from "../../type";
-
-type EditData = {
-  date: string;
-  startTime: string;
-  endTime: string;
-  remark: string;
-};
-type UserTableRowsProps = {
-  filteredPosts: Post[];
-  editingRow: { postIndex: number; dayIndex: number } | null;
-  editData: EditData;
-  setEditData: (data: EditData) => void;
-  handleEdit: (postIndex: number, dayIndex: number) => void;
-  handleSave: () => void;
-  handleDelete: (post: Post) => void;
-  setEditingRow: (row: { postIndex: number; dayIndex: number } | null) => void;
-};
+import { EditData, UserTableRowsProps } from "@/app/type";
 
 const UserTableRows: React.FC<UserTableRowsProps> = ({
   filteredPosts,
