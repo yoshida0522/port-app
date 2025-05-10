@@ -66,9 +66,6 @@ const Signin = () => {
             <Link href="reservation/" className={styles.link}>
               <button className={styles.reservationButton}> 予約一覧</button>
             </Link>
-            {/* <Link href="reservation/" className={styles.link}>
-              <button className={styles.reservationButton}> 予約印刷</button>
-            </Link> */}
           </div>
           {isManagerIn ? <SigninManager /> : null}
           <div>

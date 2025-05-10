@@ -12,6 +12,7 @@ const TableHeader: React.FC = () => {
         <th>お迎え時間</th>
         <th>開始時間</th>
         <th>終了時間</th>
+        <th>金額</th>
         <th>備考</th>
       </tr>
     </thead>

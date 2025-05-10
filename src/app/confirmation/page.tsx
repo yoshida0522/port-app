@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import styles from "../styles/page.module.css";
+import styles from "./page.module.css";
 import React, { useState } from "react";
 import Pagination from "../components/Pagination/Pagination";
 import { useFetchPosts } from "../utills/useFetchPosts";
