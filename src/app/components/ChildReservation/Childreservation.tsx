@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./page.module.css";
 import { ChildReservationRowProps } from "@/app/type";
+import { useCalculateAmount } from "@/app/utills/useCalculateAmount";
 
 const ChildReservationRow: React.FC<ChildReservationRowProps> = ({
   postId,
@@ -19,6 +20,8 @@ const ChildReservationRow: React.FC<ChildReservationRowProps> = ({
     editingRow?.postId === postId && editingRow?.dayIndex === dayIndex;
   const editableFields = ["class", "date", "startTime", "endTime"] as const;
 
+  const { calculateAmount } = useCalculateAmount();
+  
   return (
     <tr key={dayIndex} className={styles.childNameText}>
       <td>{day.name}</td>
@@ -38,6 +41,9 @@ const ChildReservationRow: React.FC<ChildReservationRowProps> = ({
       ))}
       <td>{day.realStartTime}</td>
       <td>{day.realEndTime}</td>
+      <td>
+  {calculateAmount(day.realStartTime ?? "", day.realEndTime ?? "",day.class)} 円
+</td>
       <td>{day.remark}</td>
       <td>
         {isEditing ? (

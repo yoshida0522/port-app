@@ -54,7 +54,7 @@
   background-color: white;
 }
 
-.submitButton {
+/* .submitButton {
   width: 100%;
   font-size: 20px;
   padding: 10px 20px;
@@ -64,11 +64,53 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+} */
+.submitButton {
+  width: 100%;
+  font-size: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  position: relative;
 }
 
-.submitButton:hover {
+/* .submitButton:hover {
   background-color: #0056b3;
   transform: scale(85%);
+} */
+.submitButton:hover {
+  background-color: #0056b3;
+  transform: scale(0.98);
+}
+/* 送信中スタイル */
+.submitButton.submitting {
+  background-color: gray;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+/* ローディングアニメーション（擬似要素） */
+.submitButton.submitting::after {
+  content: "";
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
 }
 
 @media screen and (max-width: 600px) {

@@ -113,9 +113,16 @@ const CreatePage = () => {
             )
           )}
         </div>
-        <button type="submit" className={styles.submitButton}>
+        {/* <button type="submit" className={styles.submitButton}>
           {isSubmitting ? "送信中..." : "送信"}
-        </button>
+        </button> */}
+        <button
+  type="submit"
+  className={`${styles.submitButton} ${isSubmitting ? styles.submitting : ""}`}
+  disabled={isSubmitting}
+>
+  {isSubmitting ? "送信中..." : "送信"}
+</button>
       </form>
     </div>
   );
