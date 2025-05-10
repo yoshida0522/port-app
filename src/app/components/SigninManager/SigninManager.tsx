@@ -11,6 +11,9 @@ const SigninManager = () => {
       <Link href="managerMenu/" className={styles.link}>
         <button className={styles.newRegistration}> ID管理</button>
       </Link>
+      <Link href="confirmation/" className={styles.link}>
+              <button className={styles.newRegistration}> 予約印刷</button>
+            </Link>
     </div>
   );
 };
