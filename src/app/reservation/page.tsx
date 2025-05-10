@@ -44,7 +44,7 @@ const Reservation = () => {
         a.days[0]?.name.localeCompare(b.days[0]?.name)
     );
 
-  const { paginatedPosts, totalPages, currentPage, setCurrentPage } =
+  const { paginatedPosts, currentPage, setCurrentPage } =
     usePagination(filteredPosts, itemsPerPage);
   const handleDelete = useReservationDelete(setShouldFetch);
 
